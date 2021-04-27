@@ -1,4 +1,5 @@
 import React from 'react';
+import Element from './Element.jsx';
 
 const Section = (props) => {
 
@@ -26,6 +27,9 @@ const Section = (props) => {
       <h3>{props.section.title}</h3>
       <span>{`${props.section.lectures + props.section.articles} lectures `}</span>
       <span>{timeString}</span>
+      {props.section.elements.map(element =>
+        <Element element={element} key={element._id} />
+      )}
     </div>
   );
 
