@@ -43,12 +43,8 @@ const courseSchema = mongoose.Schema({
 
 const Course = mongoose.model('Course', courseSchema);
 
-module.exports.findCourse = id => {
-  console.log(id);
+module.exports.findCourse = async id => {
 
-  return Course.findById(id)
-    .then((response) => {
-      console.log(response);
-    });
+  return await Course.findById(id).exec();
 
 };
