@@ -8,6 +8,4 @@ class CourseContent extends React.Component {
 
 }
 
-
-
 export default CourseContent;
