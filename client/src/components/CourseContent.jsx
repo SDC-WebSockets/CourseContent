@@ -1,23 +1,18 @@
 import React from 'react';
 import axios from 'axios';
+import Section from './Section.jsx';
+import moment from 'moment';
 
 class CourseContent extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      contents: {},
-      mounted: false
-    };
-    // this.getCourseContents = this.getCourseContents.bind(this);
+    this.state = {};
+    this.getCourseContents = this.getCourseContents.bind(this);
   }
 
   componentDidMount() {
-    console.log('mounted');
-    axios.get('/course', { params: { id: 3 } })
-      .then((response) => {
-        console.log(response);
-      });
+    this.getCourseContents();
   }
 
   getCourseContents() {
@@ -25,7 +20,9 @@ class CourseContent extends React.Component {
 
     axios.get('/course', {params: {id: 3}})
       .then((response) => {
-        console.log(response);
+        console.log(response.data);
+        let state = response.data;
+        this.setState(state);
       });
 
   }
@@ -33,10 +30,12 @@ class CourseContent extends React.Component {
   render() {
 
     return (
-      <div>
-        <button onClick={() => {
-          console.log('hello');
-        }}>Hello</button>
+      <div onClick={this.getCourseContents}>
+        <h2>{this.state.title}</h2>
+        {this.state.sections &&
+        this.state.sections.map(section => (
+          <Section key={section._id} section={section} />
+        ))}
       </div>
     );
 
