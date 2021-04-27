@@ -1,22 +1,17 @@
 import React from 'react';
+import CourseContent from './components/CourseContent.jsx';
 
 class App extends React.Component {
 
-  constructor() {
-    super();
-  }
-
-
-
+  // constructor(props) {
+  //   super(props);
+  // }
 
   render() {
-
     return (
-      <div>Hello World</div>
+      <CourseContent />
     );
-
   }
-
 }
 
 export default App;

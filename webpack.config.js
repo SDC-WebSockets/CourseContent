@@ -13,19 +13,20 @@ module.exports = {
     port: 3000,
     watchContentBase: true
   },
+  mode: 'development',
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.jsx$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader'
         }
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
       }
+      // {
+      //   test: /\.css$/,
+      //   use: ['style-loader', 'css-loader']
+      // }
     ]
   },
   plugins: [new HtmlWebpackPlugin({ template: './client/src/index.html' })]
