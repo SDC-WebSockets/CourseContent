@@ -245,6 +245,16 @@ let addToDB = async courses => {
 
 };
 
+const randomFileName = () => {
+  let alpha = 'qwertyuiopasdfghjklzxcvbnm';
+  let string = '';
+
+  for (let i = 0; i < 8; i++) {
+    string += alpha[Math.floor(Math.random() * alpha.length)];
+  }
+
+  return string;
+};
 
 const findLowestQualityVideoUrl = (videos) => {
   let lowestVideoObjects = [];
@@ -262,7 +272,7 @@ const findLowestQualityVideoUrl = (videos) => {
         }
       }
     }
-    lowestQuality['title'] = videos[i].url.split('video')[1].split('/')[1];
+    lowestQuality['title'] = videos[i].url.split('video')[1].split('/')[1] || randomFileName();
     lowestVideoObjects.push(lowestQuality);
 
   }
@@ -270,6 +280,7 @@ const findLowestQualityVideoUrl = (videos) => {
 
   return lowestVideoObjects;
 };
+
 
 const downloadVideo = async video => {
   let fileName = `${video.title}.${video.file_type.split('/')[1]}`;
@@ -288,7 +299,12 @@ const downloadVideo = async video => {
 
   return new Promise((resolve, reject) => {
     writer.on('finish', resolve);
-    writer.on('error', reject);
+    writer.on('error', () => {
+      fs.unlink(path.join(__dirname, 'videos', filename), () => {
+        console.log(filename, 'unlinked');
+        reject();
+      });
+    });
   });
 };
 
@@ -313,6 +329,7 @@ const saveToDirectory = (videos) => {
         }
         errorCounter++;
         console.log('Error Downloading Video');
+
       });
   }
 
@@ -340,8 +357,9 @@ const searchMoreVideos = async (url) => {
     })
     .catch((err) => {
       if (err) {
-        console.log('searchMore Error');
+
       }
+      console.log('searchMore Error');
     });
 
 
@@ -354,11 +372,11 @@ const searchVideos = (addToDb = false) => {
 
   fs.mkdirSync('./videos');
 
-  client.videos.search({ query: 'web development', 'per_page': 3000 })
+  client.videos.search({ query: 'web development', 'per_page': 10 })
     .then(response => {
       if (response.next_page) {
         setTimeout(() => {
-          searchMoreVideos(response.next_page);
+          // searchMoreVideos(response.next_page);
         }, 1000);
       }
       videosArray = response.videos;
@@ -375,7 +393,7 @@ const searchVideos = (addToDb = false) => {
       if (err) {
         console.log(err);
       }
-      console.log('Error');
+      console.log('Process Complete with Errors');
     });
 };
 
