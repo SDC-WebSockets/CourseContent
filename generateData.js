@@ -8,6 +8,8 @@ const faker = require('faker');
 const config = require('./config.js');
 const dbUrl = process.env.dbUrl || config.dbUrl || 'mongodb://localhost/courseContent';
 const dbName = process.env.dbName || config.dbName;
+const fs = require('fs');
+const http = require('http');
 
 mongoose.connect(dbUrl, {dbName: dbName});
 
@@ -241,11 +243,13 @@ let addToDB = async courses => {
 
 };
 
-const saveToDirectory = () => {
+const saveToDirectory = (allCourses) => {
+
+  console.log(allCourses[0]);
 
 };
 
-const findLowestQualityVideoUrl = () => {
+const findLowestQualityVideoUrl = (videos) => {
 
 };
 
@@ -269,3 +273,4 @@ const searchVideos = (addToDb = false) => {
     });
 };
 
+searchVideos();
