@@ -243,10 +243,29 @@ let addToDB = async courses => {
 
 };
 
-const saveToDirectory = (allCourses) => {
+const saveToDirectory = (videos) => {
 
-  console.log(allCourses[0]);
+  let lowestVideoObjects = [];
+  
+  for (let i = 0; i < videos.length; i++) {
+    let files = videos[i].video_files;
 
+    let lowestQuality = files[0];
+
+    for (let j = 0; j < files.length; j++) {
+      if (files[j].height) {
+        if (files[j].height < lowestQuality.height) {
+          lowestQuality = files[j];
+
+        }
+      }
+    }
+    lowestVideoObjects.push(lowestQuality);
+
+  }
+
+
+  return lowestVideoObjects;
 };
 
 const findLowestQualityVideoUrl = (videos) => {
@@ -259,7 +278,7 @@ const searchVideos = (addToDb = false) => {
       videosArray = response.videos;
       let allCourses = countElements(generateAllCourses(100));
 
-      return (addToDb ? addToDB(allCourses) : saveToDirectory(allCourses));
+      return (addToDb ? addToDB(allCourses) : saveToDirectory(response.videos));
     })
     .then((response) => {
       console.log(response);
