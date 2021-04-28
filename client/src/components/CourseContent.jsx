@@ -15,10 +15,9 @@ class CourseContent extends React.Component {
     this.getCourseContents();
   }
 
-  getCourseContents() {
-    console.log('hello');
+  getCourseContents(id = 3) {
 
-    axios.get('/course', {params: {id: 3}})
+    axios.get(`/course/item?id=${id}`)
       .then((response) => {
         console.log(response.data);
         let state = response.data;
