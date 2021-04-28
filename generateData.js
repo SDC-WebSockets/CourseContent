@@ -9,7 +9,10 @@ const config = require('./config.js');
 const dbUrl = process.env.dbUrl || config.dbUrl || 'mongodb://localhost/courseContent';
 const dbName = process.env.dbName || config.dbName;
 const fs = require('fs');
-const http = require('http');
+const https = require('https');
+const path = require('path');
+const mp4 = require('mp4-stream');
+var download = require('download-file');
 
 mongoose.connect(dbUrl, {dbName: dbName});
 
@@ -57,7 +60,6 @@ const KEY = config.pexelKey;
 
 const createClient = require('pexels').createClient;
 const client = createClient(KEY);
-const query = 'web development';
 
 let videosArray = [];
 let videosCounter = 0;
@@ -243,10 +245,10 @@ let addToDB = async courses => {
 
 };
 
-const saveToDirectory = (videos) => {
 
+const findLowestQualityVideoUrl = (videos) => {
   let lowestVideoObjects = [];
-  
+
   for (let i = 0; i < videos.length; i++) {
     let files = videos[i].video_files;
 
@@ -260,6 +262,7 @@ const saveToDirectory = (videos) => {
         }
       }
     }
+    lowestQuality['title'] = videos[i].url.split('video')[1].split('/')[1];
     lowestVideoObjects.push(lowestQuality);
 
   }
@@ -268,20 +271,104 @@ const saveToDirectory = (videos) => {
   return lowestVideoObjects;
 };
 
-const findLowestQualityVideoUrl = (videos) => {
+const downloadVideo = async video => {
+  let fileName = `${video.title}.${video.file_type.split('/')[1]}`;
+  let url = video.link;
+
+  const filePath = path.resolve(__dirname, 'videos', fileName);
+  const writer = fs.createWriteStream(filePath);
+
+  const response = await axios({
+    url,
+    method: 'GET',
+    responseType: 'stream'
+  });
+
+  response.data.pipe(writer);
+
+  return new Promise((resolve, reject) => {
+    writer.on('finish', resolve);
+    writer.on('error', reject);
+  });
+};
+
+
+let progressCounter = 0;
+let errorCounter = 0;
+let total = 0;
+const saveToDirectory = (videos) => {
+  let lowestQuality = findLowestQualityVideoUrl(videos);
+  total += lowestQuality.length;
+
+
+  for (let i = 0; i < lowestQuality.length; i++) {
+    downloadVideo(lowestQuality[i])
+      .then(() => {
+        progressCounter++;
+        console.log(`Success ${progressCounter}/${total}  Errors ${errorCounter}:  Processed ${lowestQuality[i].title}`);
+      })
+      .catch((err) => {
+        if (err) {
+          // console.log(err);
+        }
+        errorCounter++;
+        console.log('Error Downloading Video');
+      });
+  }
+
+  //   }
+  // });
 
 };
 
+
+const searchMoreVideos = async (url) => {
+  // console.log('- - - - - - - - -');
+  // console.log('search', url);
+  // console.log('- - - - - - - - -');
+
+  await axios.get(url, { headers: { Authorization: `Bearer ${KEY}` } })
+    .then((response) => {
+      if (response.data.next_page) {
+        setTimeout(() => {
+          console.log('recurse');
+          console.log(response.data.next_page)
+          searchMoreVideos(response.data.next_page);
+        }, 1000);
+      }
+      saveToDirectory(response.data.videos);
+    })
+    .catch((err) => {
+      if (err) {
+        console.log('searchMore Error');
+      }
+    });
+
+
+};
+
+
 const searchVideos = (addToDb = false) => {
-  client.videos.search({ query, 'per_page': 3000 })
+
+  fs.rmdirSync('./videos', { recursive: true });
+
+  fs.mkdirSync('./videos');
+
+  client.videos.search({ query: 'web development', 'per_page': 3000 })
     .then(response => {
+      if (response.next_page) {
+        setTimeout(() => {
+          searchMoreVideos(response.next_page);
+        }, 1000);
+      }
       videosArray = response.videos;
+      // console.log(response);
       let allCourses = countElements(generateAllCourses(100));
 
       return (addToDb ? addToDB(allCourses) : saveToDirectory(response.videos));
     })
     .then((response) => {
-      console.log(response);
+      // console.log(response);
       return;
     })
     .catch((err) => {
@@ -293,3 +380,12 @@ const searchVideos = (addToDb = false) => {
 };
 
 searchVideos();
+
+// const recurse = (n = 0) => {
+//   console.log(n);
+//   setTimeout(() => {
+//     recurse(n + 1);
+//   }, 1000);
+// };
+
+// recurse();
