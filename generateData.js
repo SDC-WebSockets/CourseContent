@@ -378,7 +378,6 @@ const searchVideos = (addToDb = false) => {
           searchMoreVideos(response.next_page);
         }, 1000);
       }
-      videosArray = response.videos;
       // console.log(response);
       let allCourses = countElements(generateAllCourses(100));
 
@@ -397,15 +396,6 @@ const searchVideos = (addToDb = false) => {
 };
 
 // searchVideos();
-
-// const recurse = (n = 0) => {
-//   console.log(n);
-//   setTimeout(() => {
-//     recurse(n + 1);
-//   }, 1000);
-// };
-
-// recurse();
 
 let status = {
   success: 0,
@@ -444,7 +434,7 @@ const checkAll = () => {
   });
 };
 
-// checkAll();
+checkAll();
 
 const awsId = config.accessKeyID;
 const awsSecret = config.secretAccessKey;
@@ -493,16 +483,46 @@ const uploadOneFile = (fileName) => {
 };
 
 const uploadDirectory = (directory) => {
-  console.log('files not read')
+  console.log('files not read');
   console.log(directory);
   let files = fs.readdirSync(directory);
-    console.log('files read')
-    for (let i = 0; i < files.length; i++) {
-      const filePath = path.join(directory, files[i]);
-      uploadOneFile(filePath);
-    }
+  console.log('files read');
+  for (let i = 0; i < files.length; i++) {
+    const filePath = path.join(directory, files[i]);
+    uploadOneFile(filePath);
+  }
+
+};
+
+const listContents = async () => {
+
+  const { Contents } = await s3.listObjects({ Bucket: BUCKET_NAME }).promise();
+  // console.log(Contents);
+  return Contents;
+
+};
+
+const emptyBucket = async () => {
+
+  const {Contents} = await s3.listObjects({Bucket: BUCKET_NAME}).promise();
+  if (Contents.length > 0) {
+    await s3.deleteObjects({
+      Bucket: BUCKET_NAME,
+      Delete: {
+        Objects: Contents.map(({ Key }) => ({ Key }))
+      }
+    })
+      .promise();
+  }
+
+  return true;
 
 
 };
 
-uploadDirectory(path.join(__dirname, 'videos'));
+// uploadDirectory(path.join(__dirname, 'videos'));
+
+// listContents()
+//   .then((result) => {
+//     console.log(result);
+//   });
