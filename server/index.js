@@ -10,7 +10,13 @@ app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
+app.get('/content');
+
 app.get('/course/item', controller.course);
+
+app.get('/section/item');
+
+app.get('/element/item');
 
 app.listen(PORT, () => {
   console.log('Listening on port:', PORT);
