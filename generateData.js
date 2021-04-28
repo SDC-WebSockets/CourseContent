@@ -9,10 +9,8 @@ const config = require('./config.js');
 const dbUrl = process.env.dbUrl || config.dbUrl || 'mongodb://localhost/courseContent';
 const dbName = process.env.dbName || config.dbName;
 const fs = require('fs');
-const https = require('https');
 const path = require('path');
-const mp4 = require('mp4-stream');
-var download = require('download-file');
+const {checkIntegrity} = require('untegrity');
 
 mongoose.connect(dbUrl, {dbName: dbName});
 
@@ -372,11 +370,11 @@ const searchVideos = (addToDb = false) => {
 
   fs.mkdirSync('./videos');
 
-  client.videos.search({ query: 'web development', 'per_page': 10 })
+  client.videos.search({ query: 'web development', 'per_page': 80 })
     .then(response => {
       if (response.next_page) {
         setTimeout(() => {
-          // searchMoreVideos(response.next_page);
+          searchMoreVideos(response.next_page);
         }, 1000);
       }
       videosArray = response.videos;
@@ -397,7 +395,7 @@ const searchVideos = (addToDb = false) => {
     });
 };
 
-searchVideos();
+// searchVideos();
 
 // const recurse = (n = 0) => {
 //   console.log(n);
@@ -407,3 +405,42 @@ searchVideos();
 // };
 
 // recurse();
+
+let status = {
+  success: 0,
+  error: 0,
+  total: 0
+};
+const check = async (name, last) => {
+  const filePath = path.join(__dirname, 'videos', name);
+  console.log('Checking file:', filePath);
+  const valid = await checkIntegrity(filePath);
+  if (valid) {
+    status.success++;
+    console.log('Video Valid!');
+    console.log(`${status.success}/${status.total}`);
+  } else {
+    fs.unlink(filePath, () => {
+      status.error++;
+      console.log('unlinked');
+      console.log(`${status.error}/${status.total}`);
+    });
+  }
+  if (last) {
+    console.log('Integrity Check Complete');
+    console.log(`${status.error + status.success} files processed of ${status.total} files`);
+    console.log(`${status.success} passed`);
+    console.log(`${status.error} deleted`);
+  }
+};
+
+const checkAll = () => {
+  fs.readdir('./videos', (err, files) => {
+    status.total = files.length;
+    for (let i = 0; i < files.length; i++) {
+      check(files[i], i === files.length - 1);
+    }
+  });
+};
+
+checkAll();

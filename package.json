@@ -23,6 +23,7 @@
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
     "date-fns": "^2.21.1",
+    "download": "^8.0.0",
     "download-file": "^0.1.5",
     "eslint": "^6.8.0",
     "express": "^4.17.1",
@@ -32,7 +33,8 @@
     "nodemon": "^2.0.7",
     "path": "^0.12.7",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2"
+    "react-dom": "^17.0.2",
+    "untegrity": "^1.0.7"
   },
   "devDependencies": {
     "@babel/core": "^7.13.10",
