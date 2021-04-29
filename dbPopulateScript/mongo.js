@@ -1,3 +1,11 @@
+const config = require('../config.js');
+const dbUrl = process.env.dbUrl || config.dbUrl || 'mongodb://localhost/courseContent';
+const dbName = process.env.dbName || config.dbName;
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+const LoremIpsum = require('lorem-ipsum').LoremIpsum;
+const faker = require('faker');
+
 mongoose.connect(dbUrl, { dbName: dbName });
 
 const elementSchema = mongoose.Schema({
@@ -40,11 +48,6 @@ const courseSchema = mongoose.Schema({
 
 const Course = mongoose.model('Course', courseSchema);
 
-const KEY = config.pexelKey;
-
-const createClient = require('pexels').createClient;
-const client = createClient(KEY);
-
 let videosArray = [];
 let videosCounter = 0;
 
@@ -62,7 +65,6 @@ const lorem = new LoremIpsum({
     min: 4
   }
 });
-
 
 const generateElement = (i, j, k) => {
 
@@ -164,7 +166,9 @@ const generateCourse = (i) => {
   return course;
 };
 
-const generateAllCourses = (num) => {
+module.exports.generateAllCourses = (urls) => {
+
+  videosArray = url;
 
   let courses = [];
 
@@ -213,10 +217,9 @@ const countElements = (allCourses) => {
   }
 
   return allCourses;
-
 };
 
-let addToDB = async courses => {
+module.exports.addToDB = async courses => {
 
   let promises = [];
 

@@ -21,7 +21,7 @@ const params = {
 //   else console.log('Bucket Created Successfully', data.Location);
 // });
 
-
+let urls = [];
 
 const uploadOneFile = (filePath) => {
   // Read content from the file
@@ -43,20 +43,21 @@ const uploadOneFile = (filePath) => {
       throw err;
     }
     console.log(`File uploaded successfully. ${data.Location}`);
-    console.log(data);
+    console.log(data.location);
   });
 };
 
-const uploadDirectory = (directory) => {
+module.exports.uploadDirectory = async (directory) => {
   console.log('files not read');
   console.log(directory);
   let files = fs.readdirSync(directory);
   console.log('files read');
-  for (let i = 0; i < files.length; i++) {
-    const filePath = path.join(directory, files[i]);
-    uploadOneFile(filePath);
+  for (let file of files) {
+    const filePath = path.join(directory, file);
+    await uploadOneFile(filePath);
   }
 
+  return urls;
 };
 
 const listContents = async () => {
@@ -67,7 +68,7 @@ const listContents = async () => {
 
 };
 
-const emptyBucket = async () => {
+module.exports.emptyBucket = async () => {
 
   const { Contents } = await s3.listObjects({ Bucket: BUCKET_NAME }).promise();
   if (Contents.length > 0) {

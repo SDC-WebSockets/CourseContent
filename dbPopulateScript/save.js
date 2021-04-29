@@ -67,7 +67,7 @@ let progressCounter = 0;
 let errorCounter = 0;
 let total = 0;
 
-const saveToDirectory = (videos) => {
+module.exports.saveToDirectory = (videos) => {
   let lowestQuality = findLowestQualityVideoUrl(videos);
   total += lowestQuality.length;
 

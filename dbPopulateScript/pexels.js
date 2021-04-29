@@ -1,3 +1,11 @@
+const KEY = config.pexelKey;
+const createClient = require('pexels').createClient;
+const client = createClient(KEY);
+const fs = require('fs');
+const path = require('path');
+const save = require('./save.js');
+
+
 const randomFileName = () => {
   let alpha = 'qwertyuiopasdfghjklzxcvbnm';
   let string = '';
@@ -48,7 +56,7 @@ const searchMoreVideos = async (url) => {
           searchMoreVideos(response.data.next_page);
         }, 1000);
       }
-      saveToDirectory(response.data.videos);
+      save.saveToDirectory(response.data.videos);
     })
     .catch((err) => {
       if (err) {
@@ -61,13 +69,13 @@ const searchMoreVideos = async (url) => {
 };
 
 
-const searchVideos = (addToDb = false) => {
+module.exports.searchVideos = async () => {
 
   fs.rmdirSync('./videos', { recursive: true });
 
   fs.mkdirSync('./videos');
 
-  client.videos.search({ query: 'web development', 'per_page': 80 })
+  await client.videos.search({ query: 'web development', 'per_page': 80 })
     .then(response => {
       if (response.next_page) {
         setTimeout(() => {
@@ -77,7 +85,7 @@ const searchVideos = (addToDb = false) => {
       // console.log(response);
       let allCourses = countElements(generateAllCourses(100));
 
-      return (addToDb ? addToDB(allCourses) : saveToDirectory(response.videos));
+      return save.saveToDirectory(response.videos);
     })
     .then((response) => {
       // console.log(response);
