@@ -1,3 +1,4 @@
+const fs = require('fs');
 
 const downloadVideo = async video => {
   let fileName = `${video.title}.${video.file_type.split('/')[1]}`;
@@ -54,7 +55,7 @@ const check = async (name, last) => {
   }
 };
 
-const checkAll = () => {
+module.exports.checkAll = () => {
   fs.readdir('./videos', (err, files) => {
     status.total = files.length;
     for (let i = 0; i < files.length; i++) {
@@ -63,20 +64,53 @@ const checkAll = () => {
   });
 };
 
+const randomFileName = () => {
+  let alpha = 'qwertyuiopasdfghjklzxcvbnm';
+  let string = '';
+
+  for (let i = 0; i < 8; i++) {
+    string += alpha[Math.floor(Math.random() * alpha.length)];
+  }
+  return string;
+};
+
+module.exports.findLowestQualityVideoUrl = (videos) => {
+  let lowestVideoObjects = [];
+
+  for (let i = 0; i < videos.length; i++) {
+    let files = videos[i].video_files;
+
+    let lowestQuality = files[0];
+
+    for (let j = 0; j < files.length; j++) {
+      if (files[j].height) {
+        if (files[j].height < lowestQuality.height) {
+          lowestQuality = files[j];
+        }
+      }
+    }
+    lowestQuality['title'] = videos[i].url.split('video')[1].split('/')[1] || randomFileName();
+    lowestVideoObjects.push(lowestQuality);
+
+  }
+
+  return lowestVideoObjects;
+};
+
 let progressCounter = 0;
 let errorCounter = 0;
 let total = 0;
 
 module.exports.saveToDirectory = (videos) => {
-  let lowestQuality = findLowestQualityVideoUrl(videos);
-  total += lowestQuality.length;
+  console.log(videos);
+  total += videos.length;
 
 
-  for (let i = 0; i < lowestQuality.length; i++) {
-    downloadVideo(lowestQuality[i])
+  for (let i = 0; i < videos.length; i++) {
+    downloadVideo(videos[i])
       .then(() => {
         progressCounter++;
-        console.log(`Success ${progressCounter}/${total}  Errors ${errorCounter}:  Processed ${lowestQuality[i].title}`);
+        console.log(`Success ${progressCounter}/${total}  Errors ${errorCounter}:  Processed ${videos[i].title}`);
       })
       .catch((err) => {
         if (err) {

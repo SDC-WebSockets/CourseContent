@@ -1,95 +1,69 @@
+const config = require('../config.js');
 const KEY = config.pexelKey;
 const createClient = require('pexels').createClient;
 const client = createClient(KEY);
 const fs = require('fs');
 const path = require('path');
 const save = require('./save.js');
+const axios = require('axios');
+const _ = require('lodash');
 
+const gatherAllVideos = async (response) => {
+  let videosArray = [];
 
-const randomFileName = () => {
-  let alpha = 'qwertyuiopasdfghjklzxcvbnm';
-  let string = '';
+  videosArray.push(response.videos);
 
-  for (let i = 0; i < 8; i++) {
-    string += alpha[Math.floor(Math.random() * alpha.length)];
-  }
-  return string;
-};
-
-const findLowestQualityVideoUrl = (videos) => {
-  let lowestVideoObjects = [];
-
-  for (let i = 0; i < videos.length; i++) {
-    let files = videos[i].video_files;
-
-    let lowestQuality = files[0];
-
-    for (let j = 0; j < files.length; j++) {
-      if (files[j].height) {
-        if (files[j].height < lowestQuality.height) {
-          lowestQuality = files[j];
+  const recurse = async (url) => {
+    await axios.get(url, { headers: { Authorization: `Bearer ${KEY}` } })
+      .then((response) => {
+        if (response.data.next_page) {
+          setTimeout(() => {
+            recurse(response.data.next_page);
+          }, 1000);
         }
-      }
-    }
-    lowestQuality['title'] = videos[i].url.split('video')[1].split('/')[1] || randomFileName();
-    lowestVideoObjects.push(lowestQuality);
+        videosArray.push(response.data.videos);
+      })
+      .catch((err) => {
+        if (err) {
 
+        }
+        console.log('searchMore Error');
+      });
+  };
+
+  if (response.next_page) {
+    console.log('recurse');
+    await recurse(response.next_page);
   }
 
-  return lowestVideoObjects;
+  const flattened = _.flatten(videosArray);
+  // console.log(flattened);
+  return flattened;
 };
 
 
-
-
-const searchMoreVideos = async (url) => {
-  // console.log('- - - - - - - - -');
-  // console.log('search', url);
-  // console.log('- - - - - - - - -');
-
-  await axios.get(url, { headers: { Authorization: `Bearer ${KEY}` } })
-    .then((response) => {
-      if (response.data.next_page) {
-        setTimeout(() => {
-          console.log('recurse');
-          console.log(response.data.next_page)
-          searchMoreVideos(response.data.next_page);
-        }, 1000);
-      }
-      save.saveToDirectory(response.data.videos);
-    })
-    .catch((err) => {
-      if (err) {
-
-      }
-      console.log('searchMore Error');
-    });
-
-
-};
-
-
-module.exports.searchVideos = async () => {
+module.exports.searchVideos = async (n = 0) => {
 
   fs.rmdirSync('./videos', { recursive: true });
 
   fs.mkdirSync('./videos');
 
-  await client.videos.search({ query: 'web development', 'per_page': 80 })
-    .then(response => {
-      if (response.next_page) {
-        setTimeout(() => {
-          searchMoreVideos(response.next_page);
-        }, 1000);
-      }
+  return await client.videos.search({ query: 'web development', 'per_page': 80 })
+    .then(async response => {
+      // if (response.next_page) {
+      //   setTimeout(() => {
+      //     searchMoreVideos(response.next_page);
+      //   }, 1000);
+      // }
       // console.log(response);
-      let allCourses = countElements(generateAllCourses(100));
+      // let allCourses = countElements(generateAllCourses(100));
+      let videos = await gatherAllVideos(response);
 
-      return save.saveToDirectory(response.videos);
+      return videos;
     })
-    .then((response) => {
-      // console.log(response);
-      return;
+    .then((videos) => {
+      let lowestQuality = save.findLowestQualityVideoUrl(videos);
+      return lowestQuality;
     })
     .catch((err) => {
       if (err) {

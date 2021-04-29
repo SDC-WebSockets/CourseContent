@@ -1,3 +1,5 @@
+const config = require('../config.js');
+const AWS = require('aws-sdk');
 const awsId = config.accessKeyID;
 const awsSecret = config.secretAccessKey;
 
