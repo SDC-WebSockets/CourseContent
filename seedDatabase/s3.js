@@ -49,15 +49,13 @@ const uploadOneFile = async (file) => {
   let fileName = file.split('/');
   fileName = fileName[fileName.length - 1];
 
-  // Setting up S3 upload parameters
   const params = {
     Bucket: BUCKET_NAME,
-    Key: fileName, // File name you want to save as in S3
+    Key: fileName,
     Body: fileContent,
     ContentType: 'video/mp4'
   };
 
-  // Uploading files to the bucket
   return await s3.upload(params, function (err, data) {
     if (err) {
       throw err;

@@ -2,15 +2,12 @@ const path = require('path');
 const fs = require('fs');
 const { checkIntegrity } = require('untegrity');
 
-///////////////////////////////////////////////////////////////////
-////////////// Check Downloaded File Integrity ////////////////////
-///////////////////////////////////////////////////////////////////
-
 let status = {
   success: 0,
   error: 0,
   total: 0
 };
+
 const check = async (name, last) => {
   const filePath = path.join(__dirname, 'videos', name);
   console.log('Checking file:', filePath);

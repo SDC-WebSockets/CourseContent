@@ -76,11 +76,9 @@ const generateSection = (course, i, j) => {
     if (newElement.elementLength) {
       section.sectionLength += newElement.elementLength.getTime();
     }
-
   }
 
   section.sectionLength = new Date(section.sectionLength);
-
   return section;
 };
 
