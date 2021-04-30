@@ -13,6 +13,13 @@ const path = require('path');
 const {checkIntegrity} = require('untegrity');
 const AWS = require('aws-sdk');
 const ffmpeg = require('fluent-ffmpeg');
+const KEY = config.pexelKey;
+const createClient = require('pexels').createClient;
+const client = createClient(KEY);
+
+///////////////////////////////////////////////////////////////////
+///////////////////// Connect to mongoDB //////////////////////////
+///////////////////////////////////////////////////////////////////
 
 mongoose.connect(dbUrl, {dbName: dbName}, () => {
   mongoose.connection.db.dropDatabase();
@@ -56,14 +63,12 @@ const courseSchema = mongoose.Schema({
 
 const Course = mongoose.model('Course', courseSchema);
 
-const KEY = config.pexelKey;
-
-const createClient = require('pexels').createClient;
-const client = createClient(KEY);
+///////////////////////////////////////////////////////////////////
+//////////////////// Generate Random Data /////////////////////////
+///////////////////////////////////////////////////////////////////
 
 let videosArray = [];
 let videosCounter = 0;
-let videosUrlsArray = [];
 
 let sectionIdCounter = 0;
 let elementIdCounter = 0;
@@ -79,7 +84,6 @@ const lorem = new LoremIpsum({
     min: 4
   }
 });
-
 
 const generateElement = (i, j, k) => {
 
@@ -98,7 +102,6 @@ const generateElement = (i, j, k) => {
 
     element['videoUrl'] = videosArray[videosCounter].url;
     element['videoPreview'] = [true, false, false, false, false, true, false][Math.floor(Math.random() * 2)];
-    // element['thumbnailUrl'] = videosArray[videosCounter].image;
     element['summary'] = lorem.generateSentences(Math.floor(Math.random() * 2));
     element['elementLength'] = new Date(videosArray[videosCounter].duration);
 
@@ -149,7 +152,6 @@ const generateSection = (course, i, j) => {
   section.sectionLength = new Date(section.sectionLength);
 
   return section;
-
 };
 
 const generateCourse = (i) => {
@@ -225,6 +227,10 @@ const randomFileName = () => {
   return string;
 };
 
+///////////////////////////////////////////////////////////////////
+///////////// Download Stock Footage from Pexels //////////////////
+///////////////////////////////////////////////////////////////////
+
 const findLowestQualityVideoUrl = (videos) => {
   let lowestVideoObjects = [];
 
@@ -237,7 +243,6 @@ const findLowestQualityVideoUrl = (videos) => {
       if (files[j].height) {
         if (files[j].height < lowestQuality.height) {
           lowestQuality = files[j];
-
         }
       }
     }
@@ -245,7 +250,6 @@ const findLowestQualityVideoUrl = (videos) => {
     lowestVideoObjects.push(lowestQuality);
 
   }
-
 
   return lowestVideoObjects;
 };
@@ -291,36 +295,13 @@ const saveToDirectory = async (videos) => {
       })
       .catch((err) => {
         if (err) {
-          // console.log(err);
+          console.log(err);
         }
         errorCounter++;
         console.log('Error Downloading Video');
 
       });
   }
-
-};
-
-const searchAdditionalVideos = async (url) => {
-
-  await axios.get(url, { headers: { Authorization: `Bearer ${KEY}` } })
-    .then((response) => {
-      if (response.data.next_page) {
-        setTimeout(() => {
-          console.log('recurse');
-          console.log(response.data.next_page);
-          searchMoreVideos(response.data.next_page);
-        }, 1000);
-      }
-      saveToDirectory(response.data.videos);
-    })
-    .catch((err) => {
-      if (err) {
-
-      }
-      console.log('searchMore Error');
-    });
-
 
 };
 
@@ -332,11 +313,6 @@ const searchVideos = async (addToDb = false) => {
 
   await client.videos.search({ query: 'programming', 'per_page': 80 })
     .then(async response => {
-      // if (response.next_page) {
-      //   setTimeout(() => {
-      //     searchAdditionalVideos(response.next_page);
-      //   }, 1000);
-      // }
 
       return await saveToDirectory(response.videos);
     })
@@ -347,6 +323,10 @@ const searchVideos = async (addToDb = false) => {
       console.log('Process Complete with Errors');
     });
 };
+
+///////////////////////////////////////////////////////////////////
+////////////// Check Downloaded File Integrity ////////////////////
+///////////////////////////////////////////////////////////////////
 
 let status = {
   success: 0,
@@ -384,11 +364,11 @@ const checkAll = async () => {
   for (let file of files) {
     await check(file);
   }
-    
-  // return;
-
-  // console.log('for loop')
 };
+
+///////////////////////////////////////////////////////////////////
+//////////////////////// Upload to S3 /////////////////////////////
+///////////////////////////////////////////////////////////////////
 
 const awsId = config.accessKeyID;
 const awsSecret = config.secretAccessKey;
@@ -426,7 +406,6 @@ const emptyBucket = async () => {
   }
 
   return true;
-
 
 };
 
@@ -483,53 +462,45 @@ const uploadDirectory = async (directory) => {
   return 'Upload to S3 Complete!';
 };
 
-const listContents = async () => {
-  let fileUrls = [];
+// const listContents = async () => {
+//   let fileUrls = [];
 
-  const { Contents } = await s3.listObjects({ Bucket: BUCKET_NAME }).promise();
-  // console.log(Contents);
-  for (let i = 0; i < Contents.length; i++) {
-    let url = `https://${BUCKET_NAME}.s3.eu-west-2.amazonaws.com/${Contents[i].Key}`;
-    fileUrls.push(url);
-  }
+//   const { Contents } = await s3.listObjects({ Bucket: BUCKET_NAME }).promise();
+//   // console.log(Contents);
+//   for (let i = 0; i < Contents.length; i++) {
+//     let url = `https://${BUCKET_NAME}.s3.eu-west-2.amazonaws.com/${Contents[i].Key}`;
+//     fileUrls.push(url);
+//   }
 
-  return fileUrls;
-};
+//   return fileUrls;
+// };
 
-// emptyBucket();
 
-// listContents()
-//   .then((result) => {
-//     // console.log(result);
-//   });
+
+///////////////////////////////////////////////////////////////////
+////////////////// Top Level Function Calls ///////////////////////
+///////////////////////////////////////////////////////////////////
+
 
 
 const generateAllCourses = async (num) => {
-
   const response = await uploadDirectory(path.join(__dirname, 'videos'));
   console.log(response);
 
   let courses = [];
-
-  // console.log(videosArray);
   
   for (let i = 0; i < num; i++) {
-  
     courses.push(generateCourse(i));
-  
   }
   
   return courses;
 };
 
 const updateOne = (i, course) => {
-
   return Course.updateOne({ _id: i }, course, {upsert: true}).exec();
-
 };
 
 let addToDB = async () => {
-
   let courses = await countElements(await generateAllCourses(100));
 
   var promises = [];
@@ -541,8 +512,8 @@ let addToDB = async () => {
 
   await Promise.all(promises);
   return 'added to mongoDb';
-
 };
+
 
 const runScript = async () => {
 
@@ -552,7 +523,7 @@ const runScript = async () => {
   console.log(Date.now() - now);
   const response = await addToDB();
   console.log(response);
-
 };
+
 
 runScript();
