@@ -1,7 +1,7 @@
 const path = require('path');
 const AWS = require('aws-sdk');
 const ffmpeg = require('fluent-ffmpeg');
-const config = require('./config.js');
+const config = require('../config.js');
 const fs = require('fs');
 
 const awsId = config.accessKeyID;

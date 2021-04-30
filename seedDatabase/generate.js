@@ -23,7 +23,7 @@ const generateElement = (i, j, k) => {
   let options = ['lecture', 'lecture', 'lecture', 'lecture', 'quiz', 'quiz', 'exercise', 'quiz', 'exercise', 'exercise', 'exercise', 'lecture', 'lecture', 'lecture', 'lecture', 'lecture', 'lecture', 'lecture', 'lecture', 'lecture', 'lecture', 'lecture', 'lecture', 'article', 'article', 'article'];
 
   let element = {
-    _id: elementIdCounter,
+    elementId: elementIdCounter,
     kind: options[Math.floor(Math.random() * options.length)],
     title: faker.git.commitMessage(),
     sectionSequence: k + 1
@@ -55,7 +55,7 @@ const generateElement = (i, j, k) => {
 const generateSection = (course, i, j) => {
 
   let section = {
-    _id: sectionIdCounter,
+    sectionId: sectionIdCounter,
     title: faker.random.words(Math.floor(Math.random() * 10)),
     sectionLength: 0,
     lectures: 0,
@@ -87,7 +87,7 @@ const generateSection = (course, i, j) => {
 const generateCourse = (i) => {
 
   let course = {
-    _id: i + 1,
+    courseId: i + 1,
     totalSections: (Math.floor(Math.random() * 45) + 5),
     totalLectures: 0,
     totalExercises: 0,
@@ -112,7 +112,7 @@ const generateCourse = (i) => {
   return course;
 };
 
-module.exports.countElements = async (allCourses) => {
+const countElements = (allCourses) => {
 
   for (let i = 0; i < allCourses.length; i++) {
 
@@ -146,13 +146,15 @@ module.exports.countElements = async (allCourses) => {
   return allCourses;
 };
 
-module.exports.generateAllCourses = async (num) => {
+module.exports.generateAllCourses = (num) => {
 
   let courses = [];
 
   for (let i = 0; i < num; i++) {
     courses.push(generateCourse(i));
   }
+
+  courses = countElements(courses);
 
   return courses;
 };

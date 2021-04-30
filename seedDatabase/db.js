@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 const generate = require('./generate.js');
-const config = require('./config.js');
+const config = require('../config.js');
 const dbUrl = process.env.dbUrl || config.dbUrl || 'mongodb://localhost/courseContent';
 const dbName = process.env.dbName || config.dbName;
 
@@ -10,7 +10,7 @@ mongoose.connect(dbUrl, { dbName: dbName }, () => {
 });
 
 const elementSchema = mongoose.Schema({
-  _id: Number,
+  elementId: Number,
   kind: String,
   title: String,
   sectionSequence: Number,
@@ -22,7 +22,7 @@ const elementSchema = mongoose.Schema({
 });
 
 const sectionSchema = mongoose.Schema({
-  _id: Number,
+  sectionId: Number,
   title: String,
   sectionLength: Date,
   lectures: Number,
@@ -34,7 +34,7 @@ const sectionSchema = mongoose.Schema({
 });
 
 const courseSchema = mongoose.Schema({
-  _id: Number,
+  courseId: Number,
   totalSections: Number,
   totalLectures: Number,
   totalExercises: Number,
@@ -48,24 +48,17 @@ const courseSchema = mongoose.Schema({
 const Course = mongoose.model('Course', courseSchema);
 
 
-///////////////////////////////////////////////////////////////////
-////////////////// Top Level Function Calls ///////////////////////
-///////////////////////////////////////////////////////////////////
-
-
-
-
-const updateOne = (i, course) => {
-  return Course.updateOne({ _id: i }, course, { upsert: true }).exec();
+const updateOne = (course) => {
+  return Course.updateOne({ courseId: course.courseId }, course, { upsert: true }).exec();
 };
 
-module.exports.addToDB = async () => {
-  let courses = await generate.countElements(await generate.generateAllCourses(100));
+module.exports.seedDB = async () => {
+  let courses = generate.generateAllCourses(100);
 
   var promises = [];
 
   for (let i = 0; i < courses.length; i++) {
-    let promise = updateOne(i, courses[i]);
+    let promise = updateOne(courses[i]);
     promises.push(promise);
   }
 

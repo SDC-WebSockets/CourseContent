@@ -1,14 +1,11 @@
 const path = require('path');
 const fs = require('fs');
-const config = require('./config.js');
+const config = require('../config.js');
 const KEY = config.pexelKey;
 const createClient = require('pexels').createClient;
 const client = createClient(KEY);
 const axios = require('axios');
 
-///////////////////////////////////////////////////////////////////
-///////////// Download Stock Footage from Pexels //////////////////
-///////////////////////////////////////////////////////////////////
 
 const randomFileName = () => {
   let alpha = 'qwertyuiopasdfghjklzxcvbnm';

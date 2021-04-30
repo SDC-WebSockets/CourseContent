@@ -9,7 +9,7 @@ const runScript = async (dryRun = false) => {
   await search.searchVideos();
   await verify.checkAll();
   await s3.uploadDirectory(path.join(__dirname, 'videos'), dryRun);
-  const response = await db.addToDB();
+  const response = await db.seedDB();
   console.log(response);
 };
 
