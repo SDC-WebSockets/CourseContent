@@ -70,8 +70,8 @@ const Course = mongoose.model('Course', courseSchema);
 let videosArray = [];
 let videosCounter = 0;
 
-let sectionIdCounter = 0;
-let elementIdCounter = 0;
+let sectionIdCounter = 1;
+let elementIdCounter = 1;
 
 
 const lorem = new LoremIpsum({
@@ -108,10 +108,8 @@ const generateElement = (i, j, k) => {
     videosCounter++;
     videosCounter = videosCounter % videosArray.length;
   } else if (element.kind === 'article') {
-
     element['summary'] = lorem.generateSentences(Math.floor(Math.random() * 2));
     element['elementLength'] = new Date(Math.floor(Math.random() * 120000));
-
   } else if (element.kind === 'exercise') {
     element['numQuestions'] = Math.floor(Math.random() * 3) + 1;
   } else if (element.kind === 'quiz') {
@@ -119,7 +117,6 @@ const generateElement = (i, j, k) => {
   }
 
   return element;
-
 };
 
 const generateSection = (course, i, j) => {
@@ -157,7 +154,7 @@ const generateSection = (course, i, j) => {
 const generateCourse = (i) => {
 
   let course = {
-    _id: i,
+    _id: i + 1,
     totalSections: (Math.floor(Math.random() * 45) + 5),
     totalLectures: 0,
     totalExercises: 0,
