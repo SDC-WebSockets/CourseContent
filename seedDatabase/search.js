@@ -101,7 +101,7 @@ module.exports.searchVideos = async () => {
 
   fs.mkdirSync('./videos');
 
-  await client.videos.search({ query: 'programming', 'per_page': 5 })
+  await client.videos.search({ query: 'programming', 'per_page': 80 })
     .then(async response => {
 
       return await saveToDirectory(response.videos);
