@@ -101,7 +101,7 @@ const generateElement = (i, j, k) => {
   if (element.typeOf === 'lecture') {
 
     element['videoUrl'] = videosArray[videosCounter].url;
-    element['videoPreview'] = [true, false, false, false, false, true, false][Math.floor(Math.random() * 2)];
+    element['videoPreview'] = (Math.random() * 100 > 20 ? false : true);
     element['summary'] = lorem.generateSentences(Math.floor(Math.random() * 2));
     element['elementLength'] = new Date(videosArray[videosCounter].duration);
 
@@ -183,7 +183,7 @@ const generateCourse = (i) => {
 };
 
 const countElements = async (allCourses) => {
-  
+
   for (let i = 0; i < allCourses.length; i++) {
 
     let currentCourse = allCourses[i];
@@ -488,11 +488,11 @@ const generateAllCourses = async (num) => {
   console.log(response);
 
   let courses = [];
-  
+
   for (let i = 0; i < num; i++) {
     courses.push(generateCourse(i));
   }
-  
+
   return courses;
 };
 
