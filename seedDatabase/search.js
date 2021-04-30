@@ -1,9 +1,10 @@
 const path = require('path');
 const fs = require('fs');
+const config = require('./config.js');
 const KEY = config.pexelKey;
 const createClient = require('pexels').createClient;
 const client = createClient(KEY);
-const search = ('./search.js');
+const axios = require('axios');
 
 ///////////////////////////////////////////////////////////////////
 ///////////// Download Stock Footage from Pexels //////////////////
@@ -69,38 +70,41 @@ const downloadVideo = async video => {
   });
 };
 
-let progressCounter = 0;
-let errorCounter = 0;
-let total = 0;
+
 const saveToDirectory = async (videos) => {
+
+  let status = {
+    success: 0,
+    error: 0,
+    total: 0
+  };
+
   let lowestQuality = findLowestQualityVideoUrl(videos);
-  total += lowestQuality.length;
+  status.total += lowestQuality.length;
 
   for (let file of lowestQuality) {
     await downloadVideo(file)
       .then(() => {
-        progressCounter++;
-        console.log(`Success ${progressCounter}/${total}  Errors ${errorCounter}:  Processed ${file.title}`);
+        status.success++;
+        console.log(`Success ${status.success}/${status.total}  Errors ${status.error}:  Processed ${file.title}`);
       })
       .catch((err) => {
         if (err) {
           console.log(err);
         }
-        errorCounter++;
+        status.error++;
         console.log('Error Downloading Video');
-
       });
   }
-
 };
 
-module.exports.searchVideos = async (addToDb = false) => {
+module.exports.searchVideos = async () => {
 
   fs.rmdirSync('./videos', { recursive: true });
 
   fs.mkdirSync('./videos');
 
-  await client.videos.search({ query: 'programming', 'per_page': 80 })
+  await client.videos.search({ query: 'programming', 'per_page': 5 })
     .then(async response => {
 
       return await saveToDirectory(response.videos);
