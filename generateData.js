@@ -12,8 +12,11 @@ const fs = require('fs');
 const path = require('path');
 const {checkIntegrity} = require('untegrity');
 const AWS = require('aws-sdk');
+const ffmpeg = require('fluent-ffmpeg');
 
-mongoose.connect(dbUrl, {dbName: dbName});
+mongoose.connect(dbUrl, {dbName: dbName}, () => {
+  mongoose.connection.db.dropDatabase();
+});
 
 const elementSchema = mongoose.Schema({
   _id: Number,
@@ -22,7 +25,6 @@ const elementSchema = mongoose.Schema({
   sectionSequence: Number,
   videoUrl: String,
   videoPreview: Boolean,
-  thumbnailUrl: String,
   summary: String,
   elementLength: Date,
   numQuestions: Number
@@ -42,7 +44,6 @@ const sectionSchema = mongoose.Schema({
 
 const courseSchema = mongoose.Schema({
   _id: Number,
-  title: String,
   totalSections: Number,
   totalLectures: Number,
   totalExercises: Number,
@@ -62,6 +63,7 @@ const client = createClient(KEY);
 
 let videosArray = [];
 let videosCounter = 0;
+let videosUrlsArray = [];
 
 let sectionIdCounter = 0;
 let elementIdCounter = 0;
@@ -96,9 +98,9 @@ const generateElement = (i, j, k) => {
 
     element['videoUrl'] = videosArray[videosCounter].url;
     element['videoPreview'] = [true, false, false, false, false, true, false][Math.floor(Math.random() * 2)];
-    element['thumbnailUrl'] = videosArray[videosCounter].image;
+    // element['thumbnailUrl'] = videosArray[videosCounter].image;
     element['summary'] = lorem.generateSentences(Math.floor(Math.random() * 2));
-    element['elementLength'] = new Date(videosArray[videosCounter].duration * 1000);
+    element['elementLength'] = new Date(videosArray[videosCounter].duration);
 
     videosCounter++;
     videosCounter = videosCounter % videosArray.length;
@@ -154,7 +156,6 @@ const generateCourse = (i) => {
 
   let course = {
     _id: i,
-    title: faker.random.words(Math.floor(Math.random() * 10)),
     totalSections: (Math.floor(Math.random() * 45) + 5),
     totalLectures: 0,
     totalExercises: 0,
@@ -179,22 +180,8 @@ const generateCourse = (i) => {
   return course;
 };
 
-const generateAllCourses = (num) => {
-
-  let courses = [];
-
-  for (let i = 0; i < num; i++) {
-
-    courses.push(generateCourse(i));
-
-  }
-
-  return courses;
-};
-
-
-const countElements = (allCourses) => {
-
+const countElements = async (allCourses) => {
+  
   for (let i = 0; i < allCourses.length; i++) {
 
     let currentCourse = allCourses[i];
@@ -220,28 +207,11 @@ const countElements = (allCourses) => {
           currentCourse.totalArticles++;
           currentSection.articles++;
         }
-
       }
-
     }
-
   }
 
   return allCourses;
-
-};
-
-let addToDB = async courses => {
-
-  let promises = [];
-
-  for (let i = 0; i < courses.length; i++) {
-    promises.push(Course.updateOne({ _id: i }, courses[i], {upsert: true}));
-  }
-
-  await Promise.all(promises);
-  return 'added to mongoDb';
-
 };
 
 const randomFileName = () => {
@@ -280,7 +250,6 @@ const findLowestQualityVideoUrl = (videos) => {
   return lowestVideoObjects;
 };
 
-
 const downloadVideo = async video => {
   let fileName = `${video.title}.${video.file_type.split('/')[1]}`;
   let url = video.link;
@@ -307,20 +276,18 @@ const downloadVideo = async video => {
   });
 };
 
-
 let progressCounter = 0;
 let errorCounter = 0;
 let total = 0;
-const saveToDirectory = (videos) => {
+const saveToDirectory = async (videos) => {
   let lowestQuality = findLowestQualityVideoUrl(videos);
   total += lowestQuality.length;
 
-
-  for (let i = 0; i < lowestQuality.length; i++) {
-    downloadVideo(lowestQuality[i])
+  for (let file of lowestQuality) {
+    await downloadVideo(file)
       .then(() => {
         progressCounter++;
-        console.log(`Success ${progressCounter}/${total}  Errors ${errorCounter}:  Processed ${lowestQuality[i].title}`);
+        console.log(`Success ${progressCounter}/${total}  Errors ${errorCounter}:  Processed ${file.title}`);
       })
       .catch((err) => {
         if (err) {
@@ -332,23 +299,16 @@ const saveToDirectory = (videos) => {
       });
   }
 
-  //   }
-  // });
-
 };
 
-
-const searchMoreVideos = async (url) => {
-  // console.log('- - - - - - - - -');
-  // console.log('search', url);
-  // console.log('- - - - - - - - -');
+const searchAdditionalVideos = async (url) => {
 
   await axios.get(url, { headers: { Authorization: `Bearer ${KEY}` } })
     .then((response) => {
       if (response.data.next_page) {
         setTimeout(() => {
           console.log('recurse');
-          console.log(response.data.next_page)
+          console.log(response.data.next_page);
           searchMoreVideos(response.data.next_page);
         }, 1000);
       }
@@ -364,28 +324,21 @@ const searchMoreVideos = async (url) => {
 
 };
 
-
-const searchVideos = (addToDb = false) => {
+const searchVideos = async (addToDb = false) => {
 
   fs.rmdirSync('./videos', { recursive: true });
 
   fs.mkdirSync('./videos');
 
-  client.videos.search({ query: 'web development', 'per_page': 80 })
-    .then(response => {
-      if (response.next_page) {
-        setTimeout(() => {
-          searchMoreVideos(response.next_page);
-        }, 1000);
-      }
-      // console.log(response);
-      let allCourses = countElements(generateAllCourses(100));
+  await client.videos.search({ query: 'programming', 'per_page': 80 })
+    .then(async response => {
+      // if (response.next_page) {
+      //   setTimeout(() => {
+      //     searchAdditionalVideos(response.next_page);
+      //   }, 1000);
+      // }
 
-      return (addToDb ? addToDB(allCourses) : saveToDirectory(response.videos));
-    })
-    .then((response) => {
-      // console.log(response);
-      return;
+      return await saveToDirectory(response.videos);
     })
     .catch((err) => {
       if (err) {
@@ -394,8 +347,6 @@ const searchVideos = (addToDb = false) => {
       console.log('Process Complete with Errors');
     });
 };
-
-// searchVideos();
 
 let status = {
   success: 0,
@@ -425,22 +376,24 @@ const check = async (name, last) => {
   }
 };
 
-const checkAll = () => {
-  fs.readdir('./videos', (err, files) => {
-    status.total = files.length;
-    for (let i = 0; i < files.length; i++) {
-      check(files[i], i === files.length - 1);
-    }
-  });
-};
+const checkAll = async () => {
+  console.log('Checking file integrity');
+  let files = fs.readdirSync('./videos');
 
-checkAll();
+  status.total = files.length;
+  for (let file of files) {
+    await check(file);
+  }
+    
+  // return;
+
+  // console.log('for loop')
+};
 
 const awsId = config.accessKeyID;
 const awsSecret = config.secretAccessKey;
 
 const BUCKET_NAME = 'charlotte-badger-course-content-stock-footage';
-// const BUCKET_NAME = 'test-bucket-lksjdfhgsldkfjgsdlfkjgndsflkgjnsd';
 
 const s3 = new AWS.S3({
   accessKeyId: awsId,
@@ -458,49 +411,6 @@ const params = {
 //   if (err) console.log(err, err.stack);
 //   else console.log('Bucket Created Successfully', data.Location);
 // });
-
-
-
-const uploadOneFile = (fileName) => {
-  // Read content from the file
-  const fileContent = fs.readFileSync(fileName);
-
-  // Setting up S3 upload parameters
-  const params = {
-    Bucket: BUCKET_NAME,
-    Key: fileName, // File name you want to save as in S3
-    Body: fileContent,
-    ContentType: 'video/mp4'
-  };
-
-  // Uploading files to the bucket
-  s3.upload(params, function(err, data) {
-    if (err) {
-      throw err;
-    }
-    console.log(`File uploaded successfully. ${data.Location}`);
-  });
-};
-
-const uploadDirectory = (directory) => {
-  console.log('files not read');
-  console.log(directory);
-  let files = fs.readdirSync(directory);
-  console.log('files read');
-  for (let i = 0; i < files.length; i++) {
-    const filePath = path.join(directory, files[i]);
-    uploadOneFile(filePath);
-  }
-
-};
-
-const listContents = async () => {
-
-  const { Contents } = await s3.listObjects({ Bucket: BUCKET_NAME }).promise();
-  // console.log(Contents);
-  return Contents;
-
-};
 
 const emptyBucket = async () => {
 
@@ -520,9 +430,129 @@ const emptyBucket = async () => {
 
 };
 
-// uploadDirectory(path.join(__dirname, 'videos'));
+const uploadOneFile = async (file) => {
+  // Read content from the file
+  console.log('Uploading:', file);
+  const fileContent = fs.readFileSync(file);
+  let fileName = file.split('/');
+  fileName = fileName[fileName.length - 1];
+
+  // Setting up S3 upload parameters
+  const params = {
+    Bucket: BUCKET_NAME,
+    Key: fileName, // File name you want to save as in S3
+    Body: fileContent,
+    ContentType: 'video/mp4'
+  };
+
+  // Uploading files to the bucket
+  return await s3.upload(params, function(err, data) {
+    if (err) {
+      throw err;
+    }
+    return `Uploaded: ${data.key}`;
+  }).promise();
+};
+
+const uploadDirectory = async (directory) => {
+  await emptyBucket();
+  console.log('Beginning upload to S3');
+  let files = fs.readdirSync(directory);
+  for (let file of files) {
+    const filePath = path.join(directory, file);
+    await uploadOneFile(filePath)
+      .then(async (result) => {
+        console.log(`Uploaded ${result.key}`);
+        ffmpeg.ffprobe(filePath, function(err, metadata) {
+          let duration = Math.floor(metadata.format.duration * 1000);
+          let obj = {
+            url: result.Location,
+            duration: duration
+          };
+          videosArray.push(obj);
+        });
+      })
+      .catch((err) => {
+        if (err) {
+          console.log(err);
+        }
+        console.log('Upload failed');
+      });
+  }
+
+  return 'Upload to S3 Complete!';
+};
+
+const listContents = async () => {
+  let fileUrls = [];
+
+  const { Contents } = await s3.listObjects({ Bucket: BUCKET_NAME }).promise();
+  // console.log(Contents);
+  for (let i = 0; i < Contents.length; i++) {
+    let url = `https://${BUCKET_NAME}.s3.eu-west-2.amazonaws.com/${Contents[i].Key}`;
+    fileUrls.push(url);
+  }
+
+  return fileUrls;
+};
+
+// emptyBucket();
 
 // listContents()
 //   .then((result) => {
-//     console.log(result);
+//     // console.log(result);
 //   });
+
+
+const generateAllCourses = async (num) => {
+
+  const response = await uploadDirectory(path.join(__dirname, 'videos'));
+  console.log(response);
+
+  let courses = [];
+
+  // console.log(videosArray);
+  
+  for (let i = 0; i < num; i++) {
+  
+    courses.push(generateCourse(i));
+  
+  }
+  
+  return courses;
+};
+
+const updateOne = (i, course) => {
+
+  return Course.updateOne({ _id: i }, course, {upsert: true}).exec();
+
+};
+
+let addToDB = async () => {
+
+  let courses = await countElements(await generateAllCourses(100));
+
+  var promises = [];
+
+  for (let i = 0; i < courses.length; i++) {
+    let promise = updateOne(i, courses[i]);
+    promises.push(promise);
+  }
+
+  await Promise.all(promises);
+  return 'added to mongoDb';
+
+};
+
+const runScript = async () => {
+
+  await searchVideos();
+  let now = Date.now();
+  await checkAll();
+  console.log(Date.now() - now);
+  const response = await addToDB();
+  console.log(response);
+
+};
+
+runScript();
