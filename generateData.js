@@ -518,9 +518,7 @@ let addToDB = async () => {
 const runScript = async () => {
 
   await searchVideos();
-  let now = Date.now();
   await checkAll();
-  console.log(Date.now() - now);
   const response = await addToDB();
   console.log(response);
 };
