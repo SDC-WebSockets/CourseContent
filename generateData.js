@@ -27,7 +27,7 @@ mongoose.connect(dbUrl, {dbName: dbName}, () => {
 
 const elementSchema = mongoose.Schema({
   _id: Number,
-  typeOf: String,
+  kind: String,
   title: String,
   sectionSequence: Number,
   videoUrl: String,
@@ -91,14 +91,14 @@ const generateElement = (i, j, k) => {
 
   let element = {
     _id: elementIdCounter,
-    typeOf: options[Math.floor(Math.random() * options.length)],
+    kind: options[Math.floor(Math.random() * options.length)],
     title: faker.git.commitMessage(),
     sectionSequence: k + 1
   };
 
   elementIdCounter++;
 
-  if (element.typeOf === 'lecture') {
+  if (element.kind === 'lecture') {
 
     element['videoUrl'] = videosArray[videosCounter].url;
     element['videoPreview'] = (Math.random() * 100 > 20 ? false : true);
@@ -107,14 +107,14 @@ const generateElement = (i, j, k) => {
 
     videosCounter++;
     videosCounter = videosCounter % videosArray.length;
-  } else if (element.typeOf === 'article') {
+  } else if (element.kind === 'article') {
 
     element['summary'] = lorem.generateSentences(Math.floor(Math.random() * 2));
     element['elementLength'] = new Date(Math.floor(Math.random() * 120000));
 
-  } else if (element.typeOf === 'exercise') {
+  } else if (element.kind === 'exercise') {
     element['numQuestions'] = Math.floor(Math.random() * 3) + 1;
-  } else if (element.typeOf === 'quiz') {
+  } else if (element.kind === 'quiz') {
     element['numQuestions'] = Math.floor(Math.random() * 3) + 1;
   }
 
@@ -196,16 +196,16 @@ const countElements = async (allCourses) => {
 
         let currentElement = currentSection.elements[k];
 
-        if (currentElement.typeOf === 'lecture') {
+        if (currentElement.kind === 'lecture') {
           currentCourse.totalLectures++;
           currentSection.lectures++;
-        } else if (currentElement.typeOf === 'quiz') {
+        } else if (currentElement.kind === 'quiz') {
           currentCourse.totalQuizzes++;
           currentSection.quizzes++;
-        } else if (currentElement.typeOf === 'exercise') {
+        } else if (currentElement.kind === 'exercise') {
           currentCourse.totalExercises++;
           currentSection.exercises++;
-        } else if (currentElement.typeOf === 'article') {
+        } else if (currentElement.kind === 'article') {
           currentCourse.totalArticles++;
           currentSection.articles++;
         }

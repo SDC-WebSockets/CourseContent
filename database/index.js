@@ -8,7 +8,7 @@ mongoose.connect(dbUrl, {dbName: dbName});
 
 const elementSchema = mongoose.Schema({
   _id: Number,
-  typeOf: String,
+  kind: String,
   title: String,
   sectionSequence: Number,
   videoUrl: String,
