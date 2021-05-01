@@ -6,7 +6,7 @@ module.exports.course = (req, res) => {
 
   db.findCourse(req.query.courseId)
     .then((result) => {
-      console.log(result);
+      console.log(result[0]);
       delete result._id;
       res.send(result);
     });
