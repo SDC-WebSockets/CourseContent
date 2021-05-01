@@ -2,10 +2,12 @@ const db = require('../database/index.js');
 const helpers = require('./helpers.js');
 
 module.exports.course = (req, res) => {
+  console.log(req.query)
 
-  db.findCourse(req.query.id - 1)
+  db.findCourse(req.query.courseId)
     .then((result) => {
-      result = helpers.refactorCourseId(result);
+      console.log(result);
+      delete result._id;
       res.send(result);
     });
 

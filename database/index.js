@@ -47,7 +47,7 @@ const courseSchema = mongoose.Schema({
 const Course = mongoose.model('Course', courseSchema);
 
 module.exports.findCourse = async id => {
+  id = Number(id);
 
-  return await Course.findById(id).exec();
-
+  return await Course.find({courseId: id}).exec();
 };

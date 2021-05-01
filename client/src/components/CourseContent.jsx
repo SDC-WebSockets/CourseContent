@@ -17,7 +17,7 @@ class CourseContent extends React.Component {
 
   getCourseContents(id = 3) {
 
-    axios.get(`/course/item?id=${id}`)
+    axios.get(`/course/item?courseId=${id}`)
       .then((response) => {
         console.log(response.data);
         let state = response.data;
@@ -29,11 +29,11 @@ class CourseContent extends React.Component {
   render() {
 
     return (
-      <div onClick={this.getCourseContents}>
+      <div>
         <h2>{this.state.title}</h2>
-        {this.state.sections &&
+        {this.state.sections > 0 &&
         this.state.sections.map(section => (
-          <Section key={section._id} section={section} />
+          <Section key={section.courseId} section={section} />
         ))}
       </div>
     );
