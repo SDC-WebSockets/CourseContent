@@ -1,0 +1,35 @@
+#course {
+  margin: auto
+}
+
+.section {
+  margin: auto;
+}
+
+.element {
+  margin: auto;
+}
+
+.lecture {
+  margin: auto;
+}
+
+.article {
+  margin: auto;
+}
+
+.quiz {
+  margin: auto;
+}
+
+.excercise {
+  margin: auto;
+}
+
+.title {
+  float: left;
+}
+
+.duration {
+  float: right;
+}

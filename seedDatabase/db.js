@@ -1,26 +1,28 @@
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
+const generate = require('./generate.js');
 const config = require('../config.js');
 const dbUrl = process.env.dbUrl || config.dbUrl || 'mongodb://localhost/courseContent';
 const dbName = process.env.dbName || config.dbName;
 
-mongoose.connect(dbUrl, {dbName: dbName});
+mongoose.connect(dbUrl, { dbName: dbName }, () => {
+  mongoose.connection.db.dropDatabase();
+});
 
 const elementSchema = mongoose.Schema({
-  _id: Number,
+  elementId: Number,
   kind: String,
   title: String,
   sectionSequence: Number,
   videoUrl: String,
   videoPreview: Boolean,
-  thumbnailUrl: String,
   summary: String,
   elementLength: Date,
   numQuestions: Number
 });
 
 const sectionSchema = mongoose.Schema({
-  _id: Number,
+  sectionId: Number,
   title: String,
   sectionLength: Date,
   lectures: Number,
@@ -32,8 +34,7 @@ const sectionSchema = mongoose.Schema({
 });
 
 const courseSchema = mongoose.Schema({
-  _id: Number,
-  title: String,
+  courseId: Number,
   totalSections: Number,
   totalLectures: Number,
   totalExercises: Number,
@@ -46,8 +47,21 @@ const courseSchema = mongoose.Schema({
 
 const Course = mongoose.model('Course', courseSchema);
 
-module.exports.findCourse = async id => {
 
-  return await Course.findById(id).exec();
+const updateOne = (course) => {
+  return Course.updateOne({ courseId: course.courseId }, course, { upsert: true }).exec();
+};
 
+module.exports.seedDB = async () => {
+  let courses = generate.generateAllCourses(100);
+
+  var promises = [];
+
+  for (let i = 0; i < courses.length; i++) {
+    let promise = updateOne(courses[i]);
+    promises.push(promise);
+  }
+
+  await Promise.all(promises);
+  return 'added to mongoDb';
 };
