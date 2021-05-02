@@ -54,16 +54,7 @@ module.exports.findCourse = async id => {
 
 module.exports.findSection = async id => {
 
-  // return await Course.find({
-  //   sections: {
-  //     $elemMatch: {
-  //       sectionId: id
-  //     }
-  //   }
-  // }).exec();
-
   return await Course.aggregate()
-    .match({ 'sections.sectionId': id })
     .unwind('sections')
     .match({ 'sections.sectionId': id })
     .exec();
@@ -71,11 +62,6 @@ module.exports.findSection = async id => {
 };
 
 module.exports.findElement = async id => {
-
-  // return await Course.find([
-  //   { $unwind: sections },
-  //   { $elemMatch: {elementId: id}}
-  // ]).exec();
 
   return await Course.aggregate()
     .match({'sections.elements.elementId': id})
