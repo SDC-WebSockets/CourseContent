@@ -19,7 +19,7 @@ const elementSchema = mongoose.Schema({
   summary: String,
   elementLength: Date,
   numQuestions: Number
-});
+}, { versionKey: false });
 
 const sectionSchema = mongoose.Schema({
   sectionId: Number,
@@ -31,7 +31,7 @@ const sectionSchema = mongoose.Schema({
   articles: Number,
   courseSequence: Number,
   elements: [elementSchema]
-});
+}, { versionKey: false });
 
 const courseSchema = mongoose.Schema({
   courseId: Number,
@@ -43,7 +43,7 @@ const courseSchema = mongoose.Schema({
   courseLength: Date,
   updatedAt: Date,
   sections: [sectionSchema]
-});
+}, { versionKey: false });
 
 const Course = mongoose.model('Course', courseSchema);
 

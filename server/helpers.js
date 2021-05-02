@@ -1,5 +1,5 @@
 
-module.exports.refactorCourseId = (courses) => {
+module.exports.processCourse = (courses) => {
 
   for (let i = 0; i < courses.length; i++) {
     let course = courses[i];
@@ -8,7 +8,11 @@ module.exports.refactorCourseId = (courses) => {
     course.sections = module.exports.refactorSectionId(course.sections);
   }
 
-  return courses;
+  if (courses.length === 1) {
+    return courses[0];
+  } else {
+    throw Error('More than one courseId found');
+  }
 };
 
 module.exports.refactorSectionId = (sections) => {
@@ -32,4 +36,20 @@ module.exports.refactorElementId = (elements) => {
   }
 
   return elements;
+};
+
+module.exports.processElement = (course) => {
+
+  let element = course[0].sections.elements;
+  delete element._id;
+  return element;
+};
+
+module.exports.processSection = (course) => {
+
+  let section = course.sections;
+  delete section._id;
+  section.elements = module.exports.refactorElementId(section.elements);
+
+  return section;
 };

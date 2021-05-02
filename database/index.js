@@ -17,7 +17,7 @@ const elementSchema = mongoose.Schema({
   summary: String,
   elementLength: Date,
   numQuestions: Number
-});
+}, {versionKey: false});
 
 const sectionSchema = mongoose.Schema({
   _id: Number,
@@ -29,7 +29,7 @@ const sectionSchema = mongoose.Schema({
   articles: Number,
   courseSequence: Number,
   elements: [elementSchema]
-});
+}, { versionKey: false });
 
 const courseSchema = mongoose.Schema({
   _id: Number,
@@ -42,12 +42,46 @@ const courseSchema = mongoose.Schema({
   courseLength: Date,
   updatedAt: Date,
   sections: [sectionSchema]
-});
+}, { versionKey: false });
 
 const Course = mongoose.model('Course', courseSchema);
 
 module.exports.findCourse = async id => {
 
-  return await Course.findById(id).exec();
+  return await Course.find({courseId: id}).exec();
+
+};
+
+module.exports.findSection = async id => {
+
+  // return await Course.find({
+  //   sections: {
+  //     $elemMatch: {
+  //       sectionId: id
+  //     }
+  //   }
+  // }).exec();
+
+  return await Course.aggregate()
+    .match({ 'sections.sectionId': id })
+    .unwind('sections')
+    .match({ 'sections.sectionId': id })
+    .exec();
+
+};
+
+module.exports.findElement = async id => {
+
+  // return await Course.find([
+  //   { $unwind: sections },
+  //   { $elemMatch: {elementId: id}}
+  // ]).exec();
+
+  return await Course.aggregate()
+    .match({'sections.elements.elementId': id})
+    .unwind('sections')
+    .unwind('sections.elements')
+    .match({ 'sections.elements.elementId': id })
+    .exec();
 
 };

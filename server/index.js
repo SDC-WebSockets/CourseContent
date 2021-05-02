@@ -14,9 +14,9 @@ app.get('/content');
 
 app.get('/course/item', controller.course);
 
-app.get('/section/item');
+app.get('/section/item', controller.section);
 
-app.get('/element/item');
+app.get('/element/item', controller.element);
 
 app.listen(PORT, () => {
   console.log('Listening on port:', PORT);
