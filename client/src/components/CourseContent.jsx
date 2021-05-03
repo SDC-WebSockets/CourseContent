@@ -5,9 +5,9 @@ import moment from 'moment';
 
 const CourseContent = (props) => {
 
+  console.log(props.course);
   return (
     <div>
-      <h2>{props.course.title}</h2>
       {props.course.sections > 0 &&
         props.course.sections.map(section => (
           <Section key={section.courseId} section={section} />
@@ -15,7 +15,6 @@ const CourseContent = (props) => {
     </div>
   );
 
-
-}
+};
 
 export default CourseContent;

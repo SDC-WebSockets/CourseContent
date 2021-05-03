@@ -47,10 +47,9 @@ const courseSchema = mongoose.Schema({
 const Course = mongoose.model('Course', courseSchema);
 
 module.exports.findCourse = async id => {
-  id = Number(id);
+  console.log(typeof id)
 
   return await Course.find({courseId: id}).exec();
-<<<<<<< HEAD
 
 };
 
@@ -72,6 +71,4 @@ module.exports.findElement = async id => {
     .match({ 'sections.elements.elementId': id })
     .exec();
 
-=======
->>>>>>> e9a95d4e26a6fb584e9f13c855eb2382ffe40c2c
 };

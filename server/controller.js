@@ -2,10 +2,12 @@ const db = require('../database/index.js');
 const helpers = require('./helpers.js');
 
 module.exports.course = (req, res) => {
+  console.log(req.query)
 
   db.findCourse(Number(req.query.courseId))
     .then((result) => {
       result = helpers.processCourse(result);
+      console.log(result)
       res.send(result);
     });
 

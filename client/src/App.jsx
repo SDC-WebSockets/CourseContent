@@ -16,9 +16,8 @@ class App extends React.Component {
   getCourseContents(id = 3) {
     axios.get(`/course/item?courseId=${id}`)
       .then((response) => {
-        console.log(response.data[0]);
-        let state = response.data[0];
-        this.setState({course: state});
+        let course = response.data;
+        this.setState({course});
       });
   }
 
