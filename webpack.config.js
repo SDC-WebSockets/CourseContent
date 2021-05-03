@@ -13,7 +13,7 @@ module.exports = {
     port: 3000,
     watchContentBase: true
   },
-  mode: 'development',
+  // mode: 'development',
   module: {
     rules: [
       {
@@ -22,6 +22,11 @@ module.exports = {
         use: {
           loader: 'babel-loader'
         }
+      },
+      {
+        test: /\.js$/,
+        enforce: 'pre',
+        use: ['babel-loader', 'source-map-loader']
       }
       // {
       //   test: /\.css$/,

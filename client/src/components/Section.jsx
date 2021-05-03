@@ -28,7 +28,7 @@ const Section = (props) => {
       <span>{`${props.section.lectures + props.section.articles} lectures `}</span>
       <span>{timeString}</span>
       {props.section.elements.map(element =>
-        <Element element={element} key={element._id} />
+        <Element element={element} key={element.elementId} />
       )}
     </div>
   );

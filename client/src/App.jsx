@@ -1,31 +1,31 @@
 import React from 'react';
 import CourseContent from './components/CourseContent.jsx';
 import axios from 'axios';
+import {initialCourse} from '../../config.js';
 
 class App extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      isMounted: false,
-      course: {}
+      course: initialCourse
     };
     this.getCourseContents = this.getCourseContents.bind(this);
-    this._isMounted = false;
+    // this._isMounted = false;
   }
 
-  async componentDidMount() {
-    this._isMounted = true;
-    let response = await this.getCourseContents();
-    console.log(response);
-    if (this._isMounted) {
-      this.setState({course: response});
-    }
-  }
+  // async componentDidMount() {
+  //   // this._isMounted = true;
+  //   let response = await this.getCourseContents();
+  //   console.log(response);
+  //   // if (this._isMounted) {
+  //     this.setState({course: response});
+  //   // }
+  // }
 
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
+  // componentWillUnmount() {
+  //   // this._isMounted = false;
+  // }
 
   async getCourseContents(id = 3) {
     return await axios.get(`/course/item?courseId=${id}`)
