@@ -5,9 +5,10 @@ import moment from 'moment';
 
 const CourseContent = (props) => {
 
-  console.log(props.course);
+  // console.log(props.course);
   return (
     <div>
+      <div>{props.course.courseId}</div>
       {props.course.sections > 0 &&
         props.course.sections.map(section => (
           <Section key={section.courseId} section={section} />

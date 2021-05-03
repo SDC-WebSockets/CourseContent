@@ -6,22 +6,36 @@ class App extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      isMounted: false,
+      course: {}
+    };
+    this.getCourseContents = this.getCourseContents.bind(this);
+    this._isMounted = false;
   }
 
-  componentDidMount() {
-    this.getCourseContents();
+  async componentDidMount() {
+    this._isMounted = true;
+    let response = await this.getCourseContents();
+    console.log(response);
+    if (this._isMounted) {
+      this.setState({course: response});
+    }
   }
 
-  getCourseContents(id = 3) {
-    axios.get(`/course/item?courseId=${id}`)
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
+  async getCourseContents(id = 3) {
+    return await axios.get(`/course/item?courseId=${id}`)
       .then((response) => {
-        let course = response.data;
-        this.setState({course});
+        return response.data;
       });
   }
 
   render() {
+    console.log('this.state.course', this.state.course);
     return (
       <div>
         {this.state.course &&
