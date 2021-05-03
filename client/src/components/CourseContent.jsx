@@ -11,12 +11,12 @@ const CourseContent = (props) => {
     <div>
       <ContentHeader totalSections={props.course.totalSections} totalLectures={props.course.totalLectures} totalArticles={props.course.totalArticles} totalLength={props.course.totalLength}/>
       <br/>
-      <div>
+      <br/>
+      <div style={{maxWidth: '600px'}}>
         {props.course.sections.length > 0 &&
-          props.course.sections.map(section => {
-            console.log(section.sectionId);
-            return <Section key={section.sectionId} section={section} />;
-          })}
+          props.course.sections.map(section => (
+            <Section key={section.sectionId} section={section} />
+          ))}
       </div>
     </div>
   );
