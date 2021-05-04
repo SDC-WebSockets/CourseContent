@@ -7,7 +7,10 @@ const ContentHeader = (props) => (
     <h2>Course Content</h2>
     <div id="headerInfo">
       <span>
-        {props.totalSections} Sections • {props.totalLectures + props.totalArticles} Lectures • <span><span>{moment(props.totalLength).format('H[h ]M[m]')}</span> total length</span>
+        {`${props.totalSections} Sections • ${props.totalLectures + props.totalArticles} Lectures • `}
+        <span>
+          {`${moment(props.totalLength).format('H[h ]M[m]')} total length`}
+        </span>
       </span>
     </div>
     <button id="expandCollapse" type="button">

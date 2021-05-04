@@ -13,6 +13,7 @@ body {
   font-size: 1.6rem;
   color: #3c3b37;
   margin: 0;
+  max-width: 600px;
 }
 
 .div {
@@ -50,6 +51,11 @@ ul {
     margin-top: -1px;
 }
 
+.courseSectionsBlock {
+    max-width: 600px;
+    padding: 0px;
+}
+
 #contentHeader {
     max-width: 600px;
     max-height: 40px;
@@ -60,7 +66,7 @@ ul {
 }
 
 #headerInfo {
-    max-width: 310px;
+    max-width: 350px;
     /* max-height: 35px; */
     float: left;
 }
