@@ -5,10 +5,10 @@ import moment from 'moment';
 const Section = (props) => {
 
   const getDisplayTime = (time) => {
-    if (moment(time).format('HH') === '00') {
-      return moment(time).format('m[min]');
+    if (moment.utc(time).format('HH') === '00') {
+      return moment.utc(time).format('m[min]');
     } else {
-      return moment(time).format('H[hr ]m[min]');
+      return moment.utc(time).format('H[hr ]m[min]');
     }
   };
 
@@ -22,20 +22,25 @@ const Section = (props) => {
     }
   };
 
-  const longerTime = new Date(new Date(props.section.sectionLength).getTime() * 150);
+  const longerTime = new Date(new Date(props.section.sectionLength).getTime() * 60);
 
   const displayTime = getDisplayTime(longerTime);
 
   const title = shortenTitle(props.section.title);
 
   return (
-    <div>
-      <span style={{ float: 'left' }}>{title}</span>
-      <span style={{ float: 'right' }}>{`${props.section.lectures + props.section.articles} lectures`} • <span>{displayTime}</span></span>
-      {/* {props.section.elements.map(element =>
-        <Element element={element} key={element.elementId} />
-      )} */}
-      <br/>
+    <div style={{ height: '53px', backgroundColor: '#fbfbf8', border: '1px solid #dcdacc', marginTop: '-1px'}}>
+      <div>
+        <div>
+          <h3><span><span style={{ float: 'left' }}>{title}</span><span style={{ float: 'right' }}>{`${props.section.lectures + props.section.articles} lectures`} • <span>{displayTime}</span></span></span></h3>
+          <svg><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"></path></svg>
+        </div>
+        <div>
+          {/* {props.section.elements.map(element =>
+            <Element element={element} key={element.elementId} />
+          )} */}
+        </div>
+      </div>
     </div>
 
   );
