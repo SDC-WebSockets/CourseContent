@@ -56,6 +56,21 @@ ul {
     padding: 0px;
 }
 
+.preview {
+    float: right;
+    /* padding: 5px; */
+}
+
+.length {
+    float: right;
+    /* padding: 5px; */
+}
+
+.right-side-info {
+    float: right;
+    /* padding: 5px; */
+}
+
 #contentHeader {
     max-width: 600px;
     max-height: 40px;
@@ -69,4 +84,28 @@ ul {
     max-width: 350px;
     /* max-height: 35px; */
     float: left;
+}
+
+/* -----
+SVG Icons - svgicons.sparkk.fr
+----- */
+svg {
+    display: inline;
+    float: left;
+}
+
+.svg-icon {
+  width: 1em;
+  height: 1em;
+}
+
+.svg-icon path,
+.svg-icon polygon,
+.svg-icon rect {
+  fill: #4691f6;
+}
+
+.svg-icon circle {
+  stroke: #4691f6;
+  stroke-width: 1;
 }

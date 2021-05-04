@@ -1,18 +1,22 @@
 import React from 'react';
+import moment from 'moment';
+import icons from './svgIcons.js';
 
 const Article = (props) => {
 
   return (
-    <li>
+    <div>
+      <span dangerouslySetInnerHTML={{ __html: icons.vader }}></span>
       <div>
-        {/* <svg id="icon-play" viewBox="0 0 24 24"><path d="M2 12c0 5.525 4.475 10 10 10s10-4.475 10-10S17.525 2 12 2 2 6.475 2 12zm15 .114L9 16V8l8 4.114z"></path></svg> */}
-        <div>
-          <span>
-            {props.element.title}
-          </span>
-        </div>
+        <a>
+          {props.element.title}
+        </a>
+        <span className="right-side-info">{moment(props.element.elementLength).format('mm:ss')}</span>
+        {props.element.videoPreview &&
+          <a className="right-side-info" href={props.element.videoUrl}>Preview</a>
+        }
       </div>
-    </li>
+    </div>
   );
 
 

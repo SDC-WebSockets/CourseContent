@@ -1,18 +1,20 @@
 import React from 'react';
+import icons from './svgIcons.js';
 
 const Exercise = (props) => {
 
   return (
-    <li>
+    <div>
+      <span dangerouslySetInnerHTML={{ __html: icons.r2 }}></span>
       <div>
-        {/* <svg id="icon-play" viewBox="0 0 24 24"><path d="M2 12c0 5.525 4.475 10 10 10s10-4.475 10-10S17.525 2 12 2 2 6.475 2 12zm15 .114L9 16V8l8 4.114z"></path></svg> */}
-        <div>
-          <span>
-            {props.element.title}
-          </span>
-        </div>
+        <span>
+          {props.element.title}
+        </span>
+        <span className="right-side-info">
+          {`${props.element.numQuestions} question`}
+        </span>
       </div>
-    </li>
+    </div>
   );
 
 };
