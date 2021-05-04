@@ -2,53 +2,77 @@ import React from 'react';
 import Element from './Element.jsx';
 import moment from 'moment';
 
-const Section = (props) => {
+class Section extends React.Component {
 
-  const getDisplayTime = (time) => {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showElements: true
+    };
+    this.getDisplayTime = this.getDisplayTime.bind(this);
+    this.shortenTitle = this.shortenTitle.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  getDisplayTime(time) {
     if (moment.utc(time).format('HH') === '00') {
-      return moment.utc(time).format('m[min]');
+      const displayTime = moment.utc(time).format('m[min]');
+      this.setState({displayTime});
     } else {
-      return moment.utc(time).format('H[hr ]m[min]');
+      const displayTime = moment.utc(time).format('H[hr ]m[min]');
+      this.setState({displayTime});
     }
-  };
+  }
 
-  const shortenTitle = (title) => {
-    if (title.length > 40) {
-      let charArr = title.split('').slice(0, 40);
-      charArr.push('...');
-      return charArr.join('');
+  shortenTitle(title) {
+    if (title.length > 30) {
+      for (let i = 30; i < title.length; i++) {
+        if (title[i] === ' ') {
+          let charArr = title.split('').slice(0, i);
+          charArr.push('...');
+          const shortenedTitle = charArr.join('');
+          this.setState({title: shortenedTitle});
+          break;
+        }
+      }
     } else {
-      return title;
+      this.setState({title});
     }
-  };
+  }
 
-  const longerTime = new Date(new Date(props.section.sectionLength).getTime() * 60);
+  handleClick(e) {
+    e.preventDefault();
+    console.log(e);
+    console.log('click');
+  }
 
-  const displayTime = getDisplayTime(longerTime);
+  componentDidMount() {
+    this.getDisplayTime(this.props.section.sectionLength);
+    this.shortenTitle(this.props.section.title);
+  }
 
-  const title = shortenTitle(props.section.title);
-
-  return (
-    <div>
+  render() {
+    return (
       <div>
-        <div style={{ backgroundColor: '#fbfbf8', height: '53px', border: '1px solid #dcdacc', marginTop: '-1px' }}>
-          <h3><span><span style={{ float: 'left' }}>{title}</span><span style={{ float: 'right' }}>{`${props.section.lectures + props.section.articles} lectures`} • <span>{displayTime}</span></span></span></h3>
-          {/* <svg><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"></path></svg> */}
-        </div>
-        <div style={{ border: '1px solid #dcdacc', marginTop: '-1px' }}>
-          <div>
-            <ul>
-              {props.section.elements.map(element =>
-                <Element element={element} key={element.elementId} kind={element.kind} />
-              )}
-            </ul>
+        <div>
+          <div onClick={this.handleClick.bind(this)} style={{ backgroundColor: '#fbfbf8', height: '53px', border: '1px solid #dcdacc', marginTop: '-1px' }}>
+            <h3><span><span style={{ float: 'left' }}>{this.state.title}</span><span style={{ float: 'right' }}>{`${this.props.section.lectures + this.props.section.articles} lectures`} • <span>{this.state.displayTime}</span></span></span></h3>
+            {/* <svg><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"></path></svg> */}
+          </div>
+          <div style={{ border: '1px solid #dcdacc', marginTop: '-1px' }}>
+            <div>
+              <ul>
+                {this.props.section.elements.map(element =>
+                  <Element element={element} key={`element${element.elementId}`} kind={element.kind} />
+                )}
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    );
+  }
 
-  );
-
-};
+}
 
 export default Section;

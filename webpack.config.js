@@ -27,11 +27,11 @@ module.exports = {
         test: /\.js$/,
         enforce: 'pre',
         use: ['babel-loader', 'source-map-loader']
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader']
       }
-      // {
-      //   test: /\.css$/,
-      //   use: ['style-loader', 'css-loader']
-      // }
     ]
   },
   plugins: [new HtmlWebpackPlugin({ template: './client/src/index.html' })]

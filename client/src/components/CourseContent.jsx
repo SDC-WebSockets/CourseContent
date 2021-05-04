@@ -3,6 +3,7 @@ import axios from 'axios';
 import Section from './Section.jsx';
 import moment from 'moment';
 import ContentHeader from './ContentHeader.jsx';
+import '../main.css';
 
 class CourseContent extends React.Component {
 
@@ -40,7 +41,7 @@ class CourseContent extends React.Component {
           <div style={{ maxWidth: '600px', padding: '0'}}>
             {this.state.course.sections.length > 0 &&
               this.state.course.sections.map(section => (
-                <Section key={section.sectionId} section={section} />
+                <Section key={`section${section.sectionId}`} section={section} />
               ))}
           </div>
         </div>
