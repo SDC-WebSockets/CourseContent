@@ -55,11 +55,11 @@ class Section extends React.Component {
     return (
       <div>
         <div>
-          <div onClick={this.handleClick.bind(this)} style={{ backgroundColor: '#fbfbf8', height: '53px', border: '1px solid #dcdacc', marginTop: '-1px' }}>
-            <h3><span><span style={{ float: 'left' }}>{this.state.title}</span><span style={{ float: 'right' }}>{`${this.props.section.lectures + this.props.section.articles} lectures`} • <span>{this.state.displayTime}</span></span></span></h3>
+          <div onClick={this.handleClick.bind(this)} className="sectionHeader">
+            <h3><span><span className="sectionTitle">{this.state.title}</span><span className="sectionTotalLectures">{`${this.props.section.lectures + this.props.section.articles} lectures`} • <span>{this.state.displayTime}</span></span></span></h3>
             {/* <svg><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"></path></svg> */}
           </div>
-          <div style={{ border: '1px solid #dcdacc', marginTop: '-1px' }}>
+          <div className="sectionElementsBlock">
             <div>
               <ul>
                 {this.props.section.elements.map(element =>

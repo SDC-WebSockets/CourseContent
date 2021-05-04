@@ -30,17 +30,37 @@ ul {
     list-style-type: none;
 }
 
+.sectionHeader {
+    background-color: #fbfbf8;
+    height: 53px;
+    border: 1px solid #dcdacc;
+    margin-top: -1px;
+}
+
+.sectionTitle {
+    float: left;
+}
+
+.sectionTotalLectures {
+    float: right
+}
+
+.sectionElementsBlock {
+    border: 1px solid #dcdacc;
+    margin-top: -1px;
+}
+
 #contentHeader {
-    max-width: '600px';
-    /* max-height: '40px'; */
+    max-width: 600px;
+    max-height: 40px;
 }
 
 #expandCollapse {
-    float: 'right'
+    float: right
 }
 
 #headerInfo {
-    max-width: '310px';
-    max-height: '35px';
-    float: 'left';
+    max-width: 310px;
+    /* max-height: 35px; */
+    float: left;
 }
