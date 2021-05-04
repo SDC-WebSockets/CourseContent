@@ -36,9 +36,13 @@ const Section = (props) => {
           <svg><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"></path></svg>
         </div>
         <div>
-          {/* {props.section.elements.map(element =>
-            <Element element={element} key={element.elementId} />
-          )} */}
+          <div>
+            <ul>
+              {props.section.elements.map(element =>
+                <Element element={element} key={element.elementId} kind={element.kind} />
+              )}
+            </ul>
+          </div>
         </div>
       </div>
     </div>

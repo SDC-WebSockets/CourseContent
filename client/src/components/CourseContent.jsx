@@ -30,10 +30,8 @@ class CourseContent extends React.Component {
   render() {
 
     if (!this.state.isLoaded) {
-      // console.log(this.state.isLoaded);
       return <div>Loading...</div>;
     } else {
-      // console.log(this.state.isLoaded);
       return (
         <div>
           <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} totalLength={this.state.course.totalLength}/>
