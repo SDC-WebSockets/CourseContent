@@ -39,7 +39,7 @@ class CourseContent extends React.Component {
           <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} totalLength={this.state.course.totalLength}/>
           <br/>
           <br/>
-          <div style={{ maxWidth: '600px', padding: '0', listStyleType: 'none'}}>
+          <div style={{ maxWidth: '600px', padding: '0'}}>
             {this.state.course.sections.length > 0 &&
               this.state.course.sections.map(section => (
                 <Section key={section.sectionId} section={section} />
@@ -51,6 +51,6 @@ class CourseContent extends React.Component {
 
   }
 
-};
+}
 
 export default CourseContent;
