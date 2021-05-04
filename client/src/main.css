@@ -61,6 +61,8 @@ button {
     height: 53px;
     border: 1px solid #dcdacc;
     margin-top: -1px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .sectionTitle {
@@ -110,7 +112,7 @@ button {
 }
 
 #headerInfo {
-    max-width: 350px;
+    max-width: 450px;
     /* max-height: 35px; */
     float: left;
 }
