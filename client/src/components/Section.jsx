@@ -29,13 +29,13 @@ const Section = (props) => {
   const title = shortenTitle(props.section.title);
 
   return (
-    <div style={{ height: '53px', backgroundColor: '#fbfbf8', border: '1px solid #dcdacc', marginTop: '-1px'}}>
+    <div>
       <div>
-        <div>
+        <div style={{ backgroundColor: '#fbfbf8', height: '53px', border: '1px solid #dcdacc', marginTop: '-1px' }}>
           <h3><span><span style={{ float: 'left' }}>{title}</span><span style={{ float: 'right' }}>{`${props.section.lectures + props.section.articles} lectures`} • <span>{displayTime}</span></span></span></h3>
-          <svg><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"></path></svg>
+          {/* <svg><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6-1.41-1.41z"></path></svg> */}
         </div>
-        <div>
+        <div style={{ border: '1px solid #dcdacc', marginTop: '-1px' }}>
           <div>
             <ul>
               {props.section.elements.map(element =>
