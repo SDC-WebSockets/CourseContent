@@ -29,3 +29,18 @@ ul {
     padding: 0;
     list-style-type: none;
 }
+
+#contentHeader {
+    max-width: '600px';
+    /* max-height: '40px'; */
+}
+
+#expandCollapse {
+    float: 'right'
+}
+
+#headerInfo {
+    max-width: '310px';
+    max-height: '35px';
+    float: 'left';
+}

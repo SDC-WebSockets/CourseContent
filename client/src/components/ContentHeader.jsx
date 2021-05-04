@@ -3,14 +3,14 @@ import moment from 'moment';
 
 const ContentHeader = (props) => (
 
-  <div style={{ maxWidth: '600px', maxHeight: '40px' }}>
+  <div id="contentHeader">
     <h2>Course Content</h2>
-    <div style={{ maxWidth: '310px', maxHeigth: '35px', float: 'left' }}>
+    <div id="headerInfo">
       <span>
         {props.totalSections} Sections • {props.totalLectures + props.totalArticles} Lectures • <span><span>{moment(props.totalLength).format('H[h ]M[m]')}</span> total length</span>
       </span>
     </div>
-    <button style={{ float: 'right' }} type="button">
+    <button id="expandCollapse" type="button">
       <span>
         Expand all Sections
       </span>
