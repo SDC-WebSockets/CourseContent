@@ -6,8 +6,8 @@ const Lecture = (props) => {
 
   return (
     <div>
-      <span dangerouslySetInnerHTML={{__html: icons.boba}}></span>
-      <div>
+      <div className="hasChild">
+        <span dangerouslySetInnerHTML={{__html: icons.boba}}></span>
         <a>
           {props.element.title}
         </a>

@@ -6,8 +6,8 @@ const Article = (props) => {
 
   return (
     <div>
-      <span dangerouslySetInnerHTML={{ __html: icons.vader }}></span>
-      <div>
+      <div className="hasChild">
+        <span dangerouslySetInnerHTML={{ __html: icons.vader }}></span>
         <a>
           {props.element.title}
         </a>

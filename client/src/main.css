@@ -31,6 +31,10 @@ ul {
     list-style-type: none;
 }
 
+.hasChild > * {
+    margin: 5px;
+}
+
 .sectionHeader {
     background-color: #fbfbf8;
     height: 53px;
@@ -51,6 +55,10 @@ ul {
     margin-top: -1px;
 }
 
+.elementsContainer {
+    margin: 15px;
+}
+
 .courseSectionsBlock {
     max-width: 600px;
     padding: 0px;
@@ -68,7 +76,7 @@ ul {
 
 .right-side-info {
     float: right;
-    /* padding: 5px; */
+    margin: 0px;
 }
 
 #contentHeader {

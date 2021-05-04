@@ -5,8 +5,8 @@ const Exercise = (props) => {
 
   return (
     <div>
-      <span dangerouslySetInnerHTML={{ __html: icons.r2 }}></span>
-      <div>
+      <div className="hasChild">
+        <span dangerouslySetInnerHTML={{ __html: icons.r2 }}></span>
         <span>
           {props.element.title}
         </span>
