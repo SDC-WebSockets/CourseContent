@@ -37,8 +37,10 @@
     "mp4-stream": "^3.1.3",
     "nodemon": "^2.0.7",
     "path": "^0.12.7",
+    "qs": "^6.10.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-router-dom": "^5.2.0",
     "untegrity": "^1.0.7"
   },
   "devDependencies": {

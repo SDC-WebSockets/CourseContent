@@ -23,7 +23,6 @@ class CourseContent extends React.Component {
           isLoaded: true,
           course: response.data
         });
-        console.log(response.data);
       });
 
   }
