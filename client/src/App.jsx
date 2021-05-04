@@ -8,9 +8,9 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      course: initialCourse
+      courseId: 3
     };
-    this.getCourseContents = this.getCourseContents.bind(this);
+    // this.getCourseContents = this.getCourseContents.bind(this);
     // this._isMounted = false;
   }
 
@@ -27,20 +27,20 @@ class App extends React.Component {
   //   // this._isMounted = false;
   // }
 
-  async getCourseContents(id = 3) {
-    return await axios.get(`/course/item?courseId=${id}`)
-      .then((response) => {
-        return response.data;
-      });
-  }
+  // async getCourseContents(id = 3) {
+  //   return await axios.get(`/course/item?courseId=${id}`)
+  //     .then((response) => {
+  //       return response.data;
+  //     });
+  // }
 
   render() {
-    console.log('this.state.course', this.state.course);
+    // console.log('this.state.course', this.state.course);
     return (
       <div>
-        {this.state.course &&
-          <CourseContent course={this.state.course} />
-        }
+        {/* {this.state.course && */}
+        <CourseContent courseId={this.state.courseId} />
+        {/* } */}
       </div>
     );
   }
