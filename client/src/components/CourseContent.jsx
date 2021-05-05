@@ -1,42 +1,51 @@
 import React from 'react';
 import axios from 'axios';
 import Section from './Section.jsx';
-import moment from 'moment';
+import ContentHeader from './ContentHeader.jsx';
+import '../main.css';
 
 class CourseContent extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
-    this.getCourseContents = this.getCourseContents.bind(this);
+    this.state = {
+      course: {},
+      isLoaded: false
+    };
   }
 
   componentDidMount() {
-    this.getCourseContents();
-  }
 
-  getCourseContents(id = 3) {
-
-    axios.get(`/course/item?id=${id}`)
+    axios.get(`/course/item?courseId=${this.props.courseId}`)
       .then((response) => {
-        console.log(response.data);
-        let state = response.data;
-        this.setState(state);
+        this.setState({
+          isLoaded: true,
+          course: response.data
+        });
+        console.log(response);
       });
 
   }
 
   render() {
 
-    return (
-      <div onClick={this.getCourseContents}>
-        <h2>{this.state.title}</h2>
-        {this.state.sections &&
-        this.state.sections.map(section => (
-          <Section key={section._id} section={section} />
-        ))}
-      </div>
-    );
+    if (!this.state.isLoaded) {
+      return <div>Loading...</div>;
+    } else {
+      return (
+        <div>
+          <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength}/>
+          <br/>
+          <br/>
+          <div id="courseSectionsBlock">
+            {this.state.course.sections.length > 0 &&
+              this.state.course.sections.map(section => (
+                <Section key={`section${section.sectionId}`} section={section} />
+              ))}
+          </div>
+        </div>
+      );
+    }
 
   }
 

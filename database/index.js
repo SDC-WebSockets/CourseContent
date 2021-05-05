@@ -1,10 +1,13 @@
 const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
 const config = require('../config.js');
 const dbUrl = process.env.dbUrl || config.dbUrl || 'mongodb://localhost/courseContent';
 const dbName = process.env.dbName || config.dbName;
 
-mongoose.connect(dbUrl, {dbName: dbName});
+mongoose.connect(dbUrl, {
+  dbName: dbName,
+  useUnifiedTopology: true,
+  useNewUrlParser: true
+});
 
 const elementSchema = mongoose.Schema({
   _id: Number,
@@ -17,7 +20,7 @@ const elementSchema = mongoose.Schema({
   summary: String,
   elementLength: Date,
   numQuestions: Number
-});
+}, {versionKey: false});
 
 const sectionSchema = mongoose.Schema({
   _id: Number,
@@ -29,7 +32,7 @@ const sectionSchema = mongoose.Schema({
   articles: Number,
   courseSequence: Number,
   elements: [elementSchema]
-});
+}, { versionKey: false });
 
 const courseSchema = mongoose.Schema({
   _id: Number,
@@ -42,12 +45,33 @@ const courseSchema = mongoose.Schema({
   courseLength: Date,
   updatedAt: Date,
   sections: [sectionSchema]
-});
+}, { versionKey: false });
 
 const Course = mongoose.model('Course', courseSchema);
 
 module.exports.findCourse = async id => {
 
-  return await Course.findById(id).exec();
+  return await Course.find({courseId: id}, {_id: 0}).exec();
+
+};
+
+module.exports.findSection = async id => {
+
+  return await Course.aggregate()
+    .unwind('sections')
+    .match({ 'sections.sectionId': id })
+    .project({ 'sections._id': -1 })
+    .exec();
+
+};
+
+module.exports.findElement = async id => {
+
+  return await Course.aggregate()
+    .match({'sections.elements.elementId': id})
+    .unwind('sections')
+    .unwind('sections.elements')
+    .match({ 'sections.elements.elementId': id })
+    .exec();
 
 };

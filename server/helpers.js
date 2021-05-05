@@ -1,35 +1,51 @@
+const refactorElementIds = (elements) => {
 
-module.exports.refactorCourseId = (courses) => {
-
-  for (let i = 0; i < courses.length; i++) {
-    let course = courses[i];
-    course['courseId'] = course._id;
-    delete course._id;
-    course.sections = module.exports.refactorSectionId(course.sections);
+  for (let i = 0; i < elements.length; i++) {
+    let element = elements[i];
+    delete element._id;
   }
 
-  return courses;
+  return elements;
 };
 
-module.exports.refactorSectionId = (sections) => {
+const refactorSectionIds = (sections) => {
 
   for (let i = 0; i < sections.length; i++) {
     let section = sections[i];
-    section['sectionId'] = section._id;
     delete section._id;
-    section.elements = module.exports.refactorElementId(section.elements);
+    section.elements = refactorElementIds(section.elements);
   }
 
   return sections;
 };
 
-module.exports.refactorElementId = (elements) => {
+module.exports.processCourses = (courses) => {
 
-  for (let i = 0; i < elements.length; i++) {
-    let element = elements[i];
-    element['elementId'] = element._id;
-    delete element._id;
+  for (let i = 0; i < courses.length; i++) {
+    let course = courses[i];
+    delete course._id;
+    course.sections = refactorSectionIds(course.sections);
   }
 
-  return elements;
+  if (courses.length === 1) {
+    return courses[0];
+  } else {
+    throw Error('More than one courseId found');
+  }
+};
+
+module.exports.processElement = (course) => {
+
+  let element = course[0].sections.elements;
+  delete element._id;
+  return element;
+};
+
+module.exports.processSection = (course) => {
+
+  let section = course[0].sections;
+  delete section._id;
+  section.elements = refactorElementIds(section.elements);
+
+  return section;
 };
