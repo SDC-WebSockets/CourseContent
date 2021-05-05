@@ -21,6 +21,7 @@ class App extends React.Component {
     const queries = qs.parse(window.location.search);
     const courseId = Number(queries['?courseId']);
     this.setState({courseId});
+    console.log()
   }
 
   render() {
