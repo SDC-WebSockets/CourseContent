@@ -51,7 +51,7 @@ const Course = mongoose.model('Course', courseSchema);
 
 module.exports.findCourse = async id => {
 
-  return await Course.find({courseId: id}).exec();
+  return await Course.find({courseId: id}, {_id: 0}).exec();
 
 };
 
@@ -60,6 +60,7 @@ module.exports.findSection = async id => {
   return await Course.aggregate()
     .unwind('sections')
     .match({ 'sections.sectionId': id })
+    .project({ 'sections._id': -1 })
     .exec();
 
 };

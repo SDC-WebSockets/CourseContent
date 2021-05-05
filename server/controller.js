@@ -5,8 +5,17 @@ module.exports.course = (req, res) => {
 
   db.findCourse(Number(req.query.courseId))
     .then((result) => {
-      result = helpers.processCourse(result);
+      result = helpers.processCourses(result);
       res.send(result);
+    })
+    .catch((err) => {
+      if (err) {
+        console.log(err);
+        res.status(400);
+        res.send(err);
+      } else {
+        res.sendStatus(400);
+      }
     });
 
 };
