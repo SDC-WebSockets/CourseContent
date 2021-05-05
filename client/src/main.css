@@ -58,7 +58,7 @@ button {
 
 .sectionHeader {
     background-color: #fbfbf8;
-    height: 53px;
+    height: 52px;
     border: 1px solid #dcdacc;
     margin-top: -1px;
     padding-left: 10px;
@@ -67,10 +67,16 @@ button {
 
 .sectionTitle {
     float: left;
+    font-size: 1.6rem;
+    line-height: 1.2;
+    font-weight: 700;
 }
 
 .sectionTotalLectures {
-    float: right
+    float: right;
+    font-weight: 400;
+    line-height: 1.4;
+    font-size: 1.4rem;
 }
 
 .sectionElementsBlock {
