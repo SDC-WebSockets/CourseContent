@@ -1,15 +1,32 @@
 const mongoose = require('mongoose');
 const generate = require('./generate.js');
-const config = require('../config.js');
-const dbUrl = process.env.dbUrl || config.dbUrl || 'mongodb://localhost/courseContent';
-const dbName = process.env.dbName || config.dbName;
+// const config = require('../config.js');
+
+
+// /////////////////////////////
+// // Uncomment if using remote db
+// const dbUrl = process.env.dbUrl || config.dbUrl || 'mongodb://localhost/courseContent';
+// const dbName = process.env.dbName || config.dbName;
+// const local = false;
+// /////////////////////////////
+
+
+///////////////////////////////
+// Uncomment if using local db
+const dbUrl = 'mongodb://localhost/courseContent';
+const dbName = 'courseContent';
+const local = true;
+////////////////////////////////
+
+
 
 mongoose.connect(dbUrl, {
   dbName: dbName,
   useUnifiedTopology: true,
   useNewUrlParser: true
 }, () => {
-  mongoose.connection.db.dropDatabase();
+  // Comment out this line if using local
+  // mongoose.connection.db.dropDatabase();
 });
 
 const elementSchema = mongoose.Schema({
@@ -64,6 +81,7 @@ module.exports.seedDB = async () => {
     let promise = updateOne(courses[i]);
     promises.push(promise);
   }
+  console.log(courses[0].sections[0].elements[2]);
 
   await Promise.all(promises);
   return 'added to mongoDb';

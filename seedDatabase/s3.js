@@ -20,11 +20,6 @@ const params = {
   }
 };
 
-// s3.createBucket(params, function(err, data) {
-//   if (err) console.log(err, err.stack);
-//   else console.log('Bucket Created Successfully', data.Location);
-// });
-
 const emptyBucket = async () => {
   console.log(`Emptying Bucket ${BUCKET_NAME}`);
 
@@ -66,8 +61,8 @@ const uploadOneFile = async (file) => {
 
 module.exports.videosArray = [];
 
-module.exports.uploadDirectory = async (directory, dryRun = false) => {
-  if (!dryRun) {
+module.exports.uploadDirectory = async (directory, isLocal = false) => {
+  if (!isLocal) {
     await emptyBucket();
     console.log('Beginning upload to S3');
     let files = fs.readdirSync(directory);
@@ -110,19 +105,7 @@ module.exports.uploadDirectory = async (directory, dryRun = false) => {
 
     ];
     module.exports.videosArray = contentArr;
+    console.log(module.exports.videosArray);
     return 'Dry run complete';
   }
 };
-
-// const listContents = async () => {
-//   let fileUrls = [];
-
-//   const { Contents } = await s3.listObjects({ Bucket: BUCKET_NAME }).promise();
-//   // console.log(Contents);
-//   for (let i = 0; i < Contents.length; i++) {
-//     let url = `https://${BUCKET_NAME}.s3.eu-west-2.amazonaws.com/${Contents[i].Key}`;
-//     fileUrls.push(url);
-//   }
-
-//   return fileUrls;
-// };
