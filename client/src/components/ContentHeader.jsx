@@ -9,7 +9,7 @@ const ContentHeader = (props) => (
       <span>
         {`${props.totalSections} Sections • ${props.totalLectures + props.totalArticles} Lectures • `}
         <span>
-          {`${moment(props.totalLength).format('H[h ]M[m]')} total length`}
+          {`${moment.utc(props.courseLength).format('H[h ]M[m]')} total length`}
         </span>
       </span>
     </div>

@@ -23,6 +23,7 @@ class CourseContent extends React.Component {
           isLoaded: true,
           course: response.data
         });
+        console.log(response);
       });
 
   }
@@ -34,7 +35,7 @@ class CourseContent extends React.Component {
     } else {
       return (
         <div>
-          <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} totalLength={this.state.course.totalLength}/>
+          <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength}/>
           <br/>
           <br/>
           <div id="courseSectionsBlock">
