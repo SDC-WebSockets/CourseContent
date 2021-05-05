@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
 const generate = require('./generate.js');
 const config = require('../config.js');
 const dbUrl = process.env.dbUrl || config.dbUrl || 'mongodb://localhost/courseContent';
 const dbName = process.env.dbName || config.dbName;
 
-mongoose.connect(dbUrl, { dbName: dbName }, () => {
+mongoose.connect(dbUrl, {
+  dbName: dbName,
+  useUnifiedTopology: true,
+  useNewUrlParser: true
+}, () => {
   mongoose.connection.db.dropDatabase();
 });
 
