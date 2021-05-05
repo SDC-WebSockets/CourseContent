@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
-mongoose.Promise = global.Promise;
 const generate = require('./generate.js');
 const config = require('../config.js');
 const dbUrl = process.env.dbUrl || config.dbUrl || 'mongodb://localhost/courseContent';
 const dbName = process.env.dbName || config.dbName;
 
-mongoose.connect(dbUrl, { dbName: dbName }, () => {
+mongoose.connect(dbUrl, {
+  dbName: dbName,
+  useUnifiedTopology: true,
+  useNewUrlParser: true
+}, () => {
   mongoose.connection.db.dropDatabase();
 });
 
@@ -19,7 +22,7 @@ const elementSchema = mongoose.Schema({
   summary: String,
   elementLength: Date,
   numQuestions: Number
-});
+}, { versionKey: false });
 
 const sectionSchema = mongoose.Schema({
   sectionId: Number,
@@ -31,7 +34,7 @@ const sectionSchema = mongoose.Schema({
   articles: Number,
   courseSequence: Number,
   elements: [elementSchema]
-});
+}, { versionKey: false });
 
 const courseSchema = mongoose.Schema({
   courseId: Number,
@@ -43,7 +46,7 @@ const courseSchema = mongoose.Schema({
   courseLength: Date,
   updatedAt: Date,
   sections: [sectionSchema]
-});
+}, { versionKey: false });
 
 const Course = mongoose.model('Course', courseSchema);
 

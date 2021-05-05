@@ -6,11 +6,13 @@ const generate = require('./generate.js');
 const db = require('./db.js');
 
 const runScript = async (dryRun = false) => {
-  await search.searchVideos();
-  await verify.checkAll();
+  if (!dryRun) {
+    await search.searchVideos();
+    await verify.checkAll();
+  }
   await s3.uploadDirectory(path.join(__dirname, 'videos'), dryRun);
   const response = await db.seedDB();
   console.log(response);
 };
 
-runScript();
+runScript(true);
