@@ -26,10 +26,12 @@ module.exports = {
       {
         test: /\.js$/,
         enforce: 'pre',
+        exclude: /node_modules/,
         use: ['babel-loader', 'source-map-loader']
       },
       {
         test: /\.css$/i,
+        exclude: /node_modules/,
         use: ['style-loader', 'css-loader']
       }
     ]
