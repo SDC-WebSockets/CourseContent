@@ -1,5 +1,6 @@
 --Client--
-
+Renders the correct number of sections received from API
+Each section renders the correct number of elements
 
 --Server--
 Server returns appropriate data at all endpoints
