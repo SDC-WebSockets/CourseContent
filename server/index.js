@@ -5,11 +5,10 @@ const controller = require('./controller.js');
 const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 9800;
 
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
-app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
+app.use('/content/item', express.static(path.join(__dirname, '..', 'client', 'dist')));
 
 app.get('/course/item', controller.course);
 
