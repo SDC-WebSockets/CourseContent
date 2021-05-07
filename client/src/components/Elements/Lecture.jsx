@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import icons from './svgIcons.js';
+import style from '../../cssModules/subElement.css';
 
 const Lecture = (props) => {
 
@@ -13,7 +14,7 @@ const Lecture = (props) => {
         </a>
         <span className="right-side-info">{moment(props.element.elementLength).format('mm:ss')}</span>
         {props.element.videoPreview &&
-            <a className="right-side-info" href={props.element.videoUrl}>Preview</a>
+            <a className="right-side-info preview" href={props.element.videoUrl}>Preview</a>
         }
       </div>
     </div>

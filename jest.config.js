@@ -1,7 +1,7 @@
 /*
  * For a detailed explanation regarding each configuration property, visit:
  * https://jestjs.io/docs/en/configuration.html
- * 
+ *
  */
 
 process.env.TZ = process.env.TZ || 'GMT';
@@ -29,7 +29,12 @@ module.exports = {
   moduleFileExtensions: ['js', 'jsx', 'json', 'node'],
 
   moduleNameMapper: {
+<<<<<<< HEAD
     '^.+\\.(css|less)$': '<rootDir>/test/CSSStub.js'
+=======
+    // '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/test/__mocks__/fileMock.js',
+    '\.css$': 'identity-mock-proxy'
+>>>>>>> 1acc5a037a1f6c5d1c862eecace718c91cbff93b
   },
 
   // The paths to modules that run some code to configure or set up the testing environment before each test

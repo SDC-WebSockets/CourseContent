@@ -5,7 +5,6 @@ const controller = require('./controller.js');
 const bodyParser = require('body-parser');
 const PORT = process.env.PORT || 9800;
 
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
