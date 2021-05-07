@@ -33,8 +33,8 @@ describe('CourseComponent', () => {
     const wrapper = mount(<CourseContent />);
     wrapper.setState({course: SampleTestData});
     console.log(SampleTestData.sections.length);
-    console.log(wrapper.find(Section));
-    expect(wrapper.find(Section)).toHaveLength(SampleTestData.sections.length);
+    console.log(wrapper.find(Section).length);
+    expect(wrapper.findAll(Section).length).toBe(SampleTestData.sections.length);
   });
 
 });

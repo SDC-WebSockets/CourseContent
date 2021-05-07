@@ -1185,7 +1185,7 @@ const SampleTestData = {
     },
     {
       'sectionId': 153,
-      'title': '',
+      'title': 'There was no',
       'sectionLength': '1970-01-01T00:01:48.532Z',
       'lectures': 5,
       'quizzes': 0,
