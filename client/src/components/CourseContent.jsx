@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import Section from './Section.jsx';
 import ContentHeader from './ContentHeader.jsx';
-// import '../main.css';
+import styles from '../main.css';
 
 class CourseContent extends React.Component {
 
