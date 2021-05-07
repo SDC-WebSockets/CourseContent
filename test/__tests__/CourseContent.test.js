@@ -18,6 +18,9 @@ describe('CourseComponent', () => {
     expect(CourseContent.prototype.componentDidMount).toHaveProperty('callCount', 1);
   });
 
-  // it('render')
+  it('renders all immediate sub-components', () => {
+    const wrapper = mount(<CourseContent />);
+    expect(wrapper.contains);
+  });
 
 });
