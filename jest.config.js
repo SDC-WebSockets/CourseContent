@@ -28,6 +28,10 @@ module.exports = {
   // An array of file extensions your modules use
   moduleFileExtensions: ['js', 'jsx', 'json', 'node'],
 
+  moduleNameMapper: {
+    '^.+\\.(css|less)$': '<rootDir>/test/CSSStub.js'
+  },
+
   // The paths to modules that run some code to configure or set up the testing environment before each test
   setupFiles: ['<rootDir>/enzyme.config.js'],
   // A list of paths to modules that run some code to configure or set up the testing framework before each test
@@ -51,13 +55,5 @@ module.exports = {
   // Indicates whether each individual test should be reported during the run
   verbose: true,
 
-
-
-  transform: {
-    '^.+\\.(js|jsx)?$': 'babel-jest'
-  },
-  moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1'
-  },
 
 };
