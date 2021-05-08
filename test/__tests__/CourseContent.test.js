@@ -1,14 +1,13 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 import sinon from 'sinon';
-import SampleReturnData from '../sampleTestData.js';
+import { SampleReturnData } from '../sampleTestData.js';
 
 import CourseContent from '../../client/src/components/CourseContent.jsx';
 import Section from '../../client/src/components/Section.jsx';
 import ContentHeader from '../../client/src/components/ContentHeader.jsx';
-// import { it } from 'date-fns/locale';
 
-xdescribe('CourseComponent', () => {
+describe('CourseComponent', () => {
 
   it('exists', () => {
     const wrapper = mount(<CourseContent />);
@@ -22,16 +21,16 @@ xdescribe('CourseComponent', () => {
     expect(wrapper.state('isLoaded')).toEqual(true);
   });
 
-  it('receives a course object', () => {
+  xit('receives a course object', () => {
 
   });
 
-  it('renders correct number of sections', () => {
+  xit('renders correct number of sections', () => {
     const wrapper = mount(<CourseContent />);
     wrapper.setState({course: SampleTestData});
     console.log(SampleTestData.sections.length);
     console.log(wrapper.find(Section).length);
-    expect(wrapper.findAll(Section).length).toBe(SampleTestData.sections.length);
+    expect(wrapper.findAll(Section).length).toBe(SampleReturnData.sections.length);
   });
 
 });
