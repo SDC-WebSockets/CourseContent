@@ -34,7 +34,7 @@ module.exports.element = (req, res) => {
 
   db.findElement(Number(req.query.elementId))
     .then((result) => {
-      result = helpers.processElement(result);
+      // result = helpers.processElement(result);
       res.send(result);
     });
 

@@ -26,7 +26,7 @@ xdescribe('CourseComponent', () => {
 
   });
 
-  xit('renders correct number of sections', () => {
+  it('renders correct number of sections', () => {
     const wrapper = mount(<CourseContent />);
     wrapper.setState({course: SampleTestData});
     console.log(SampleTestData.sections.length);
