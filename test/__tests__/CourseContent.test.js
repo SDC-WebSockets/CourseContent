@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount, render } from 'enzyme';
 import sinon from 'sinon';
-import SampleTestData from '../sampleTestData.js';
+import SampleReturnData from '../sampleTestData.js';
 
 import CourseContent from '../../client/src/components/CourseContent.jsx';
 import Section from '../../client/src/components/Section.jsx';

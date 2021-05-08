@@ -4,7 +4,7 @@ const refactorElementIds = (elements) => {
     let element = elements[i];
     delete element._id;
   }
-
+ 
   return elements;
 };
 
@@ -23,6 +23,7 @@ module.exports.processCourses = (courses) => {
 
   for (let i = 0; i < courses.length; i++) {
     let course = courses[i];
+    console.log(course._id);
     delete course._id;
     course.sections = refactorSectionIds(course.sections);
   }
