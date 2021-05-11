@@ -15,6 +15,7 @@ app.get('/content/item', (req, res) => {
 
   // let element = ReactDOMServer.renderToString(CourseContent);
   // console.log(element);
+  // Placeholder comment
 
   res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
 
