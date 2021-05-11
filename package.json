@@ -42,7 +42,8 @@
     "react-dom": "^16.14.0",
     "react-router-dom": "^5.2.0",
     "sinon": "^10.0.0",
-    "untegrity": "^1.0.7"
+    "untegrity": "^1.0.7",
+    "webpack-s3-plugin": "^1.2.0-rc.0"
   },
   "devDependencies": {
     "@babel/core": "^7.13.10",
