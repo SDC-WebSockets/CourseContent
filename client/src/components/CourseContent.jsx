@@ -2,29 +2,43 @@ import React from 'react';
 import axios from 'axios';
 import Section from './Section.jsx';
 import ContentHeader from './ContentHeader.jsx';
-import styles from '../main.css';
+import '../main.css';
+import qs from 'qs';
 
 class CourseContent extends React.Component {
 
   constructor(props) {
     super(props);
+    const queries = qs.parse(window.location.search);
+    const courseId = Number(queries['?courseId']);
+
     this.state = {
       course: {},
-      isLoaded: false
+      isLoaded: false,
+      courseId
     };
+
   }
 
   componentDidMount() {
 
-    axios.get(`/course/item?courseId=${this.props.courseId}`)
+    axios.get(`/course/item?courseId=${this.state.courseId}`)
       .then((response) => {
         this.setState({
           isLoaded: true,
           course: response.data
         });
-        console.log(response);
+      })
+      .catch((err) => {
+        if (err) {
+          console.log(err);
+        }
       });
 
+  }
+
+  componentWillUnMount() {
+    this.cancel();
   }
 
   render() {

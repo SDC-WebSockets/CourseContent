@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
 var SRC_DIR = path.join(__dirname, '/client/src');
 var DIST_DIR = path.join(__dirname, '/client/dist');
 
@@ -18,7 +19,7 @@ module.exports = {
     rules: [
       {
         test: /\.jsx$/,
-        exclude: /node_modules/,
+        exclude: [/node_modules/, /test/],
         use: {
           loader: 'babel-loader'
         }
@@ -36,5 +37,9 @@ module.exports = {
       }
     ]
   },
-  plugins: [new HtmlWebpackPlugin({ template: './client/src/index.html' })]
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './client/src/index.html'
+    })
+  ]
 };

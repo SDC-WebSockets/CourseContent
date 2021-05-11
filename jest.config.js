@@ -29,8 +29,7 @@ module.exports = {
   moduleFileExtensions: ['js', 'jsx', 'json', 'node'],
 
   moduleNameMapper: {
-    // '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$': '<rootDir>/test/__mocks__/fileMock.js',
-    '\.css$': 'identity-mock-proxy'
+    '^.+\\.(css|less)$': '<rootDir>/test/CSSStub.js'
   },
 
   // The paths to modules that run some code to configure or set up the testing environment before each test
@@ -56,13 +55,5 @@ module.exports = {
   // Indicates whether each individual test should be reported during the run
   verbose: true,
 
-
-
-  transform: {
-    '^.+\\.(js|jsx)?$': 'babel-jest'
-  },
-  moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1'
-  },
 
 };
