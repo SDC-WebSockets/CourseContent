@@ -6,7 +6,7 @@ var SRC_DIR = path.join(__dirname, '/client/src');
 var DIST_DIR = path.join(__dirname, '/client/dist');
 
 module.exports = {
-  entry: `${SRC_DIR}/components/CourseContent.jsx`,
+  entry: `${SRC_DIR}/index.jsx`,
   output: {
     filename: `course-content-${Date.now()}.js`,
     path: DIST_DIR,
@@ -40,7 +40,10 @@ module.exports = {
     ]
   },
   plugins: [
-    // new HtmlWebpackPlugin({ template: './client/src/index.html' }),
+    new HtmlWebpackPlugin({
+      template: './client/src/index.html',
+      inject: 'body'
+    }),
     new WebpackS3Plugin({
       exclude: /.*\.html$/,
       s3Options: {

@@ -10,8 +10,10 @@ class CourseContent extends React.Component {
     super(props);
     this.state = {
       course: {},
-      isLoaded: false
+      isLoaded: false,
+      sectionDisplay: 'none'
     };
+    this.clickHandler = this.clickHandler.bind(this);
   }
 
   componentDidMount() {
@@ -27,6 +29,17 @@ class CourseContent extends React.Component {
 
   }
 
+  clickHandler(e) {
+
+    console.log(e);
+
+    if (this.state.sectionDisplay === 'block') {
+      this.setState({sectionDisplay: 'none'});
+    } else {
+      this.setState({ sectionDisplay: 'block' });
+    }
+  }
+
   render() {
 
     if (!this.state.isLoaded) {
@@ -34,13 +47,13 @@ class CourseContent extends React.Component {
     } else {
       return (
         <div>
-          <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength}/>
+          <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength}clickHandler={this.clickHandler} />
           <br/>
           <br/>
           <div id="courseSectionsBlock">
             {this.state.course.sections.length > 0 &&
               this.state.course.sections.map(section => (
-                <Section key={`section${section.sectionId}`} section={section} />
+                <Section display={this.state.sectionDisplay} key={`section${section.sectionId}`} section={section} />
               ))}
           </div>
         </div>
