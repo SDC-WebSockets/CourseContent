@@ -17,6 +17,7 @@ const db = require('./db.js');
 // };
 
 // Create a directory named videos in the same directory as this file
+// You may want to change 'per_page' on line 104 of search.js to a smaller number. This is the number of unique videos the script will download
 
 const runScript = async (isLocal = false) => {
   if (!isLocal) {
