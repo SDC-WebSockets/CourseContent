@@ -12,9 +12,7 @@ app.use(bodyParser.urlencoded());
 
 app.use(cors());
 
-app.use('/content/item', express.static(path.join(__dirname, '..', 'client', 'dist')), () => {
-  console.log('CourseContent request');
-});
+app.use('/', express.static(path.join(__dirname, '..', 'client', 'dist')));
 
 // app.get('/content/item', (req, res) => {
 
