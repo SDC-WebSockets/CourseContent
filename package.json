@@ -41,6 +41,7 @@
     "qs": "^6.10.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
+    "react-dom-server": "0.0.5",
     "react-router-dom": "^5.2.0",
     "sinon": "^10.0.0",
     "untegrity": "^1.0.7",

@@ -60,7 +60,7 @@ module.exports.findSection = async id => {
   return await Course.aggregate()
     .unwind('sections')
     .match({ 'sections.sectionId': id })
-    .project({ 'sections._id': -1 })
+    // .project({ 'sections._id': -1 })
     .exec();
 
 };
