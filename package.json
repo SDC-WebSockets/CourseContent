@@ -24,6 +24,7 @@
     "aws-sdk": "^2.895.0",
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "date-fns": "^2.21.1",
     "download": "^8.0.0",
     "download-file": "^0.1.5",
@@ -43,7 +44,8 @@
     "react-dom-server": "0.0.5",
     "react-router-dom": "^5.2.0",
     "sinon": "^10.0.0",
-    "untegrity": "^1.0.7"
+    "untegrity": "^1.0.7",
+    "webpack-s3-plugin": "^1.2.0-rc.0"
   },
   "devDependencies": {
     "@babel/core": "^7.13.10",

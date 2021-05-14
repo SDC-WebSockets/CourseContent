@@ -4,22 +4,24 @@ const path = require('path');
 const fs = require('fs');
 const controller = require('./controller.js');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const PORT = process.env.PORT || 9800;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
-app.use(express.static(path.join(__dirname, '..', 'client', 'dist')));
+app.use(cors());
 
-app.get('/content/item', (req, res) => {
-
-  // let element = ReactDOMServer.renderToString(CourseContent);
-  // console.log(element);
-  // Placeholder comment
-
-  res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'index.html'));
-
+app.use('/content/item', express.static(path.join(__dirname, '..', 'client', 'dist')), () => {
+  console.log('CourseContent request');
 });
+
+// app.get('/content/item', (req, res) => {
+
+//   const dir = fs.readdirSync(path.join(__dirname, '..', 'client', 'dist'));
+//   res.sendFile(path.join(__dirname, '..', 'client', 'dist', dir[0]));
+
+// });
 
 app.get('/course/item', controller.course);
 
