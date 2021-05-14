@@ -1,21 +1,21 @@
 const mongoose = require('mongoose');
 const generate = require('./generate.js');
-// const config = require('../config.js');
+const config = require('../config.js');
 
 
 // /////////////////////////////
 // // Uncomment if using remote db
-// const dbUrl = process.env.dbUrl || config.dbUrl || 'mongodb://localhost/courseContent';
-// const dbName = process.env.dbName || config.dbName;
+const dbUrl = process.env.dbUrl || config.dbUrl || 'mongodb://localhost/courseContent';
+const dbName = process.env.dbName || config.dbName;
 // const local = false;
 // /////////////////////////////
 
 
 ///////////////////////////////
 // Uncomment if using local db
-const dbUrl = 'mongodb://localhost/courseContent';
-const dbName = 'courseContent';
-const local = true;
+// const dbUrl = 'mongodb://localhost/courseContent';
+// const dbName = 'courseContent';
+// const local = true;
 ////////////////////////////////
 
 

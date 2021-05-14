@@ -31,10 +31,6 @@ const runScript = async (isLocal = false) => {
   console.log(response);
 };
 
-<<<<<<< HEAD
 // If seeding to local database, set argument to true. Uncomment lines 14-19 in db.js.
 // If seeing to remote database, uncomment lines 15-19 and line 29 in db.js and set argument to false. Make sure that dbUrl and dbName are set in ../config.js
-=======
-
->>>>>>> 87229fe2596986bfa258bd0237424960de8ed18c
 runScript();
