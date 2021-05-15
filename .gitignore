@@ -3,3 +3,4 @@ dist
 config.js
 videos
 videos.test
+coverage

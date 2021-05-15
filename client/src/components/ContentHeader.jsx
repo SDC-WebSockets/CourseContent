@@ -13,7 +13,7 @@ const ContentHeader = (props) => (
         </span>
       </span>
     </div>
-    <button id="expandCollapse" type="button">
+    <button id="expandCollapse" type="button" onClick={props.clickHandler}>
       <span>
         Expand all Sections
       </span>
