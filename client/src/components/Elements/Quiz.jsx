@@ -1,5 +1,6 @@
 import React from 'react';
 import icons from './svgIcons.js';
+import style from '../../cssModules/subElement.css';
 
 const Quiz = (props) => {
 

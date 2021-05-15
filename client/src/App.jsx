@@ -27,10 +27,6 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit}>
-          <input id="courseId" type="text" placeholder="courseId" />
-          <input type="submit" value="Submit"/>
-        </form>
         {this.state.courseId &&
           <CourseContent courseId={this.state.courseId} />
         }

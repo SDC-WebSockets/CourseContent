@@ -28,5 +28,4 @@ const runScript = async (isLocal = false) => {
   console.log(response);
 };
 
-
 runScript();

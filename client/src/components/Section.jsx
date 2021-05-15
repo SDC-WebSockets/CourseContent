@@ -68,7 +68,7 @@ class Section extends React.Component {
               </span>
             </h3>
           </div>
-          <div className="sectionElementsBlock">
+          <div className="sectionElementsBlock" style={{ display: this.props.display }}>
             <div className="elementsContainer">
               <ul>
                 {this.props.section.elements.map(element =>

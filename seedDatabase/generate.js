@@ -56,7 +56,7 @@ const generateSection = (course, i, j) => {
 
   let section = {
     sectionId: sectionIdCounter,
-    title: faker.random.words(Math.floor(Math.random() * 10)),
+    title: faker.random.words(Math.floor(Math.random() * 10) + 1),
     sectionLength: 0,
     lectures: 0,
     quizzes: 0,
