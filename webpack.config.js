@@ -1,7 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WebpackS3Plugin = require('webpack-s3-plugin');
-const config = require('./config.js');
+// const WebpackS3Plugin = require('webpack-s3-plugin');
+// const config = require('./config.js');
 var SRC_DIR = path.join(__dirname, '/client/src');
 var DIST_DIR = path.join(__dirname, '/client/dist');
 
@@ -44,19 +44,19 @@ module.exports = {
       template: './client/src/index.html',
       inject: 'body'
     }),
-    new WebpackS3Plugin({
-      exclude: /.*\.html$/,
-      s3Options: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID || config.accessKeyID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || config.secretAccessKey,
-        region: 'eu-west-2'
-      },
-      s3UploadOptions: {
-        Bucket: 'charlotte-badger-course-content-bundles'
-      },
-      cdnizerOptions: {
-        defaultCDNBase: 'https://charlotte-badger-course-content-bundles.s3.eu-west-2.amazonaws.com'
-      }
-    })
+    // new WebpackS3Plugin({
+    //   exclude: /.*\.html$/,
+    //   s3Options: {
+    //     accessKeyId: process.env.AWS_ACCESS_KEY_ID || config.accessKeyID,
+    //     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || config.secretAccessKey,
+    //     region: 'eu-west-2'
+    //   },
+    //   s3UploadOptions: {
+    //     Bucket: 'charlotte-badger-course-content-bundles'
+    //   },
+    //   cdnizerOptions: {
+    //     defaultCDNBase: 'https://charlotte-badger-course-content-bundles.s3.eu-west-2.amazonaws.com'
+    //   }
+    // })
   ]
 };

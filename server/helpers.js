@@ -25,12 +25,6 @@ const refactorSectionIds = (sections) => {
 
 module.exports.processCourses = (courses) => {
 
-  if (courses.length === 0) {
-    throw Error('No Courses Found');
-  } else if (courses.length > 1) {
-    throw Error('Multiple courseIds found');
-  } 
-
   for (let i = 0; i < courses.length; i++) {
     let course = courses[i];
     if (course._id) {

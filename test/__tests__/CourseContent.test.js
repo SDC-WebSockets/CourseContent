@@ -22,7 +22,7 @@ describe('CourseComponent', () => {
   });
 
   xit('receives a course object', () => {
-
+    
   });
 
   xit('renders correct number of sections', () => {
