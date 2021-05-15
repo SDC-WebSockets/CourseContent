@@ -40,10 +40,10 @@ module.exports = {
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: './client/src/index.html',
-      inject: 'body'
-    }),
+    // new HtmlWebpackPlugin({
+    //   template: './client/src/index.html',
+    //   inject: 'body'
+    // }),
     new WebpackS3Plugin({
       exclude: /.*\.html$/,
       s3Options: {

@@ -34,6 +34,9 @@ class Section extends React.Component {
           this.setState({title: shortenedTitle});
           break;
         }
+        if (i === title.length - 1) {
+          this.setState({ title });
+        }
       }
     } else {
       this.setState({title});

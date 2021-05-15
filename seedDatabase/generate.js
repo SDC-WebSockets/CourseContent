@@ -19,6 +19,7 @@ const lorem = new LoremIpsum({
 });
 
 const generateElement = (i, j, k) => {
+  let videosArray = require('./videosArray.js');
 
   let options = ['lecture', 'lecture', 'lecture', 'lecture', 'quiz', 'quiz', 'exercise', 'quiz', 'exercise', 'exercise', 'exercise', 'lecture', 'lecture', 'lecture', 'lecture', 'lecture', 'lecture', 'lecture', 'lecture', 'lecture', 'lecture', 'lecture', 'lecture', 'article', 'article', 'article'];
 
@@ -33,13 +34,13 @@ const generateElement = (i, j, k) => {
 
   if (element.kind === 'lecture') {
 
-    element['videoUrl'] = s3.videosArray[videosCounter].url;
+    element['videoUrl'] = videosArray[videosCounter].url;
     element['videoPreview'] = (Math.random() * 100 > 20 ? false : true);
     element['summary'] = lorem.generateSentences(Math.floor(Math.random() * 2));
-    element['elementLength'] = new Date(s3.videosArray[videosCounter].duration);
+    element['elementLength'] = new Date(videosArray[videosCounter].duration);
 
     videosCounter++;
-    videosCounter = videosCounter % s3.videosArray.length;
+    videosCounter = videosCounter % videosArray.length;
   } else if (element.kind === 'article') {
     element['summary'] = lorem.generateSentences(Math.floor(Math.random() * 2));
     element['elementLength'] = new Date(Math.floor(Math.random() * 120000));
