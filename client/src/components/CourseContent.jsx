@@ -3,28 +3,48 @@ import axios from 'axios';
 import Section from './Section.jsx';
 import ContentHeader from './ContentHeader.jsx';
 import '../main.css';
+import qs from 'qs';
 
 class CourseContent extends React.Component {
 
   constructor(props) {
     super(props);
+    const queries = qs.parse(window.location.search);
+    const courseId = Number(queries['?courseId']);
+
     this.state = {
+      courseId,
       course: {},
-      isLoaded: false
+      isLoaded: false,
+      sectionDisplay: 'none'
     };
+    this.clickHandler = this.clickHandler.bind(this);
   }
 
   componentDidMount() {
 
-    axios.get(`/course/item?courseId=${this.props.courseId}`)
+    axios.get(`http://127.0.0.1:9800/course/item?courseId=${this.state.courseId}`)
       .then((response) => {
         this.setState({
           isLoaded: true,
           course: response.data
         });
-        console.log(response);
+      })
+      .catch((err) => {
+        if (err) {
+          console.log(err);
+        }
       });
 
+  }
+
+  clickHandler() {
+
+    if (this.state.sectionDisplay === 'block') {
+      this.setState({sectionDisplay: 'none'});
+    } else {
+      this.setState({ sectionDisplay: 'block' });
+    }
   }
 
   render() {
@@ -34,13 +54,13 @@ class CourseContent extends React.Component {
     } else {
       return (
         <div>
-          <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength}/>
+          <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength} clickHandler={this.clickHandler} />
           <br/>
           <br/>
           <div id="courseSectionsBlock">
             {this.state.course.sections.length > 0 &&
               this.state.course.sections.map(section => (
-                <Section key={`section${section.sectionId}`} section={section} />
+                <Section display={this.state.sectionDisplay} key={`section${section.sectionId}`} section={section} />
               ))}
           </div>
         </div>

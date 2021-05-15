@@ -1,6 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import icons from './svgIcons.js';
+import style from '../../cssModules/subElement.css';
 
 const Article = (props) => {
 

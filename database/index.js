@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const config = require('../config.js');
-const dbUrl = process.env.dbUrl || config.dbUrl || 'mongodb://localhost/courseContent';
+const dbUrl = process.env.dbUrl || config.dbUrl;
 const dbName = process.env.dbName || config.dbName;
 
 mongoose.connect(dbUrl, {
@@ -60,7 +60,7 @@ module.exports.findSection = async id => {
   return await Course.aggregate()
     .unwind('sections')
     .match({ 'sections.sectionId': id })
-    .project({ 'sections._id': -1 })
+    // .project({ 'sections._id': -1 })
     .exec();
 
 };

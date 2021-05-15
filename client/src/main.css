@@ -52,10 +52,6 @@ button {
     font-weight: 700;
 }
 
-.hasChild > * {
-    margin: 5px;
-}
-
 .sectionHeader {
     background-color: #fbfbf8;
     height: 52px;
@@ -101,11 +97,6 @@ button {
 .length {
     float: right;
     /* padding: 5px; */
-}
-
-.right-side-info {
-    float: right;
-    margin: 0px;
 }
 
 #contentHeader {
