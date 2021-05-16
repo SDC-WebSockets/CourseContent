@@ -1,21 +1,22 @@
 import React from 'react';
 import icons from './svgIcons.js';
-import style from '../../cssModules/subElement.css';
+// import style from '../../cssModules/subElement.css';
+import {Div, HasChild, RightSideInfo} from '../StyledComponents.js';
 
 const Quiz = (props) => {
 
   return (
-    <div>
-      <div className="hasChild">
+    <Div>
+      <HasChild>
         <span dangerouslySetInnerHTML={{ __html: icons.chewy }}></span>
         <span>
           {props.element.title}
         </span>
-        <span className="right-side-info">
+        <RightSideInfo>
           {`${props.element.numQuestions} question`}
-        </span>
-      </div>
-    </div>
+        </RightSideInfo>
+      </HasChild>
+    </Div>
   );
 
 

@@ -2,6 +2,7 @@ import React from 'react';
 import CourseContent from './components/CourseContent.jsx';
 import axios from 'axios';
 import {initialCourse} from '../../config.js';
+import {Div} from './components/StyledComponents';
 import qs from 'qs';
 
 class App extends React.Component {
@@ -20,11 +21,11 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <Div>
         {this.state.courseId &&
           <CourseContent courseId={this.state.courseId} />
         }
-      </div>
+      </Div>
     );
   }
 }
