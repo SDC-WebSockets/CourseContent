@@ -1,8 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import icons from './svgIcons.js';
-// import style from '../../cssModules/subElement.css';
-import {Div, HasChild, Preview, RightSideInfo} from '../StyledComponents.js';
+import {HasChild, Preview, RightSideInfo} from '../StyledComponents.js';
 
 const Article = (props) => {
 

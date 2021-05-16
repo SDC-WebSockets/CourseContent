@@ -1,7 +1,6 @@
 import React from 'react';
 import icons from './svgIcons.js';
-// import style from '../../cssModules/subElement.css';
-import {Div, HasChild, RightSideInfo} from '../StyledComponents.js';
+import {HasChild, RightSideInfo} from '../StyledComponents.js';
 
 const Quiz = (props) => {
 

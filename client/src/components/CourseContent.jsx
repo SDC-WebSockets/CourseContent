@@ -1,9 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import Section from './Section.jsx';
-import {Div, CourseSectionsBlock} from './StyledComponents.js';
+import {CourseSectionsBlock} from './StyledComponents.js';
 import ContentHeader from './ContentHeader.jsx';
-import '../main.css';
 import qs from 'qs';
 
 class CourseContent extends React.Component {

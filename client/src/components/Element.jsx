@@ -1,10 +1,8 @@
 import React from 'react';
-import moment from 'moment';
 import Article from './Elements/Article.jsx';
 import Exercise from './Elements/Exercise.jsx';
 import Lecture from './Elements/Lecture.jsx';
 import Quiz from './Elements/Quiz.jsx';
-// import style from '../cssModules/element.css';
 
 const Element = (props) => (
   <li>
