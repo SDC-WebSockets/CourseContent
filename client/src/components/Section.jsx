@@ -57,8 +57,8 @@ class Section extends React.Component {
 
   render() {
     return (
-      <Div>
-        <Div>
+      <div>
+        <div>
           <SectionHeader onClick={this.handleClick.bind(this)}>
             <h3>
               <span>
@@ -81,8 +81,8 @@ class Section extends React.Component {
               </Ul>
             </ElementsContainer>
           </SectionElementsBlock>
-        </Div>
-      </Div>
+        </div>
+      </div>
     );
   }
 

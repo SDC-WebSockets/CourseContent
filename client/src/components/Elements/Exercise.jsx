@@ -6,7 +6,7 @@ import {Div, HasChild, RightSideInfo} from '../StyledComponents.js';
 const Exercise = (props) => {
 
   return (
-    <Div>
+    <div>
       <HasChild>
         <span dangerouslySetInnerHTML={{ __html: icons.r2 }}></span>
         <span>
@@ -16,7 +16,7 @@ const Exercise = (props) => {
           {`${props.element.numQuestions} question`}
         </RightSideInfo>
       </HasChild>
-    </Div>
+    </div>
   );
 
 };

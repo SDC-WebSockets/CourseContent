@@ -6,7 +6,7 @@ import {Div, HasChild, RightSideInfo} from '../StyledComponents.js';
 const Quiz = (props) => {
 
   return (
-    <Div>
+    <div>
       <HasChild>
         <span dangerouslySetInnerHTML={{ __html: icons.chewy }}></span>
         <span>
@@ -16,7 +16,7 @@ const Quiz = (props) => {
           {`${props.element.numQuestions} question`}
         </RightSideInfo>
       </HasChild>
-    </Div>
+    </div>
   );
 
 

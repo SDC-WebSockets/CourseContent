@@ -21,11 +21,11 @@ class App extends React.Component {
 
   render() {
     return (
-      <Div>
+      <div>
         {this.state.courseId &&
           <CourseContent courseId={this.state.courseId} />
         }
-      </Div>
+      </div>
     );
   }
 }

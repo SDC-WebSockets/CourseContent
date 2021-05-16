@@ -68,11 +68,6 @@ export const CourseSectionsBlock = styled.div`
   padding: 0px;
 `;
 
-// export const length = styled.`
-//   float: right;
-//   /* padding: 5px; */
-// `;
-
 export const ContentHeaderWrapper = styled.div`
   max-width: 600px;
   max-height: 40px;

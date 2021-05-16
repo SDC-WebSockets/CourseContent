@@ -7,7 +7,7 @@ import {Div, HasChild, Preview, RightSideInfo} from '../StyledComponents.js';
 const Lecture = (props) => {
 
   return (
-    <Div>
+    <div>
       <HasChild>
         <span dangerouslySetInnerHTML={{__html: icons.boba}}></span>
         <a>
@@ -18,7 +18,7 @@ const Lecture = (props) => {
             <Preview href={props.element.videoUrl}>Preview</Preview>
         }
       </HasChild>
-    </Div>
+    </div>
   );
 
 };

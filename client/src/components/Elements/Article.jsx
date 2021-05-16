@@ -7,7 +7,7 @@ import {Div, HasChild, Preview, RightSideInfo} from '../StyledComponents.js';
 const Article = (props) => {
 
   return (
-    <Div>
+    <div>
       <HasChild>
         <span dangerouslySetInnerHTML={{ __html: icons.vader }}></span>
         <a>
@@ -18,7 +18,7 @@ const Article = (props) => {
           <Preview href={props.element.videoUrl}>Preview</Preview>
         }
       </HasChild>
-    </Div>
+    </div>
   );
 
 
