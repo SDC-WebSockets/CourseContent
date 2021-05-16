@@ -1,4 +1,6 @@
 let videosArray = require('./videosArray.js');
+let fs = require('fs');
+let path = require('path');
 
 module.exports = () => {
   let contentArr = [
@@ -19,7 +21,24 @@ module.exports = () => {
   for (let i = 0; i < contentArr.length; i++) {
     videosArray.push(contentArr[i]);
   }
-  // videosArray = contentArr;
-  console.log(videosArray);
+
+  const configString = "module.exports = {\n  dbUrl: 'mongodb://localhost/courseContent',\n  dbName: 'courseContent'\n};";
+
+  fs.writeFileSync(path.join(__dirname, '..', 'localConfig.js'), configString);
+
+  const root = fs.readdirSync(path.join(__dirname, '..'));
+  console.log(root)
+
+  if (root.includes('.gitignore')) {
+    let gitignore = fs.readFileSync(path.join(__dirname, '..', '.gitignore'));
+    if (!gitignore.toString().includes('localConfig.js')) {
+      fs.unlinkSync(path.join(__dirname, '..', '.gitignore'));
+      fs.writeFileSync(path.join(__dirname, '..', '.gitignore'), gitignore + '\nlocalConfig.js');
+    }
+  } else {
+    fs.writeFileSync(path.join(__dirname, '..', '.gitignore'), 'localConfig.js');
+  }
+
+  
   return 'Remote urls defined';
 };
