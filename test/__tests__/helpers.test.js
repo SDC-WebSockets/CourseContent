@@ -19,7 +19,7 @@ describe('Course Helpers', () => {
 
   it('Should throw an error if multiple courses are found', () => {
     expect(() => {
-      helpers.processCourses(['hello', 'world']);
+      helpers.processCourses([SampleReturnData, SampleReturnData]);
     }).toThrow('Multiple courseIds found');
   });
 
