@@ -1,6 +1,11 @@
 import sinon from 'sinon';
 import { SampleReturnData } from '../sampleTestData.js';
 
+describe('Initial tests', () => {
+  let helloWorld = true;
+  expect(helloWorld).toBe(true);
+});
+
 xdescribe('Server routes', () => {
 
   it('should return 400 if multiple results are found', () => {

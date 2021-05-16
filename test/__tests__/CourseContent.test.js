@@ -7,6 +7,11 @@ import CourseContent from '../../client/src/components/CourseContent.jsx';
 import Section from '../../client/src/components/Section.jsx';
 import ContentHeader from '../../client/src/components/ContentHeader.jsx';
 
+describe('Initial tests', () => {
+  let helloWorld = true;
+  expect(helloWorld).toBe(true);
+});
+
 xdescribe('CourseComponent', () => {
 
   it('exists', () => {
