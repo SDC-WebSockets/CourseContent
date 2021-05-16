@@ -7,27 +7,26 @@ import CourseContent from '../../client/src/components/CourseContent.jsx';
 import Section from '../../client/src/components/Section.jsx';
 import ContentHeader from '../../client/src/components/ContentHeader.jsx';
 
-describe('Initial tests', () => {
-  let helloWorld = true;
-  expect(helloWorld).toBe(true);
-});
+describe('CourseComponent', () => {
 
-xdescribe('CourseComponent', () => {
+  it('initial test', () => {
+    expect(true).toBe(true);
+  });
 
-  it('exists', () => {
+  xit('exists', () => {
     const wrapper = mount(<CourseContent />);
     expect(wrapper.contains(CourseContent)).toBe(true);
     wrapper.unmount();
   });
 
-  it('sets isLoaded once API is called', () => {
+  xit('sets isLoaded once API is called', () => {
     sinon.spy(CourseContent.prototype, 'componentDidMount');
     const wrapper = mount(<CourseContent />);
     expect(wrapper.state('isLoaded')).toEqual(true);
   });
 
   xit('receives a course object', () => {
-    
+
   });
 
   xit('renders correct number of sections', () => {
