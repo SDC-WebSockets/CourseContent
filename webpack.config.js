@@ -1,6 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WebpackS3Plugin = require('webpack-s3-plugin');
+// const WebpackS3Plugin = require('webpack-s3-plugin');
 const config = require('./config.js');
 var SRC_DIR = path.join(__dirname, '/client/src');
 var DIST_DIR = path.join(__dirname, '/client/dist');
