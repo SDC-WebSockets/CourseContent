@@ -64,7 +64,7 @@ From within the Course-Content directory:
 npm server-dev
 ```
 
-## Starting the server in production mode
+### Starting the server in production mode
 From within the Course-Content directory:
 ```sh
 npm start
