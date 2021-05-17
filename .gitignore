@@ -4,3 +4,5 @@ config.js
 videos
 videos.test
 coverage
+localConfig.js
+config.sample.js
