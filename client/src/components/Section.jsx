@@ -34,6 +34,9 @@ class Section extends React.Component {
           this.setState({title: shortenedTitle});
           break;
         }
+        if (i === title.length - 1) {
+          this.setState({ title });
+        }
       }
     } else {
       this.setState({title});
@@ -68,7 +71,7 @@ class Section extends React.Component {
               </span>
             </h3>
           </div>
-          <div className="sectionElementsBlock">
+          <div className="sectionElementsBlock" style={{ display: this.props.display }}>
             <div className="elementsContainer">
               <ul>
                 {this.props.section.elements.map(element =>

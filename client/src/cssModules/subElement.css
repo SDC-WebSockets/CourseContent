@@ -1,0 +1,12 @@
+.hasChild > * {
+    margin: 5px;
+}
+
+.right-side-info {
+    float: right;
+    margin: 0px;
+}
+
+/* .preview {
+    margin: 5px;
+} */
