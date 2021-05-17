@@ -1,6 +1,6 @@
 let videosArray = require('./videosArray.js');
-let fs = require('fs');
-let path = require('path');
+const fs = require('fs');
+const path = require('path');
 
 module.exports = () => {
   let contentArr = [
@@ -16,7 +16,6 @@ module.exports = () => {
       url: 'https://charlotte-badger-course-content-stock-footage.s3.eu-west-2.amazonaws.com/a-man-busy-working-on-his-laptop-5495790.mp4',
       duration: 17000
     }
-
   ];
   for (let i = 0; i < contentArr.length; i++) {
     videosArray.push(contentArr[i]);
@@ -39,6 +38,6 @@ module.exports = () => {
     fs.writeFileSync(path.join(__dirname, '..', '.gitignore'), 'localConfig.js');
   }
 
-  
+
   return 'Remote urls defined';
 };
