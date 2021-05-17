@@ -5,7 +5,6 @@ let config;
 let dbUrl;
 let dbName;
 
-
 try {
   config = require('../config.js');
   dbUrl = process.env.dbUrl || config.dbUrl;
