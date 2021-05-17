@@ -77,7 +77,6 @@ module.exports.seedDB = async () => {
     let promise = updateOne(courses[i]);
     promises.push(promise);
   }
-  console.log(courses[0].sections[0].elements[2]);
 
   await Promise.all(promises);
   return 'added to mongoDb';

@@ -26,7 +26,6 @@ module.exports = () => {
   fs.writeFileSync(path.join(__dirname, '..', 'localConfig.js'), configString);
 
   const root = fs.readdirSync(path.join(__dirname, '..'));
-  console.log(root)
 
   if (root.includes('.gitignore')) {
     let gitignore = fs.readFileSync(path.join(__dirname, '..', '.gitignore'));
