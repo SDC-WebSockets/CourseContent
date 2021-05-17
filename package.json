@@ -34,6 +34,7 @@
     "faker": "^5.5.3",
     "fluent-ffmpeg": "^2.1.2",
     "lodash": "^4.17.21",
+    "lorem-ipsum": "^2.0.3",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",
     "mongoose": "^5.12.9",
