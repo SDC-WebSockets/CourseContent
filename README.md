@@ -58,6 +58,8 @@ module.exports = {
  runScript(false);
  ```
 
+If the services sees that there is a file named `config.js`, it will use that to find all configuration data
+
 ### Starting the server in development mode
 From within the Course-Content directory:
 ```sh

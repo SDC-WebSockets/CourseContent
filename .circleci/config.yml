@@ -1,7 +1,11 @@
 version: 2
 jobs:
   build:
+<<<<<<< HEAD
     working_directory: ~/Course-Content
+=======
+    working_directory: ~/redux-async
+>>>>>>> 3a581d5119abd0a994a594a21c3311ac26db78b9
     docker:
       - image: circleci/node:14.15.5
     steps:
