@@ -34,6 +34,10 @@ class CourseContent extends React.Component {
         if (err) {
           console.log(err);
         }
+        this.setState({error: {
+          status: err.response.status,
+          data: err.response.data
+        }, isLoaded: true });
       });
 
   }
@@ -51,6 +55,13 @@ class CourseContent extends React.Component {
 
     if (!this.state.isLoaded) {
       return <div>Loading...</div>;
+    } else if (this.state.error) {
+      return (
+        <div>
+          <h2>Course Content Error</h2>
+          <h3>{`Error ${this.state.error.status} ${this.state.error.data}`}</h3>
+        </div>
+      );
     } else {
       return (
         <div>
