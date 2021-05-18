@@ -1,6 +1,5 @@
 import React from 'react';
 import CourseContent from './components/CourseContent.jsx';
-import axios from 'axios';
 import qs from 'qs';
 
 class App extends React.Component {
