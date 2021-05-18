@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import Section from './Section.jsx';
+import {CourseSectionsBlock} from './StyledComponents.js';
 import ContentHeader from './ContentHeader.jsx';
-import '../main.css';
 import qs from 'qs';
 
 class CourseContent extends React.Component {
@@ -68,12 +68,12 @@ class CourseContent extends React.Component {
           <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength} clickHandler={this.clickHandler} />
           <br/>
           <br/>
-          <div id="courseSectionsBlock">
+          <CourseSectionsBlock>
             {this.state.course.sections.length > 0 &&
               this.state.course.sections.map(section => (
                 <Section display={this.state.sectionDisplay} key={`section${section.sectionId}`} section={section} />
               ))}
-          </div>
+          </CourseSectionsBlock>
         </div>
       );
     }

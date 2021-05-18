@@ -1,6 +1,7 @@
 import React from 'react';
 import Element from './Element.jsx';
 import moment from 'moment';
+import {SectionHeader, SectionTitle, SectionTotalLectures, SectionElementsBlock, ElementsContainer, Ul} from './StyledComponents';
 
 class Section extends React.Component {
 
@@ -58,28 +59,28 @@ class Section extends React.Component {
     return (
       <div>
         <div>
-          <div onClick={this.handleClick.bind(this)} className="sectionHeader">
+          <SectionHeader onClick={this.handleClick.bind(this)}>
             <h3>
               <span>
-                <span className="sectionTitle">{this.state.title}</span>
-                <span className="sectionTotalLectures">
+                <SectionTitle>{this.state.title}</SectionTitle>
+                <SectionTotalLectures>
                   {`${this.props.section.lectures + this.props.section.articles} lectures • `}
                   <span>
                     {this.state.displayTime}
                   </span>
-                </span>
+                </SectionTotalLectures>
               </span>
             </h3>
-          </div>
-          <div className="sectionElementsBlock" style={{ display: this.props.display }}>
-            <div className="elementsContainer">
-              <ul>
+          </SectionHeader>
+          <SectionElementsBlock style={{ display: this.props.display }}>
+            <ElementsContainer>
+              <Ul>
                 {this.props.section.elements.map(element =>
                   <Element element={element} key={`element${element.elementId}`} kind={element.kind} />
                 )}
-              </ul>
-            </div>
-          </div>
+              </Ul>
+            </ElementsContainer>
+          </SectionElementsBlock>
         </div>
       </div>
     );
