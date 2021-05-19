@@ -3,20 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const WebpackS3Plugin = require('webpack-s3-plugin');
 var SRC_DIR = path.join(__dirname, '/client/src');
 var DIST_DIR = path.join(__dirname, '/client/dist');
-let accessKeyID;
-let secretAccessKey;
-
-if (process.env.AWS_ACCESS_KEY_ID) {
-  accessKeyID = process.env.AWS_ACCESS_KEY_ID;
-} else {
-  accessKeyID = require('config').accessKeyID;
-}
-
-if (process.env.AWS_SECRET_ACCESS_KEY) {
-  secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
-} else {
-  secretAccessKey = require('config').secretAccessKey;
-}
+let accessKeyID = process.env.AWS_ACCESS_KEY_ID;
+let secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 module.exports = {
   entry: `${SRC_DIR}/index.jsx`,
