@@ -1,7 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const config = require('../config.js');
-const KEY = config.pexelKey;
+const KEY = process.env.PEXELKEY || require('../config.js').pexelKey;
 const createClient = require('pexels').createClient;
 const client = createClient(KEY);
 const axios = require('axios');
