@@ -4,8 +4,8 @@ let dbUrl;
 let dbName;
 
 try {
-  dbUrl = process.env.DBUrl || require('config').dbUrl;
-  dbName = process.env.DBName || require('config').dbName;
+  dbUrl = process.env.DBUURL || require('config').dbUrl;
+  dbName = process.env.DBNAME || require('config').dbName;
 } catch (e) {
   dbUrl = localConfig.dbUrl;
   dbName = localConfig.dbName;
