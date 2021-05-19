@@ -70,7 +70,16 @@ module.exports.uploadDirectory = async (directory, isLocal = false) => {
         .then(async (result) => {
           console.log(`Uploaded ${result.key}`);
           ffmpeg.ffprobe(filePath, function (err, metadata) {
-            let duration = Math.floor(metadata.format.duration * 1000);
+            if (err) {
+              console.log(err);
+            }
+            let duration;
+            if (metadata) {
+              duration = Math.floor(metadata.format.duration * 1000);
+            } else {
+              duration = 0;
+            }
+            
             let obj = {
               url: result.Location,
               duration: duration
