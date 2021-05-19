@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "webpack --mode production && node server/index.js",
+    "start": "webpack --mode production && pm2 server/index.js",
     "react-dev": "webpack --mode development --watch",
     "build": "webpack --mode production",
     "server-dev": "nodemon server/index.js",
