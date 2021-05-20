@@ -1,3 +1,4 @@
+require('./env.js').setKeys();
 const path = require('path');
 const search = require('./search.js');
 const verify = require('./verify.js');

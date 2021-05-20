@@ -1,15 +1,10 @@
 const mongoose = require('mongoose');
 const generate = require('./generate.js');
-let dbUrl;
-let dbName;
-
-try {
-  dbUrl = process.env.DBUURL || require('config').dbUrl;
-  dbName = process.env.DBNAME || require('config').dbName;
-} catch (e) {
-  dbUrl = localConfig.dbUrl;
-  dbName = localConfig.dbName;
-}
+const fs = require('fs');
+const path = require('path');
+const local = require('./local.js');
+let dbUrl = process.env.DBURL;
+let dbName = process.env.DBNAME;
 
 mongoose.connect(dbUrl, {
   dbName: dbName,

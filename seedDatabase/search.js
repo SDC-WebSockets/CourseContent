@@ -1,10 +1,10 @@
 const path = require('path');
 const fs = require('fs');
-const KEY = process.env.PEXEL_KEY || require('../config.js').pexelKey;
+const KEY = process.env.PEXEL_KEY;
+console.log('key', KEY);
 const createClient = require('pexels').createClient;
 const client = createClient(KEY);
 const axios = require('axios');
-
 
 const randomFileName = () => {
   let alpha = 'qwertyuiopasdfghjklzxcvbnm';

@@ -33,7 +33,7 @@ const check = async (name, last) => {
 
 module.exports.checkAll = async () => {
   console.log('Checking file integrity');
-  let files = fs.readdirSync('./videos');
+  let files = fs.readdirSync(path.join(__dirname, 'videos'));
 
   status.total = files.length;
   for (let file of files) {
