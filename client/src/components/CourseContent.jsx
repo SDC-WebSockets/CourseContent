@@ -34,11 +34,28 @@ class CourseContent extends React.Component {
         if (err) {
           console.log(err);
         }
-        console.log('error', err.response);
+
+        let status;
+        if (err.response) {
+          if (err.response.status) {
+            status = err.response.status;
+          }
+        } else {
+          status = 500;
+        }
+
+        let data;
+        if (err.response) {
+          if (err.response.data) {
+            data = err.response.data;
+          }
+        } else {
+          data = 'Server Error';
+        }
+
         this.setState({error: {
-          status: err.response.status,
-          data: err.response.data
-        }, isLoaded: true });
+          status,
+          data}, isLoaded: true });
       });
 
   }
