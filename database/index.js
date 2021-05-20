@@ -2,13 +2,16 @@ const mongoose = require('mongoose');
 let dbUrl;
 let dbName;
 
+if (process.env.DBURL) {
+  dbUrl = process.env.DBURL;
+} else {
+  dbUrl = require('config').dbUrl;
+}
 
-try {
-  dbUrl = process.env.DBUrl || require('config').dbUrl;
-  dbName = process.env.DBName || require('config').dbName;
-} catch (e) {
-  dbUrl = localConfig.dbUrl;
-  dbName = localConfig.dbName;
+if (process.env.DBURL) {
+  dbName = process.env.DBNAME;
+} else {
+  dbName = require('config').dbName;
 }
 
 mongoose.connect(dbUrl, {
