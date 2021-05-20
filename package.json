@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/Charlotte-Badger/Course-Content#readme",
   "dependencies": {
+    "@shelf/jest-mongodb": "^1.2.4",
     "aws-sdk": "^2.895.0",
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
@@ -34,6 +35,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "moment-duration-format": "^2.3.2",
+    "mongodb": "^3.6.7",
     "mp4-stream": "^3.1.3",
     "nodemon": "^2.0.7",
     "path": "^0.12.7",
@@ -43,6 +45,7 @@
     "react-dom-server": "0.0.5",
     "react-router-dom": "^5.2.0",
     "sinon": "^10.0.0",
+    "supertest": "^6.1.3",
     "untegrity": "^1.0.7"
   },
   "devDependencies": {
