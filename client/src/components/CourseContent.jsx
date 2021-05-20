@@ -34,7 +34,7 @@ class CourseContent extends React.Component {
         if (err) {
           console.log(err);
         }
-        console.log('error', Object.keys(err));
+        console.log('error', err.response);
         this.setState({error: {
           status: err.response.status,
           data: err.response.data
