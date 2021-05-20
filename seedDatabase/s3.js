@@ -4,8 +4,8 @@ const ffmpeg = require('fluent-ffmpeg');
 const fs = require('fs');
 let videosArray = require('./videosArray.js');
 
-const awsId = process.env.AWS_ACCESS_KEY_ID || require('config').accessKeyID;
-const awsSecret = process.env.AWS_SECRET_ACCESS_KEY || require('config').secretAccessKey;
+const awsId = process.env.AWS_ACCESS_KEY_ID || require('../config.js').accessKeyID;
+const awsSecret = process.env.AWS_SECRET_ACCESS_KEY || require('../config.js').secretAccessKey;
 const BUCKET_NAME = 'charlotte-badger-course-content-stock-footage';
 
 const s3 = new AWS.S3({
@@ -79,7 +79,7 @@ module.exports.uploadDirectory = async (directory, isLocal = false) => {
             } else {
               duration = 0;
             }
-            
+
             let obj = {
               url: result.Location,
               duration: duration
