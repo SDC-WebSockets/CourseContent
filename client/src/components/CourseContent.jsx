@@ -23,7 +23,7 @@ class CourseContent extends React.Component {
 
   componentDidMount() {
 
-    axios.get(`http://127.0.0.1:9800/course/item?courseId=${this.state.courseId}`)
+    axios.get(`/course/item?courseId=${this.state.courseId}`)
       .then((response) => {
         this.setState({
           isLoaded: true,
@@ -50,7 +50,7 @@ class CourseContent extends React.Component {
             data = err.response.data;
           }
         } else {
-          data = 'Server Error';
+          data = 'Internal Server Error';
         }
 
         this.setState({error: {
