@@ -3,13 +3,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const WebpackS3Plugin = require('webpack-s3-plugin');
 var SRC_DIR = path.join(__dirname, '/client/src');
 var DIST_DIR = path.join(__dirname, '/client/dist');
-let config;
-
-try {
-  config = require('./config.js');
-} catch (e) {
-  config = require('./localConfig.js');
-}
+let accessKeyID = process.env.AWS_ACCESS_KEY_ID;
+let secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 module.exports = {
   entry: `${SRC_DIR}/index.jsx`,
@@ -53,8 +48,8 @@ module.exports = {
     // new WebpackS3Plugin({
     //   exclude: /.*\.html$/,
     //   s3Options: {
-    //     accessKeyId: process.env.AWS_ACCESS_KEY_ID || config.accessKeyID,
-    //     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || config.secretAccessKey,
+    //     accessKeyID,
+    //     secretAccessKey,
     //     region: 'eu-west-2'
     //   },
     //   s3UploadOptions: {
