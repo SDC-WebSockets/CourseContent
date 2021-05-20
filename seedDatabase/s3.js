@@ -38,7 +38,6 @@ const emptyBucket = async () => {
 };
 
 const uploadOneFile = async (file) => {
-  // Read content from the file
   console.log('Uploading:', file);
   const fileContent = fs.readFileSync(file);
   let fileName = file.split('/');

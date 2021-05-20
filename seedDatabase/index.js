@@ -18,7 +18,6 @@ const db = require('./db.js');
 //   pexelKey: // Key for pexel API. If you want to use mine it's pinned on the Charlotte-Badger Slack Channel
 // };
 
-// Create a directory named videos in the same directory as this file
 // You may want to change 'per_page' on line 104 of search.js to a smaller number. This is the number of unique videos the script will download
 
 // When setup, run 'npm run seed'
@@ -28,13 +27,13 @@ const runScript = async (isLocal = false) => {
     await search.searchVideos();
     await verify.checkAll();
     await s3.uploadDirectory(path.join(__dirname, 'videos'), isLocal);
-  } else {
-    local();
   }
+
   const response = await db.seedDB();
   console.log(response);
 };
 
 // If seeding to local database, set argument to true. Uncomment lines 14-19 in db.js.
 // If seeing to remote database, uncomment lines 15-19 and line 29 in db.js and set argument to false. Make sure that dbUrl and dbName are set in ../config.js
+
 runScript();

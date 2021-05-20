@@ -10,9 +10,6 @@ mongoose.connect(dbUrl, {
   dbName: dbName,
   useUnifiedTopology: true,
   useNewUrlParser: true
-}, () => {
-  // Comment out this line if using local
-  // mongoose.connection.db.dropDatabase();
 });
 
 const elementSchema = mongoose.Schema({

@@ -16,7 +16,6 @@ app.use('/', express.static(path.join(__dirname, '..', 'client', 'dist')));
 
 app.get('/bundle', (req, res) => {
 
-  // const dir = fs.readdirSync(path.join(__dirname, '..', 'client', 'dist'));
   res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'course-content.js'));
 
 });
