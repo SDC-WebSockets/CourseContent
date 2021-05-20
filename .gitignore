@@ -2,5 +2,7 @@ node_modules
 dist
 config.js
 videos
+videos.test
 coverage
-globalConfig.json
+localConfig.js
+config.sample.js

@@ -1,15 +1,24 @@
-version: '2.1'
+version: 2
 jobs:
   build:
+<<<<<<< HEAD
+<<<<<<< HEAD
+    working_directory: ~/Course-Content
+=======
+    working_directory: ~/redux-async
+>>>>>>> 3a581d5119abd0a994a594a21c3311ac26db78b9
+=======
+    working_directory: ~/Course-Content
+>>>>>>> 2758f2193e5819bf74765e27ebdf41c869312848
     docker:
-      - image: circleci/node:8
+      - image: circleci/node:14.15.5
     steps:
       - checkout
       - restore_cache:
           key: npm-cache-v1-{{ checksum "package-lock.json" }}
       - run:
           name: Install Dependencies
-          command: npm install
+          command: npm ci
       - save_cache:
           key: npm-cache-v1-{{ checksum "package-lock.json" }}
           paths:

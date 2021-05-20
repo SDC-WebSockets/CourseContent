@@ -1,14 +1,17 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
+// const WebpackS3Plugin = require('webpack-s3-plugin');
 var SRC_DIR = path.join(__dirname, '/client/src');
 var DIST_DIR = path.join(__dirname, '/client/dist');
+let accessKeyID = process.env.AWS_ACCESS_KEY_ID || require('config').accessKeyID;
+let secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY || require('config').secretAccessKey;
 
 module.exports = {
   entry: `${SRC_DIR}/index.jsx`,
   output: {
-    filename: 'course-content-bundle.js',
-    path: DIST_DIR
+    filename: 'course-content.js',
+    path: DIST_DIR,
+    clean: true
   },
   devServer: {
     port: 3000,
@@ -39,7 +42,22 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './client/src/index.html'
-    })
+      template: './client/src/index.html',
+      inject: 'body'
+    }),
+    // new WebpackS3Plugin({
+    //   exclude: /.*\.html$/,
+    //   s3Options: {
+    //     accessKeyId,
+    //     secretAccessKey,
+    //     region: 'eu-west-2'
+    //   },
+    //   s3UploadOptions: {
+    //     Bucket: 'charlotte-badger-course-content-bundles'
+    //   },
+    //   cdnizerOptions: {
+    //     defaultCDNBase: 'https://charlotte-badger-course-content-bundles.s3.eu-west-2.amazonaws.com'
+    //   }
+    // })
   ]
 };

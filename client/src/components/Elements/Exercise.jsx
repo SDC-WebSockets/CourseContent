@@ -1,20 +1,20 @@
 import React from 'react';
 import icons from './svgIcons.js';
-import style from '../../cssModules/subElement.css';
+import {HasChild, RightSideInfo} from '../StyledComponents.js';
 
 const Exercise = (props) => {
 
   return (
     <div>
-      <div className="hasChild">
+      <HasChild>
         <span dangerouslySetInnerHTML={{ __html: icons.r2 }}></span>
         <span>
           {props.element.title}
         </span>
-        <span className="right-side-info">
+        <RightSideInfo>
           {`${props.element.numQuestions} question`}
-        </span>
-      </div>
+        </RightSideInfo>
+      </HasChild>
     </div>
   );
 

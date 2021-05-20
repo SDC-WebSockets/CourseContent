@@ -1,7 +1,15 @@
 const mongoose = require('mongoose');
-const config = require('../config.js');
-const dbUrl = process.env.dbUrl || config.dbUrl || 'mongodb://localhost/courseContent';
-const dbName = process.env.dbName || config.dbName;
+let dbUrl;
+let dbName;
+
+
+try {
+  dbUrl = process.env.DBUrl || require('config').dbUrl;
+  dbName = process.env.DBName || require('config').dbName;
+} catch (e) {
+  dbUrl = localConfig.dbUrl;
+  dbName = localConfig.dbName;
+}
 
 mongoose.connect(dbUrl, {
   dbName: dbName,

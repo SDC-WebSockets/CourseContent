@@ -1,8 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import Section from './Section.jsx';
+import {CourseSectionsBlock} from './StyledComponents.js';
 import ContentHeader from './ContentHeader.jsx';
-import '../main.css';
 import qs from 'qs';
 
 class CourseContent extends React.Component {
@@ -13,16 +13,17 @@ class CourseContent extends React.Component {
     const courseId = Number(queries['?courseId']);
 
     this.state = {
+      courseId,
       course: {},
       isLoaded: false,
-      courseId
+      sectionDisplay: 'none'
     };
-
+    this.clickHandler = this.clickHandler.bind(this);
   }
 
   componentDidMount() {
 
-    axios.get(`/course/item?courseId=${this.state.courseId}`)
+    axios.get(`http://127.0.0.1:9800/course/item?courseId=${this.state.courseId}`)
       .then((response) => {
         this.setState({
           isLoaded: true,
@@ -33,30 +34,46 @@ class CourseContent extends React.Component {
         if (err) {
           console.log(err);
         }
+        this.setState({error: {
+          status: err.response.status,
+          data: err.response.data
+        }, isLoaded: true });
       });
 
   }
 
-  componentWillUnMount() {
-    this.cancel();
+  clickHandler() {
+
+    if (this.state.sectionDisplay === 'block') {
+      this.setState({sectionDisplay: 'none'});
+    } else {
+      this.setState({ sectionDisplay: 'block' });
+    }
   }
 
   render() {
 
     if (!this.state.isLoaded) {
       return <div>Loading...</div>;
+    } else if (this.state.error) {
+      return (
+        <div>
+          <h2>Course Content Error</h2>
+          <h3>{`Error ${this.state.error.status} ${this.state.error.data}`}</h3>
+        </div>
+      );
     } else {
       return (
         <div>
-          <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength}/>
+          <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength} clickHandler={this.clickHandler} />
           <br/>
           <br/>
-          <div id="courseSectionsBlock">
+          <CourseSectionsBlock>
             {this.state.course.sections.length > 0 &&
               this.state.course.sections.map(section => (
-                <Section key={`section${section.sectionId}`} section={section} />
+                <Section display={this.state.sectionDisplay} key={`section${section.sectionId}`} section={section} />
               ))}
-          </div>
+          </CourseSectionsBlock>
         </div>
       );
     }

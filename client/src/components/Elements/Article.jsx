@@ -1,22 +1,22 @@
 import React from 'react';
 import moment from 'moment';
 import icons from './svgIcons.js';
-import style from '../../cssModules/subElement.css';
+import {HasChild, Preview, RightSideInfo} from '../StyledComponents.js';
 
 const Article = (props) => {
 
   return (
     <div>
-      <div className="hasChild">
+      <HasChild>
         <span dangerouslySetInnerHTML={{ __html: icons.vader }}></span>
         <a>
           {props.element.title}
         </a>
-        <span className="right-side-info">{moment(props.element.elementLength).format('mm:ss')}</span>
+        <RightSideInfo>{moment(props.element.elementLength).format('mm:ss')}</RightSideInfo>
         {props.element.videoPreview &&
-          <a className="right-side-info" href={props.element.videoUrl}>Preview</a>
+          <Preview href={props.element.videoUrl}>Preview</Preview>
         }
-      </div>
+      </HasChild>
     </div>
   );
 
