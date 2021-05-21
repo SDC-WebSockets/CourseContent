@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const fs = require('fs');
 const controller = require('./controller.js');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -20,23 +19,13 @@ app.use((req, res, next) => {
 
 app.use('/', express.static(path.join(__dirname, '..', 'client', 'dist')));
 
-app.get('/bundle', (req, res) => {
-
-  res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'course-content.js'));
-
-});
+app.get('/bundle', controller.bundle);
 
 app.get('/course/item', controller.course);
 
 app.get('/section/item', controller.section);
 
 app.get('/element/item', controller.element);
-
-app.get('/host', (req, res) => {
-
-  res.send(req.headers.host);
-
-});
 
 app.listen(PORT, () => {
   console.log('Listening on port:', PORT);

@@ -78,3 +78,9 @@ module.exports.element = (req, res) => {
     });
 
 };
+
+module.exports.bundle = (req, res) => {
+
+  res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'course-content.js'));
+
+};
