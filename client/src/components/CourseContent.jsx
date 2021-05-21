@@ -16,14 +16,15 @@ class CourseContent extends React.Component {
       courseId,
       course: {},
       isLoaded: false,
-      sectionDisplay: 'none'
+      sectionDisplay: 'none',
+      host: window.location.host
     };
     this.clickHandler = this.clickHandler.bind(this);
   }
 
   componentDidMount() {
+    console.log(this.state.host)
 
-    console.log('window', window.location.href)
     axios.get(`/course/item?courseId=${this.state.courseId}`)
       .then((response) => {
         this.setState({
