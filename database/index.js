@@ -5,13 +5,13 @@ let dbName;
 if (process.env.DBURL) {
   dbUrl = process.env.DBURL;
 } else {
-  dbUrl = require('config').dbUrl;
+  dbUrl = require('../config').dbUrl;
 }
 
 if (process.env.DBURL) {
   dbName = process.env.DBNAME;
 } else {
-  dbName = require('config').dbName;
+  dbName = require('../config').dbName;
 }
 
 mongoose.connect(dbUrl, {
