@@ -10,7 +10,6 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    console.log(window);
     const queries = qs.parse(window.location.search);
     const courseId = Number(queries['?courseId']);
     this.setState({courseId});

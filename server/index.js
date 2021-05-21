@@ -14,7 +14,7 @@ app.use(cors());
 
 app.use((req, res, next) => {
   global.host = req.headers.host;
-  console.log(global)
+  console.log(global);
   next();
 });
 
