@@ -22,8 +22,8 @@ class CourseContent extends React.Component {
   }
 
   componentDidMount() {
-    console.log(location.pathname);
 
+    console.log('window', window)
     axios.get(`/course/item?courseId=${this.state.courseId}`)
       .then((response) => {
         this.setState({

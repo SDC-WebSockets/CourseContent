@@ -13,7 +13,8 @@ app.use(bodyParser.urlencoded());
 app.use(cors());
 
 app.use((req, res, next) => {
-  console.log(req.headers.host);
+  global.host = req.headers.host;
+  console.log(global)
   next();
 });
 
