@@ -12,6 +12,11 @@ app.use(bodyParser.urlencoded());
 
 app.use(cors());
 
+app.use((req, res, next) => {
+  console.log(req.headers.host);
+  next();
+});
+
 app.use('/', express.static(path.join(__dirname, '..', 'client', 'dist')));
 
 app.get('/bundle', (req, res) => {
