@@ -17,7 +17,7 @@ class CourseContent extends React.Component {
       course: {},
       isLoaded: false,
       sectionDisplay: 'none',
-      host: window.location.host
+      host: 'ec2-18-130-234-175.eu-west-2.compute.amazonaws.com:9800'
     };
     this.clickHandler = this.clickHandler.bind(this);
   }

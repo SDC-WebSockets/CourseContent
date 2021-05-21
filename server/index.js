@@ -32,6 +32,12 @@ app.get('/section/item', controller.section);
 
 app.get('/element/item', controller.element);
 
+app.get('/host', (req, res) => {
+
+  res.send(req.headers.host);
+
+});
+
 app.listen(PORT, () => {
   console.log('Listening on port:', PORT);
 });
