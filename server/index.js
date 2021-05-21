@@ -14,7 +14,12 @@ app.use(cors());
 
 app.use('/', express.static(path.join(__dirname, '..', 'client', 'dist')));
 
+<<<<<<< HEAD
+  // let element = ReactDOMServer.renderToString(CourseContent);
+  // console.log(element);
+=======
 app.get('/bundle', (req, res) => {
+>>>>>>> main
 
   // const dir = fs.readdirSync(path.join(__dirname, '..', 'client', 'dist'));
   res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'course-content.js'));

@@ -1,7 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const config = require('../config.js');
-const KEY = config.pexelKey;
+const KEY = process.env.PEXEL_KEY || require('../config.js').pexelKey;
 const createClient = require('pexels').createClient;
 const client = createClient(KEY);
 const axios = require('axios');
@@ -96,10 +95,11 @@ const saveToDirectory = async (videos) => {
 };
 
 module.exports.searchVideos = async () => {
+  if (fs.existsSync(path.join(__dirname, 'videos'))) {
+    fs.rmdirSync(path.join(__dirname, 'videos'), { recursive: true });
+  }
 
-  fs.rmdirSync('./videos', { recursive: true });
-
-  fs.mkdirSync('./videos');
+  fs.mkdirSync(path.join(__dirname, 'videos'));
 
   await client.videos.search({ query: 'programming', 'per_page': 80 })
     .then(async response => {

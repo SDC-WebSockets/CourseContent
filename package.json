@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "webpack --mode production && node server/index.js",
+    "start": "webpack --mode production && pm2 start server/index.js",
     "react-dev": "webpack --mode development --watch",
     "build": "webpack --mode production",
     "server-dev": "nodemon server/index.js",
@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/Charlotte-Badger/Course-Content#readme",
   "dependencies": {
+    "@shelf/jest-mongodb": "^1.2.4",
     "aws-sdk": "^2.895.0",
     "axios": "^0.21.1",
     "body-parser": "^1.19.0",
