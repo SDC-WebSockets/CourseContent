@@ -23,6 +23,7 @@ class CourseContent extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.state.host);
 
     axios.get(`http://${this.state.host}/course/item?courseId=${this.state.courseId}`)
       .then((response) => {
