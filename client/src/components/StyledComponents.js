@@ -42,15 +42,15 @@ export const SectionHeader = styled.div`
 
 export const SectionTitle = styled.span`
   float: left;
-  font-size: 1.6rem;
-  line-height: 1.2;
-  font-weight: 700;
+  // font-size: 1.6rem;
+  // line-height: 1.2;
+  // font-weight: 700;
 `;
 
 export const SectionTotalLectures = styled.span`
   float: right;
-  font-weight: 400;
-  line-height: 1.4;
+  // font-weight: 400;
+  // line-height: 1.4;
   font-size: 1.4rem;
 `;
 

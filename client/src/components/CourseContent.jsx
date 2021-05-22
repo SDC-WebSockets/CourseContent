@@ -85,14 +85,15 @@ class CourseContent extends React.Component {
     } else {
       return (
         <div>
+          {/* <BodyContainer> */}
           <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength} clickHandler={this.clickHandler} />
           <br/>
           <br/>
           <CourseSectionsBlock>
             {this.state.course.sections.length > 0 &&
-              this.state.course.sections.map(section => (
-                <Section display={this.state.sectionDisplay} key={`section${section.sectionId}`} section={section} />
-              ))}
+                this.state.course.sections.map(section => (
+                  <Section display={this.state.sectionDisplay} key={`section${section.sectionId}`} section={section} />
+                ))}
           </CourseSectionsBlock>
         </div>
       );
