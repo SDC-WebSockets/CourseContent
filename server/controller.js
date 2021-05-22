@@ -1,5 +1,6 @@
 const db = require('../database/index.js');
 const helpers = require('./helpers.js');
+const path = require('path');
 
 module.exports.course = (req, res) => {
 
