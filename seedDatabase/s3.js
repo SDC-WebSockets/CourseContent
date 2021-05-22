@@ -3,9 +3,9 @@ const AWS = require('aws-sdk');
 const ffmpeg = require('fluent-ffmpeg');
 const fs = require('fs');
 let videosArray = require('./videosArray.js');
+let awsId = process.env.AWS_ACCESS_KEY_ID;
+let awsSecret = process.env.AWS_SECRET_ACCESS_KEY;
 
-const awsId = process.env.AWS_ACCESS_KEY_ID || require('../config.js').accessKeyID;
-const awsSecret = process.env.AWS_SECRET_ACCESS_KEY || require('../config.js').secretAccessKey;
 const BUCKET_NAME = 'charlotte-badger-course-content-stock-footage';
 
 const s3 = new AWS.S3({
@@ -38,7 +38,6 @@ const emptyBucket = async () => {
 };
 
 const uploadOneFile = async (file) => {
-  // Read content from the file
   console.log('Uploading:', file);
   const fileContent = fs.readFileSync(file);
   let fileName = file.split('/');

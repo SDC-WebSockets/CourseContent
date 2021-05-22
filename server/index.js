@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const fs = require('fs');
 const controller = require('./controller.js');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -12,19 +11,15 @@ app.use(bodyParser.urlencoded());
 
 app.use(cors());
 
+app.use((req, res, next) => {
+  global.host = req.headers.host;
+  console.log(global);
+  next();
+});
+
 app.use('/', express.static(path.join(__dirname, '..', 'client', 'dist')));
 
-<<<<<<< HEAD
-  // let element = ReactDOMServer.renderToString(CourseContent);
-  // console.log(element);
-=======
-app.get('/bundle', (req, res) => {
->>>>>>> main
-
-  // const dir = fs.readdirSync(path.join(__dirname, '..', 'client', 'dist'));
-  res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'course-content.js'));
-
-});
+app.get('/bundle', controller.bundle);
 
 app.get('/course/item', controller.course);
 

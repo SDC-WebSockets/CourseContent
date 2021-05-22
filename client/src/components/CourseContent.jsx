@@ -16,14 +16,16 @@ class CourseContent extends React.Component {
       courseId,
       course: {},
       isLoaded: false,
-      sectionDisplay: 'none'
+      sectionDisplay: 'none',
+      host: 'ec2-18-130-234-175.eu-west-2.compute.amazonaws.com:9800'
+      // Dynamically set host in future
     };
     this.clickHandler = this.clickHandler.bind(this);
   }
 
   componentDidMount() {
 
-    axios.get(`/course/item?courseId=${this.state.courseId}`)
+    axios.get(`http://${this.state.host}/course/item?courseId=${this.state.courseId}`)
       .then((response) => {
         this.setState({
           isLoaded: true,
