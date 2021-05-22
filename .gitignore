@@ -6,3 +6,4 @@ videos.test
 coverage
 localConfig.js
 config.sample.js
+globalConfig.json

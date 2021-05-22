@@ -16,14 +16,16 @@ class CourseContent extends React.Component {
       courseId,
       course: {},
       isLoaded: false,
-      sectionDisplay: 'none'
+      sectionDisplay: 'none',
+      host: 'ec2-18-130-234-175.eu-west-2.compute.amazonaws.com:9800'
+      // Dynamically set host in future
     };
     this.clickHandler = this.clickHandler.bind(this);
   }
 
   componentDidMount() {
 
-    axios.get(`http://127.0.0.1:9800/course/item?courseId=${this.state.courseId}`)
+    axios.get(`http://${this.state.host}/course/item?courseId=${this.state.courseId}`)
       .then((response) => {
         this.setState({
           isLoaded: true,
@@ -34,10 +36,28 @@ class CourseContent extends React.Component {
         if (err) {
           console.log(err);
         }
+
+        let status;
+        if (err.response) {
+          if (err.response.status) {
+            status = err.response.status;
+          }
+        } else {
+          status = 500;
+        }
+
+        let data;
+        if (err.response) {
+          if (err.response.data) {
+            data = err.response.data;
+          }
+        } else {
+          data = 'Internal Server Error';
+        }
+
         this.setState({error: {
-          status: err.response.status,
-          data: err.response.data
-        }, isLoaded: true });
+          status,
+          data}, isLoaded: true });
       });
 
   }
@@ -65,14 +85,15 @@ class CourseContent extends React.Component {
     } else {
       return (
         <div>
+          {/* <BodyContainer> */}
           <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength} clickHandler={this.clickHandler} />
           <br/>
           <br/>
           <CourseSectionsBlock>
             {this.state.course.sections.length > 0 &&
-              this.state.course.sections.map(section => (
-                <Section display={this.state.sectionDisplay} key={`section${section.sectionId}`} section={section} />
-              ))}
+                this.state.course.sections.map(section => (
+                  <Section display={this.state.sectionDisplay} key={`section${section.sectionId}`} section={section} />
+                ))}
           </CourseSectionsBlock>
         </div>
       );

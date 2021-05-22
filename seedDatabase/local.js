@@ -37,6 +37,5 @@ module.exports = () => {
     fs.writeFileSync(path.join(__dirname, '..', '.gitignore'), 'localConfig.js');
   }
 
-
   return 'Remote urls defined';
 };
