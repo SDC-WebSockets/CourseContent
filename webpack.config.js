@@ -9,7 +9,7 @@ let secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 module.exports = {
   entry: `${SRC_DIR}/index.jsx`,
   output: {
-    filename: 'course-content.js',
+    filename: `course-content-${Date.now()}.js`,
     path: DIST_DIR,
     clean: true
   },
