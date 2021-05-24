@@ -12,15 +12,27 @@ class CourseContent extends React.Component {
     const queries = qs.parse(window.location.search);
     const courseId = Number(queries['?courseId']);
 
+    let expanded = [];
+
+    for (let i = 0; i < 100; i++) {
+      if (i === 0) {
+        expanded.push('block');
+      } else {
+        expanded.push('none');
+      }
+    }
+
     this.state = {
       courseId,
       course: {},
       isLoaded: false,
-      sectionDisplay: 'none',
-      host: 'ec2-18-130-234-175.eu-west-2.compute.amazonaws.com:9800'
+      expanded,
+      allExpanded: false,
+      host: '127.0.0.1:9800'
       // Dynamically set host in future
     };
     this.clickHandler = this.clickHandler.bind(this);
+    this.toggleView = this.toggleView.bind(this);
   }
 
   componentDidMount() {
@@ -62,12 +74,39 @@ class CourseContent extends React.Component {
 
   }
 
-  clickHandler() {
+  expandAll() {
+    let opened = this.state.expanded.map(element => 'block');
+    this.setState({
+      expanded: opened,
+      allExpanded: true
+    });
+  }
 
-    if (this.state.sectionDisplay === 'block') {
-      this.setState({sectionDisplay: 'none'});
+  collapseAll() {
+    let closed = this.state.expanded.map(element => 'none');
+    this.setState({
+      expanded: closed,
+      allExpanded: false
+    });
+  }
+
+  toggleView(idx) {
+    const expanded = this.state.expanded;
+    if (expanded[idx] === 'block') {
+      console.log('switching to none');
+      expanded[idx] = 'none';
     } else {
-      this.setState({ sectionDisplay: 'block' });
+      console.log('switching to block');
+      expanded[idx] = 'block';
+    }
+    this.setState({expanded});
+  }
+
+  clickHandler() {
+    if (this.state.allExpanded) {
+      this.collapseAll();
+    } else {
+      this.expandAll();
     }
   }
 
@@ -85,15 +124,14 @@ class CourseContent extends React.Component {
     } else {
       return (
         <div>
-          {/* <BodyContainer> */}
-          <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength} clickHandler={this.clickHandler} />
+          <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength} clickHandler={this.clickHandler} allExpanded={this.state.allExpanded}/>
           <br/>
           <br/>
           <CourseSectionsBlock>
             {this.state.course.sections.length > 0 &&
-                this.state.course.sections.map(section => (
-                  <Section display={this.state.sectionDisplay} key={`section${section.sectionId}`} section={section} />
-                ))}
+                this.state.course.sections.map((section, idx) => {
+                  return <Section idx={idx} display={this.state.expanded[idx]} key={`section${section.sectionId}`} section={section} toggleView={this.toggleView}/>;
+                })}
           </CourseSectionsBlock>
         </div>
       );
