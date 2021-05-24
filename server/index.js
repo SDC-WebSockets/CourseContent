@@ -13,8 +13,6 @@ app.use(cors());
 
 app.use('/', express.static(path.join(__dirname, '..', 'client', 'dist')));
 
-app.use('/', express.static(path.join(__dirname, '..', 'client', 'dist')));
-
 app.get('/bundle', controller.bundle);
 
 app.get('/course/item', controller.course);
