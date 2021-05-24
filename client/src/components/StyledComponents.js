@@ -108,3 +108,10 @@ export const RightSideInfo = styled.span`
 export const HasChild = styled.div`
   margin: 5px;
 `;
+
+export const ShowMoreSections = styled.button`
+  color: #0f7c90;
+  background-color: transparent;
+  border: 1px solid #2896a9;
+}
+`;

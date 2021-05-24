@@ -53,7 +53,7 @@ class Section extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{display: this.props.section.sectionDisplay}}>
         <div>
           <SectionHeader onClick={this.handleClick.bind(this)}>
             <h3>
@@ -68,7 +68,7 @@ class Section extends React.Component {
               </span>
             </h3>
           </SectionHeader>
-          <SectionElementsBlock style={{ display: this.props.display }}>
+          <SectionElementsBlock style={{ display: this.props.section.elementDisplay }}>
             <ElementsContainer>
               <Ul>
                 {this.props.section.elements.map(element =>

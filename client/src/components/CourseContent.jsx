@@ -3,6 +3,7 @@ import axios from 'axios';
 import Section from './Section.jsx';
 import {CourseSectionsBlock} from './StyledComponents.js';
 import ContentHeader from './ContentHeader.jsx';
+import MoreSections from './MoreSections.jsx';
 import qs from 'qs';
 
 class CourseContent extends React.Component {
@@ -12,36 +13,47 @@ class CourseContent extends React.Component {
     const queries = qs.parse(window.location.search);
     const courseId = Number(queries['?courseId']);
 
-    let expanded = [];
-
-    for (let i = 0; i < 100; i++) {
-      if (i === 0) {
-        expanded.push('block');
-      } else {
-        expanded.push('none');
-      }
-    }
-
     this.state = {
       courseId,
       course: {},
       isLoaded: false,
-      expanded,
       allExpanded: false,
       host: '127.0.0.1:9800'
       // Dynamically set host in future
     };
     this.clickHandler = this.clickHandler.bind(this);
     this.toggleView = this.toggleView.bind(this);
+    this.setDisplay = this.setDisplay.bind(this);
+    this.showAllSections = this.setDisplay.bind(this);
+  }
+
+  setDisplay(course) {
+
+    for (let i = 0; i < course.sections.length; i++) {
+      if (i === 0) {
+        course.sections[i].sectionDisplay = 'block';
+        course.sections[i].elementDisplay = 'block';
+      } else if (i <= 9) {
+        course.sections[i].sectionDisplay = 'block';
+        course.sections[i].elementDisplay = 'none';
+      } else {
+        course.sections[i].sectionDisplay = 'none';
+        course.sections[i].elementDisplay = 'none';
+      }
+    }
+
+    return course;
+
   }
 
   componentDidMount() {
 
     axios.get(`http://${this.state.host}/course/item?courseId=${this.state.courseId}`)
       .then((response) => {
+        const course = this.setDisplay(response.data);
         this.setState({
           isLoaded: true,
-          course: response.data
+          course
         });
       })
       .catch((err) => {
@@ -75,31 +87,46 @@ class CourseContent extends React.Component {
   }
 
   expandAll() {
-    let opened = this.state.expanded.map(element => 'block');
+    let course = this.state.course;
+    for (let i = 0; i < course.sections.length; i++) {
+      course.sections[i].elementDisplay = 'block';
+    }
     this.setState({
-      expanded: opened,
+      course,
       allExpanded: true
     });
   }
 
   collapseAll() {
-    let closed = this.state.expanded.map(element => 'none');
+    let course = this.state.course;
+    for (let i = 0; i < course.sections.length; i++) {
+      course.sections[i].elementDisplay = 'none';
+    }
     this.setState({
-      expanded: closed,
+      course,
       allExpanded: false
     });
   }
 
   toggleView(idx) {
-    const expanded = this.state.expanded;
-    if (expanded[idx] === 'block') {
-      console.log('switching to none');
-      expanded[idx] = 'none';
+    const course = this.state.course;
+    if (course.sections[idx].elementDisplay === 'block') {
+      course.sections[idx].elementDisplay = 'none';
     } else {
-      console.log('switching to block');
-      expanded[idx] = 'block';
+      course.sections[idx].elementDisplay = 'block';
     }
-    this.setState({expanded});
+    this.setState({course});
+  }
+
+  showAllSections() {
+    console.log('show all sections');
+    const course = this.state.course;
+    console.log(course);
+    // for (let i = 0; i < course.sections.length; i++) {
+    //   course.sections[i].sectionDisplay = 'block';
+    // }
+
+    // this.setState({course});
   }
 
   clickHandler() {
@@ -130,9 +157,10 @@ class CourseContent extends React.Component {
           <CourseSectionsBlock>
             {this.state.course.sections.length > 0 &&
                 this.state.course.sections.map((section, idx) => {
-                  return <Section idx={idx} display={this.state.expanded[idx]} key={`section${section.sectionId}`} section={section} toggleView={this.toggleView}/>;
+                  return <Section idx={idx} key={`section${section.sectionId}`} section={section} toggleView={this.toggleView}/>;
                 })}
           </CourseSectionsBlock>
+          <MoreSections onClick={this.showAllSections} numberOfSections={this.state.course.sections.length}/>
         </div>
       );
     }
