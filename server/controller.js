@@ -1,5 +1,6 @@
 const db = require('../database/index.js');
 const helpers = require('./helpers.js');
+const path = require('path');
 
 module.exports.course = (req, res) => {
 
@@ -76,5 +77,11 @@ module.exports.element = (req, res) => {
         res.sendStatus(404);
       }
     });
+
+};
+
+module.exports.bundle = (req, res) => {
+
+  res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'course-content.js'));
 
 };
