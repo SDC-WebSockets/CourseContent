@@ -1,6 +1,7 @@
 const db = require('../database/index.js');
 const helpers = require('./helpers.js');
 const path = require('path');
+const fs = require('fs');
 
 module.exports.course = (req, res) => {
 
@@ -80,8 +81,31 @@ module.exports.element = (req, res) => {
 
 };
 
-module.exports.bundle = (req, res) => {
+module.exports.bundle = (req, res, next) => {
 
-  res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'course-content.js'));
+  fs.readdir(path.join(__dirname, '..', 'client', 'dist'), (err, dir) => {
+    if (err) {
+      console.log(err);
+    }
+
+    let filepath;
+
+    for (let i = 0; i < dir.length; i++) {
+      let filename = dir[i];
+      let elements = filename.split('.');
+      let ext = elements[elements.length - 1];
+      if (ext === 'js') {
+        filepath = path.join(__dirname, '..', 'client', 'dist', filename);
+        break;
+      }
+    }
+
+    if (filepath) {
+      res.sendFile(filepath);
+    } else {
+      res.sendStatus(4040);
+    }
+
+  });
 
 };
