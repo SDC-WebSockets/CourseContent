@@ -88,7 +88,9 @@ class CourseContent extends React.Component {
   }
 
   expandAll() {
-    this.showAllSections();
+    if (!this.state.displayMoreSections) {
+      this.showAllSections();
+    }
     let course = this.state.course;
     for (let i = 0; i < course.sections.length; i++) {
       course.sections[i].elementDisplay = 'block';
