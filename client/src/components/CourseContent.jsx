@@ -88,6 +88,7 @@ class CourseContent extends React.Component {
   }
 
   expandAll() {
+    this.showAllSections();
     let course = this.state.course;
     for (let i = 0; i < course.sections.length; i++) {
       course.sections[i].elementDisplay = 'block';
@@ -119,7 +120,7 @@ class CourseContent extends React.Component {
     this.setState({course});
   }
 
-  showAllSections(e) {
+  showAllSections() {
     const course = this.state.course;
     for (let i = 0; i < course.sections.length; i++) {
       course.sections[i].sectionDisplay = 'block';
@@ -158,12 +159,12 @@ class CourseContent extends React.Component {
           <br/>
           <CourseSectionsBlock>
             {this.state.course.sections.length > 0 &&
-                this.state.course.sections.map((section, idx) => {
-                  return <Section idx={idx} key={`section${section.sectionId}`} section={section} toggleView={this.toggleView}/>;
-                })}
+              this.state.course.sections.map((section, idx) => {
+                return <Section idx={idx} key={`section${section.sectionId}`} section={section} toggleView={this.toggleView}/>;
+              })}
           </CourseSectionsBlock>
           {!this.state.displayMoreSections &&
-            <MoreSections id="moreSections" onClick={this.showAllSections} numberOfSections={this.state.course.sections.length}/>
+              <MoreSections id="moreSections" onClick={this.showAllSections} numberOfSections={this.state.course.sections.length}/>
           }
         </div>
       );

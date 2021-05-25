@@ -6,19 +6,21 @@ const ContentHeader = (props) => (
 
   <ContentHeaderWrapper>
     <h2>Course Content</h2>
-    <HeaderInfo>
-      <span>
-        {`${props.totalSections} Sections • ${props.totalLectures + props.totalArticles} Lectures • `}
+    <div>
+      <HeaderInfo>
         <span>
-          {`${moment.utc(props.courseLength).format('H[h ]M[m]')} total length`}
+          {`${props.totalSections} Sections • ${props.totalLectures + props.totalArticles} Lectures • `}
+          <span>
+            {`${moment.utc(props.courseLength).format('H[h ]M[m]')} total length`}
+          </span>
         </span>
-      </span>
-    </HeaderInfo>
-    <ExpandCollapse onClick={props.clickHandler}>
-      <span>
-        {props.allExpanded ? 'Collapse all sections' : 'Expand all sections'}
-      </span>
-    </ExpandCollapse>
+      </HeaderInfo>
+      <ExpandCollapse onClick={props.clickHandler}>
+        <span>
+          {props.allExpanded ? 'Collapse all sections' : 'Expand all sections'}
+        </span>
+      </ExpandCollapse>
+    </div>
   </ContentHeaderWrapper>
 
 );
