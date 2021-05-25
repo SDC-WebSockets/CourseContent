@@ -18,13 +18,14 @@ class CourseContent extends React.Component {
       course: {},
       isLoaded: false,
       allExpanded: false,
-      host: '127.0.0.1:9800'
+      host: '127.0.0.1:9800',
+      displayMoreSections: false
       // Dynamically set host in future
     };
     this.clickHandler = this.clickHandler.bind(this);
     this.toggleView = this.toggleView.bind(this);
     this.setDisplay = this.setDisplay.bind(this);
-    this.showAllSections = this.setDisplay.bind(this);
+    this.showAllSections = this.showAllSections.bind(this);
   }
 
   setDisplay(course) {
@@ -118,15 +119,16 @@ class CourseContent extends React.Component {
     this.setState({course});
   }
 
-  showAllSections() {
-    console.log('show all sections');
+  showAllSections(e) {
     const course = this.state.course;
-    console.log(course);
-    // for (let i = 0; i < course.sections.length; i++) {
-    //   course.sections[i].sectionDisplay = 'block';
-    // }
+    for (let i = 0; i < course.sections.length; i++) {
+      course.sections[i].sectionDisplay = 'block';
+    }
 
-    // this.setState({course});
+    this.setState({
+      course,
+      displayMoreSections: true
+    });
   }
 
   clickHandler() {
@@ -160,7 +162,9 @@ class CourseContent extends React.Component {
                   return <Section idx={idx} key={`section${section.sectionId}`} section={section} toggleView={this.toggleView}/>;
                 })}
           </CourseSectionsBlock>
-          <MoreSections onClick={this.showAllSections} numberOfSections={this.state.course.sections.length}/>
+          {!this.state.displayMoreSections &&
+            <MoreSections id="moreSections" onClick={this.showAllSections} numberOfSections={this.state.course.sections.length}/>
+          }
         </div>
       );
     }
