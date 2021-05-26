@@ -87,7 +87,13 @@ export const ExpandCollapse = styled.button`
   vertical-align: bottom;
   white-space: nowrap;
   font-weight: 700;
-  float: right
+  float: right;
+  justify-content: center;
+
+  &:hover {
+    color: #1b4a58
+  }
+
 `;
 
 export const HeaderInfo = styled.div`
@@ -107,4 +113,21 @@ export const RightSideInfo = styled.span`
 
 export const HasChild = styled.div`
   margin: 5px;
+`;
+
+export const ShowMoreSections = styled.button`
+  color: #0f7c90;
+  background-color: transparent;
+  border: 1px solid #2896a9;
+  width: 100%;
+  height: 4rem;
+  font-weight: 700;
+  border-radius: 4px;
+  margin-top: 1.6rem;
+
+  &:hover {
+    border-color: #1b4a58;
+    color: #1b4a58;
+  }
+}
 `;
