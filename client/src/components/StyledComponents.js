@@ -89,6 +89,11 @@ export const ExpandCollapse = styled.button`
   font-weight: 700;
   float: right;
   justify-content: center;
+
+  &:hover {
+    color: #1b4a58
+  }
+
 `;
 
 export const HeaderInfo = styled.div`
@@ -119,5 +124,10 @@ export const ShowMoreSections = styled.button`
   font-weight: 700;
   border-radius: 4px;
   margin-top: 1.6rem;
+
+  &:hover {
+    border-color: #1b4a58;
+    color: #1b4a58;
+  }
 }
 `;
