@@ -7,7 +7,7 @@ const Exercise = (props) => {
   return (
     <div>
       <HasChild>
-        <span dangerouslySetInnerHTML={{ __html: icons.r2 }}></span>
+        <span dangerouslySetInnerHTML={{ __html: icons.excercise }}></span>
         <span>
           {props.element.title}
         </span>

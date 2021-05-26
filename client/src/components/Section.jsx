@@ -7,9 +7,7 @@ class Section extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      showElements: true
-    };
+    this.state = {};
     this.getDisplayTime = this.getDisplayTime.bind(this);
     this.shortenTitle = this.shortenTitle.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -44,10 +42,8 @@ class Section extends React.Component {
     }
   }
 
-  handleClick(e) {
-    e.preventDefault();
-    console.log(e);
-    console.log('click');
+  handleClick() {
+    this.props.toggleView(this.props.idx);
   }
 
   componentDidMount() {
@@ -57,7 +53,7 @@ class Section extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{display: this.props.section.sectionDisplay}}>
         <div>
           <SectionHeader onClick={this.handleClick.bind(this)}>
             <h3>
@@ -72,7 +68,7 @@ class Section extends React.Component {
               </span>
             </h3>
           </SectionHeader>
-          <SectionElementsBlock style={{ display: this.props.display }}>
+          <SectionElementsBlock style={{ display: this.props.section.elementDisplay }}>
             <ElementsContainer>
               <Ul>
                 {this.props.section.elements.map(element =>
