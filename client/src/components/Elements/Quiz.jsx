@@ -7,7 +7,7 @@ const Quiz = (props) => {
   return (
     <div>
       <HasChild>
-        <span dangerouslySetInnerHTML={{ __html: icons.chewy }}></span>
+        <span dangerouslySetInnerHTML={{ __html: icons.quiz }}></span>
         <span>
           {props.element.title}
         </span>

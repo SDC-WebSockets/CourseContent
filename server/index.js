@@ -23,4 +23,6 @@ app.get('/section/item', controller.section);
 
 app.get('/element/item', controller.element);
 
-module.exports = app;
+module.exports.app = app;
+
+module.exports.PORT = PORT;
