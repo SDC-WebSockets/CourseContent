@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Section from './Section.jsx';
-import {CourseSectionsBlock} from './StyledComponents.js';
+import {PseudoHtml, PseudoBody, CourseSectionsBlock} from './StyledComponents.js';
 import ContentHeader from './ContentHeader.jsx';
 import MoreSections from './MoreSections.jsx';
 import qs from 'qs';
@@ -155,20 +155,22 @@ class CourseContent extends React.Component {
       );
     } else {
       return (
-        <div>
-          <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength} expandOrCollapseAll={this.expandOrCollapseAll} allExpanded={this.state.allExpanded}/>
-          <br/>
-          <br/>
-          <CourseSectionsBlock>
-            {this.state.course.sections.length > 0 &&
-              this.state.course.sections.map((section, idx) => {
-                return <Section idx={idx} key={`section${section.sectionId}`} section={section} toggleView={this.toggleView}/>;
-              })}
-          </CourseSectionsBlock>
-          {!this.state.displayMoreSections &&
-            <MoreSections id="moreSections" showMoreSections={this.showMoreSections} numberOfSections={this.state.course.sections.length}/>
-          }
-        </div>
+        <PseudoHtml>
+          <PseudoBody>
+            <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength} expandOrCollapseAll={this.expandOrCollapseAll} allExpanded={this.state.allExpanded}/>
+            <br/>
+            <br/>
+            <CourseSectionsBlock>
+              {this.state.course.sections.length > 0 &&
+                this.state.course.sections.map((section, idx) => {
+                  return <Section idx={idx} key={`section${section.sectionId}`} section={section} toggleView={this.toggleView}/>;
+                })}
+            </CourseSectionsBlock>
+            {!this.state.displayMoreSections &&
+              <MoreSections id="moreSections" showMoreSections={this.showMoreSections} numberOfSections={this.state.course.sections.length}/>
+            }
+          </PseudoBody>
+        </PseudoHtml>
       );
     }
 

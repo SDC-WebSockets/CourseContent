@@ -1,5 +1,23 @@
 import styled from 'styled-components';
 
+export const PseudoHtml = styled.div`
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  font-size: 62.5%;
+`;
+
+export const PseudoBody = styled.div`
+  font-family: sf pro text,-apple-system,BlinkMacSystemFont,Roboto,segoe ui,Helvetica,Arial,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol;
+  font-weight: 400;
+  line-height: 1.4;
+  font-size: 1.6rem;
+  color: #3c3b37;
+  margin: 0;
+  max-width: 600px;
+`;
+
 export const Div = styled.div`
   border-radius: 4px 4px 0 0;
   border-left: 1px solid #dcdacb;
