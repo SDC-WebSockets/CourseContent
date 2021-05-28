@@ -8,8 +8,6 @@ class Section extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
-    this.getDisplayTime = this.getDisplayTime.bind(this);
-    this.shortenTitle = this.shortenTitle.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 

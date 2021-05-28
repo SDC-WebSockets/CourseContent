@@ -15,7 +15,7 @@ const ContentHeader = (props) => (
           </span>
         </span>
       </HeaderInfo>
-      <ExpandCollapse onClick={props.clickHandler}>
+      <ExpandCollapse onClick={props.expandOrCollapseAll}>
         <span>
           {props.allExpanded ? 'Collapse all sections' : 'Expand all sections'}
         </span>

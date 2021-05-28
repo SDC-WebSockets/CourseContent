@@ -20,12 +20,11 @@ class CourseContent extends React.Component {
       allExpanded: false,
       host: 'ec2-18-130-234-175.eu-west-2.compute.amazonaws.com:9800',
       displayMoreSections: false
-      // Dynamically set host in future
     };
-    this.clickHandler = this.clickHandler.bind(this);
+    this.expandOrCollapseAll = this.expandOrCollapseAll.bind(this);
     this.toggleView = this.toggleView.bind(this);
     this.setDisplay = this.setDisplay.bind(this);
-    this.showAllSections = this.showAllSections.bind(this);
+    this.showMoreSections = this.showMoreSections.bind(this);
   }
 
   setDisplay(course) {
@@ -44,7 +43,6 @@ class CourseContent extends React.Component {
     }
 
     return course;
-
   }
 
   componentDidMount() {
@@ -52,9 +50,11 @@ class CourseContent extends React.Component {
     axios.get(`http://${this.state.host}/course/item?courseId=${this.state.courseId}`)
       .then((response) => {
         const course = this.setDisplay(response.data);
+        const displayMoreSections = course.sections.length <= 10;
         this.setState({
           isLoaded: true,
-          course
+          course,
+          displayMoreSections
         });
       })
       .catch((err) => {
@@ -89,7 +89,7 @@ class CourseContent extends React.Component {
 
   expandAll() {
     if (!this.state.displayMoreSections) {
-      this.showAllSections();
+      this.showMoreSections();
     }
     let course = this.state.course;
     for (let i = 0; i < course.sections.length; i++) {
@@ -122,7 +122,7 @@ class CourseContent extends React.Component {
     this.setState({course});
   }
 
-  showAllSections() {
+  showMoreSections() {
     const course = this.state.course;
     for (let i = 0; i < course.sections.length; i++) {
       course.sections[i].sectionDisplay = 'block';
@@ -134,7 +134,7 @@ class CourseContent extends React.Component {
     });
   }
 
-  clickHandler() {
+  expandOrCollapseAll() {
     if (this.state.allExpanded) {
       this.collapseAll();
     } else {
@@ -156,7 +156,7 @@ class CourseContent extends React.Component {
     } else {
       return (
         <div>
-          <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength} clickHandler={this.clickHandler} allExpanded={this.state.allExpanded}/>
+          <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength} expandOrCollapseAll={this.expandOrCollapseAll} allExpanded={this.state.allExpanded}/>
           <br/>
           <br/>
           <CourseSectionsBlock>
@@ -165,8 +165,8 @@ class CourseContent extends React.Component {
                 return <Section idx={idx} key={`section${section.sectionId}`} section={section} toggleView={this.toggleView}/>;
               })}
           </CourseSectionsBlock>
-          {!this.state.displayMoreSections && this.state.course.sections.length > 10 &&
-              <MoreSections id="moreSections" onClick={this.showAllSections} numberOfSections={this.state.course.sections.length}/>
+          {!this.state.displayMoreSections &&
+            <MoreSections id="moreSections" showMoreSections={this.showMoreSections} numberOfSections={this.state.course.sections.length}/>
           }
         </div>
       );
