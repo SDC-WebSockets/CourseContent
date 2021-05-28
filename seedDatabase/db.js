@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const generate = require('./generate.js');
+const db = require('../database/index.js');
 const fs = require('fs');
 const path = require('path');
 const local = require('./local.js');
@@ -48,8 +49,7 @@ const courseSchema = mongoose.Schema({
   sections: [sectionSchema]
 }, { versionKey: false });
 
-const Course = mongoose.model('Course', courseSchema);
-
+const Course = db.Course;
 
 const updateOne = (course) => {
   return Course.updateOne({ courseId: course.courseId }, course, { upsert: true }).exec();
