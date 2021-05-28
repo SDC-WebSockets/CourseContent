@@ -1,13 +1,13 @@
 import React from 'react';
-import icons from './svgIcons.js';
-import {HasChild, RightSideInfo} from '../StyledComponents.js';
+import {ExerciseSVG} from './svgIcons.js';
+import {HasChild, RightSideInfo, Svg} from '../StyledComponents.js';
 
 const Exercise = (props) => {
 
   return (
     <div>
       <HasChild>
-        <span dangerouslySetInnerHTML={{ __html: icons.excercise }}></span>
+        <Svg id="icon-article" viewBox="0 0 24 24"><ExerciseSVG /></Svg>
         <span>
           {props.element.title}
         </span>
