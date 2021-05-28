@@ -165,7 +165,7 @@ class CourseContent extends React.Component {
                 return <Section idx={idx} key={`section${section.sectionId}`} section={section} toggleView={this.toggleView}/>;
               })}
           </CourseSectionsBlock>
-          {!this.state.displayMoreSections &&
+          {!this.state.displayMoreSections && this.state.course.sections.length > 10 &&
               <MoreSections id="moreSections" onClick={this.showAllSections} numberOfSections={this.state.course.sections.length}/>
           }
         </div>
