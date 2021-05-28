@@ -86,3 +86,5 @@ module.exports.findElement = async id => {
     .exec();
 
 };
+
+module.exports.Course = Course;

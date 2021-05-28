@@ -13,7 +13,9 @@ app.use(cors());
 
 app.use('/', express.static(path.join(__dirname, '..', 'client', 'dist')));
 
-app.get('/bundle', controller.bundle);
+app.get('/bundle', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'client', 'dist', 'course-content.js'));
+});
 
 app.get('/course/item', controller.course);
 
@@ -21,6 +23,6 @@ app.get('/section/item', controller.section);
 
 app.get('/element/item', controller.element);
 
-app.listen(PORT, () => {
-  console.log('Listening on port:', PORT);
-});
+module.exports.app = app;
+
+module.exports.PORT = PORT;
