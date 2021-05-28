@@ -129,5 +129,12 @@ export const ShowMoreSections = styled.button`
     border-color: #1b4a58;
     color: #1b4a58;
   }
-}
+`;
+
+export const Svg = styled.svg`
+  display: inline;
+  float: left;
+  width: 1em;
+  height: 1em;
+  fill: #73726c;
 `;

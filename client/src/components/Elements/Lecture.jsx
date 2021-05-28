@@ -1,14 +1,14 @@
 import React from 'react';
 import moment from 'moment';
-import icons from './svgIcons.js';
-import {HasChild, Preview, RightSideInfo} from '../StyledComponents.js';
+import {LectureSVG} from './svgIcons.js';
+import {HasChild, Preview, RightSideInfo, Svg} from '../StyledComponents.js';
 
 const Lecture = (props) => {
 
   return (
     <div>
       <HasChild>
-        <span dangerouslySetInnerHTML={{__html: icons.lecture}}></span>
+        <Svg id="icon-article" viewBox="0 0 20 20"><LectureSVG /></Svg>
         <a>
           {props.element.title}
         </a>

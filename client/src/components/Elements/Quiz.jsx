@@ -1,13 +1,13 @@
 import React from 'react';
-import icons from './svgIcons.js';
-import {HasChild, RightSideInfo} from '../StyledComponents.js';
+import {QuizSVG} from './svgIcons.js';
+import {HasChild, RightSideInfo, Svg} from '../StyledComponents.js';
 
 const Quiz = (props) => {
 
   return (
     <div>
       <HasChild>
-        <span dangerouslySetInnerHTML={{ __html: icons.quiz }}></span>
+        <Svg id="icon-article" viewBox="0 0 24 24"><QuizSVG /></Svg>
         <span>
           {props.element.title}
         </span>
