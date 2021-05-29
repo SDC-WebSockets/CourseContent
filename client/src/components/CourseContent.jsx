@@ -145,13 +145,13 @@ class CourseContent extends React.Component {
   render() {
 
     if (!this.state.isLoaded) {
-      return <div>Loading...</div>;
+      return <ContentContainer>Loading...</ContentContainer>;
     } else if (this.state.error) {
       return (
-        <div>
+        <ContentContainer>
           <h2>Course Content Error</h2>
           <h3>{`Error ${this.state.error.status} ${this.state.error.data}`}</h3>
-        </div>
+        </ContentContainer>
       );
     } else {
       return (
