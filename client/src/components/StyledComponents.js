@@ -42,7 +42,7 @@ export const SectionHeader = styled.div`
 
 export const SectionTitle = styled.span`
   float: left;
-  font-size: 1.6rem;
+  font-size: 1rem;
   line-height: 1.2;
   font-weight: 700;
 `;
@@ -51,7 +51,7 @@ export const SectionTotalLectures = styled.span`
   float: right;
   font-weight: 400;
   line-height: 1.4;
-  font-size: 1.4rem;
+  font-size: 0.875rem;
 `;
 
 export const SectionElementsBlock = styled.div`
@@ -123,7 +123,7 @@ export const ShowMoreSections = styled.button`
   height: 4rem;
   font-weight: 700;
   border-radius: 4px;
-  margin-top: 1.6rem;
+  margin-top: 1rem;
 
   &:hover {
     border-color: #1b4a58;
@@ -137,4 +137,14 @@ export const Svg = styled.svg`
   width: 1em;
   height: 1em;
   fill: #73726c;
+`;
+
+export const GlobalStyle = styled.svg`
+  font-family: sf pro text,-apple-system,BlinkMacSystemFont,Roboto,segoe ui,Helvetica,Arial,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol;
+  /* font-weight: 400; */
+  /* line-height: 1.4; */
+  /* font-size: 1rem; */
+  color: #3c3b37;
+  /* margin: 0; */
+  /* max-width: 600px; */
 `;

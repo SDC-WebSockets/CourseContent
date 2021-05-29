@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Section from './Section.jsx';
-import {CourseSectionsBlock} from './StyledComponents.js';
+import {CourseSectionsBlock, GlobalStyle} from './StyledComponents.js';
 import ContentHeader from './ContentHeader.jsx';
 import MoreSections from './MoreSections.jsx';
 import qs from 'qs';
@@ -18,7 +18,8 @@ class CourseContent extends React.Component {
       course: {},
       isLoaded: false,
       allExpanded: false,
-      host: 'ec2-18-130-234-175.eu-west-2.compute.amazonaws.com:9800',
+      // host: 'ec2-18-130-234-175.eu-west-2.compute.amazonaws.com:9800',
+      host: '127.0.0.1:9800',
       displayMoreSections: false
     };
     this.expandOrCollapseAll = this.expandOrCollapseAll.bind(this);
@@ -161,12 +162,12 @@ class CourseContent extends React.Component {
           <br/>
           <CourseSectionsBlock>
             {this.state.course.sections.length > 0 &&
-              this.state.course.sections.map((section, idx) => {
-                return <Section idx={idx} key={`section${section.sectionId}`} section={section} toggleView={this.toggleView}/>;
-              })}
+                this.state.course.sections.map((section, idx) => {
+                  return <Section idx={idx} key={`section${section.sectionId}`} section={section} toggleView={this.toggleView}/>;
+                })}
           </CourseSectionsBlock>
           {!this.state.displayMoreSections &&
-            <MoreSections id="moreSections" showMoreSections={this.showMoreSections} numberOfSections={this.state.course.sections.length}/>
+              <MoreSections id="moreSections" showMoreSections={this.showMoreSections} numberOfSections={this.state.course.sections.length}/>
           }
         </div>
       );
