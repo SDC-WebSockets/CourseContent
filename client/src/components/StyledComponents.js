@@ -138,3 +138,5 @@ export const Svg = styled.svg`
   height: 1em;
   fill: #73726c;
 `;
+
+export const DivContent = styled.div``;
