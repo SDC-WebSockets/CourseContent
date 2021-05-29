@@ -7,7 +7,7 @@ const Exercise = (props) => {
   return (
     <div>
       <HasChild>
-        <Svg id="icon-article" viewBox="0 0 24 24"><ExerciseSVG /></Svg>
+        <Svg className="icon-article" viewBox="0 0 24 24"><ExerciseSVG /></Svg>
         <span>
           {props.element.title}
         </span>

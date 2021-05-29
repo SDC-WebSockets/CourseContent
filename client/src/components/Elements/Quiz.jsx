@@ -7,7 +7,7 @@ const Quiz = (props) => {
   return (
     <div>
       <HasChild>
-        <Svg id="icon-article" viewBox="0 0 24 24"><QuizSVG /></Svg>
+        <Svg className="icon-article" viewBox="0 0 24 24"><QuizSVG /></Svg>
         <span>
           {props.element.title}
         </span>

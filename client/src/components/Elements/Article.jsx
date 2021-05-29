@@ -8,7 +8,7 @@ const Article = (props) => {
   return (
     <div>
       <HasChild>
-        <Svg id="icon-article" viewBox="0 0 24 24"><ArticleSVG /></Svg>
+        <Svg className="icon-article" viewBox="0 0 24 24"><ArticleSVG /></Svg>
         <a>
           {props.element.title}
         </a>

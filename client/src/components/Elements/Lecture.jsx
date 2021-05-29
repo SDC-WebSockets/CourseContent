@@ -8,7 +8,7 @@ const Lecture = (props) => {
   return (
     <div>
       <HasChild>
-        <Svg id="icon-article" viewBox="0 0 20 20"><LectureSVG /></Svg>
+        <Svg className="icon-article" viewBox="0 0 20 20"><LectureSVG /></Svg>
         <a>
           {props.element.title}
         </a>
