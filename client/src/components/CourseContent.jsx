@@ -1,11 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Section from './Section.jsx';
-<<<<<<< HEAD
 import {CourseSectionsBlock, GlobalStyle} from './StyledComponents.js';
-=======
-import {PseudoHtml, PseudoBody, CourseSectionsBlock} from './StyledComponents.js';
->>>>>>> 8085d08ab34a3935350056dcdb6645d4f1d784b1
 import ContentHeader from './ContentHeader.jsx';
 import MoreSections from './MoreSections.jsx';
 import qs from 'qs';
@@ -160,22 +156,20 @@ class CourseContent extends React.Component {
       );
     } else {
       return (
-        <PseudoHtml>
-          <PseudoBody>
-            <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength} expandOrCollapseAll={this.expandOrCollapseAll} allExpanded={this.state.allExpanded}/>
-            <br/>
-            <br/>
-            <CourseSectionsBlock>
-              {this.state.course.sections.length > 0 &&
+        <div>
+          <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength} expandOrCollapseAll={this.expandOrCollapseAll} allExpanded={this.state.allExpanded}/>
+          <br/>
+          <br/>
+          <CourseSectionsBlock>
+            {this.state.course.sections.length > 0 &&
                 this.state.course.sections.map((section, idx) => {
                   return <Section idx={idx} key={`section${section.sectionId}`} section={section} toggleView={this.toggleView}/>;
                 })}
-            </CourseSectionsBlock>
-            {!this.state.displayMoreSections &&
+          </CourseSectionsBlock>
+          {!this.state.displayMoreSections &&
               <MoreSections id="moreSections" showMoreSections={this.showMoreSections} numberOfSections={this.state.course.sections.length}/>
-            }
-          </PseudoBody>
-        </PseudoHtml>
+          }
+        </div>
       );
     }
 
