@@ -139,4 +139,4 @@ export const Svg = styled.svg`
   fill: #73726c;
 `;
 
-export const DivContent = styled.div``;
+export const ContentContainer = styled.div``;

@@ -1,7 +1,7 @@
 import React from 'react';
 import Element from './Element.jsx';
 import moment from 'moment';
-import {DivContent, SectionHeader, SectionTitle, SectionTotalLectures, SectionElementsBlock, ElementsContainer, Ul} from './StyledComponents';
+import {SectionHeader, SectionTitle, SectionTotalLectures, SectionElementsBlock, ElementsContainer, Ul} from './StyledComponents';
 
 class Section extends React.Component {
 
@@ -53,8 +53,8 @@ class Section extends React.Component {
 
   render() {
     return (
-      <DivContent style={{display: this.props.section.sectionDisplay}}>
-        <DivContent>
+      <div style={{display: this.props.section.sectionDisplay}}>
+        <div>
           <SectionHeader onClick={this.handleClick.bind(this)}>
             <h3>
               <span>
@@ -77,8 +77,8 @@ class Section extends React.Component {
               </Ul>
             </ElementsContainer>
           </SectionElementsBlock>
-        </DivContent>
-      </DivContent>
+        </div>
+      </div>
     );
   }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Section from './Section.jsx';
-import {DivContent, CourseSectionsBlock} from './StyledComponents.js';
+import {ContentContainer, CourseSectionsBlock} from './StyledComponents.js';
 import ContentHeader from './ContentHeader.jsx';
 import MoreSections from './MoreSections.jsx';
 import qs from 'qs';
@@ -145,17 +145,17 @@ class CourseContent extends React.Component {
   render() {
 
     if (!this.state.isLoaded) {
-      return <DivContent>Loading...</DivContent>;
+      return <div>Loading...</div>;
     } else if (this.state.error) {
       return (
-        <DivContent>
+        <div>
           <h2>Course Content Error</h2>
           <h3>{`Error ${this.state.error.status} ${this.state.error.data}`}</h3>
-        </DivContent>
+        </div>
       );
     } else {
       return (
-        <DivContent>
+        <ContentContainer>
           <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength} clickHandler={this.clickHandler} allExpanded={this.state.allExpanded}/>
           <br/>
           <br/>
@@ -168,7 +168,7 @@ class CourseContent extends React.Component {
           {!this.state.displayMoreSections && this.state.course.sections.length > 10 &&
               <MoreSections id="moreSections" onClick={this.showAllSections} numberOfSections={this.state.course.sections.length}/>
           }
-        </DivContent>
+        </ContentContainer>
       );
     }
 
