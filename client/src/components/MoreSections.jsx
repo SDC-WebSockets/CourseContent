@@ -1,5 +1,5 @@
 import React from 'react';
-import {ShowMoreSections} from './StyledComponents.js';
+import {DivContent, ShowMoreSections} from './StyledComponents.js';
 
 const MoreSections = (props) => (
 

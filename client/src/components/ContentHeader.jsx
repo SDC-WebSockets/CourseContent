@@ -1,12 +1,12 @@
 import React from 'react';
 import moment from 'moment';
-import {ContentHeaderWrapper, HeaderInfo, ExpandCollapse} from './StyledComponents.js';
+import {DivContent, ContentHeaderWrapper, HeaderInfo, ExpandCollapse} from './StyledComponents.js';
 
 const ContentHeader = (props) => (
 
   <ContentHeaderWrapper>
     <h2>Course Content</h2>
-    <div>
+    <DivContent>
       <HeaderInfo>
         <span>
           {`${props.totalSections} Sections • ${props.totalLectures + props.totalArticles} Lectures • `}
@@ -20,7 +20,7 @@ const ContentHeader = (props) => (
           {props.allExpanded ? 'Collapse all sections' : 'Expand all sections'}
         </span>
       </ExpandCollapse>
-    </div>
+    </DivContent>
   </ContentHeaderWrapper>
 
 );

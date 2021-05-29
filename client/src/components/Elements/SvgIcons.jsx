@@ -1,5 +1,5 @@
 import React from 'react';
-import {SvgContainer, PathPolygonRectContainer} from '../StyledComponents.js';
+import {DivContent, SvgContainer, PathPolygonRectContainer} from '../StyledComponents.js';
 
 export const SvgLecture = () => (
   <SvgContainer>
