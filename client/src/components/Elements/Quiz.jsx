@@ -1,21 +1,21 @@
 import React from 'react';
 import {QuizSVG} from './svgIcons.js';
-import {HasChild, RightSideInfo, Svg} from '../StyledComponents.js';
+import {ContentDiv, ContentSpan, HasChild, RightSideInfo, Svg} from '../StyledComponents.js';
 
 const Quiz = (props) => {
 
   return (
-    <div>
+    <ContentDiv>
       <HasChild>
-        <Svg id="icon-article" viewBox="0 0 24 24"><QuizSVG /></Svg>
-        <span>
+        <Svg className="icon-article" viewBox="0 0 24 24"><QuizSVG /></Svg>
+        <ContentSpan>
           {props.element.title}
-        </span>
+        </ContentSpan>
         <RightSideInfo>
           {`${props.element.numQuestions} question`}
         </RightSideInfo>
       </HasChild>
-    </div>
+    </ContentDiv>
   );
 
 

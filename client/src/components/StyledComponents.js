@@ -1,18 +1,10 @@
 import styled from 'styled-components';
 
-export const PseudoHtml = styled.div`
-  -webkit-font-smoothing: antialiased;
-  -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-  font-size: 62.5%;
-`;
-
-export const PseudoBody = styled.div`
+export const ContentContainer = styled.div`
   font-family: sf pro text,-apple-system,BlinkMacSystemFont,Roboto,segoe ui,Helvetica,Arial,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol;
   font-weight: 400;
   line-height: 1.4;
-  font-size: 1.6rem;
+  /* font-size: 1.6rem; */
   color: #3c3b37;
   margin: 0;
   max-width: 600px;
@@ -149,7 +141,7 @@ export const ShowMoreSections = styled.button`
   }
 `;
 
-export const Svg = styled.svg`
+export const SvgContainer = styled.svg`
   display: inline;
   float: left;
   width: 1em;
@@ -157,12 +149,6 @@ export const Svg = styled.svg`
   fill: #73726c;
 `;
 
-export const GlobalStyle = styled.svg`
-  font-family: sf pro text,-apple-system,BlinkMacSystemFont,Roboto,segoe ui,Helvetica,Arial,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol;
-  /* font-weight: 400; */
-  /* line-height: 1.4; */
-  /* font-size: 1rem; */
-  color: #3c3b37;
-  /* margin: 0; */
-  /* max-width: 600px; */
+export const PathPolygonRectContainer = styled.path`
+fill: #4691f6;
 `;

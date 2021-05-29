@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Section from './Section.jsx';
-import {CourseSectionsBlock, GlobalStyle} from './StyledComponents.js';
+import {ContentContainer, CourseSectionsBlock} from './StyledComponents.js';
 import ContentHeader from './ContentHeader.jsx';
 import MoreSections from './MoreSections.jsx';
 import qs from 'qs';
@@ -146,18 +146,18 @@ class CourseContent extends React.Component {
   render() {
 
     if (!this.state.isLoaded) {
-      return <div>Loading...</div>;
+      return <ContentContainer>Loading...</ContentContainer>;
     } else if (this.state.error) {
       return (
-        <div>
+        <ContentContainer>
           <h2>Course Content Error</h2>
           <h3>{`Error ${this.state.error.status} ${this.state.error.data}`}</h3>
-        </div>
+        </ContentContainer>
       );
     } else {
       return (
-        <div>
-          <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength} expandOrCollapseAll={this.expandOrCollapseAll} allExpanded={this.state.allExpanded}/>
+        <ContentContainer>
+          <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength} clickHandler={this.clickHandler} allExpanded={this.state.allExpanded}/>
           <br/>
           <br/>
           <CourseSectionsBlock>
@@ -169,7 +169,7 @@ class CourseContent extends React.Component {
           {!this.state.displayMoreSections &&
               <MoreSections id="moreSections" showMoreSections={this.showMoreSections} numberOfSections={this.state.course.sections.length}/>
           }
-        </div>
+        </ContentContainer>
       );
     }
 

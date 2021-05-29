@@ -1,7 +1,7 @@
 import React from 'react';
 import Element from './Element.jsx';
 import moment from 'moment';
-import {SectionHeader, SectionTitle, SectionTotalLectures, SectionElementsBlock, ElementsContainer, Ul} from './StyledComponents';
+import {ContentDiv, ContentSpan, SectionHeader, SectionTitle, SectionTotalLectures, SectionElementsBlock, ElementsContainer, Ul} from './StyledComponents';
 
 class Section extends React.Component {
 
@@ -51,19 +51,19 @@ class Section extends React.Component {
 
   render() {
     return (
-      <div style={{display: this.props.section.sectionDisplay}}>
-        <div>
+      <ContentDiv style={{display: this.props.section.sectionDisplay}}>
+        <ContentDiv>
           <SectionHeader onClick={this.handleClick.bind(this)}>
             <h3>
-              <span>
+              <ContentSpan>
                 <SectionTitle>{this.state.title}</SectionTitle>
                 <SectionTotalLectures>
                   {`${this.props.section.lectures + this.props.section.articles} lectures • `}
-                  <span>
+                  <ContentSpan>
                     {this.state.displayTime}
-                  </span>
+                  </ContentSpan>
                 </SectionTotalLectures>
-              </span>
+              </ContentSpan>
             </h3>
           </SectionHeader>
           <SectionElementsBlock style={{ display: this.props.section.elementDisplay }}>
@@ -75,8 +75,8 @@ class Section extends React.Component {
               </Ul>
             </ElementsContainer>
           </SectionElementsBlock>
-        </div>
-      </div>
+        </ContentDiv>
+      </ContentDiv>
     );
   }
 

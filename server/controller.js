@@ -100,10 +100,12 @@ module.exports.bundle = (req, res, next) => {
       }
     }
 
+    console.log(filepath)
+
     if (filepath) {
       res.sendFile(filepath);
     } else {
-      res.sendStatus(4040);
+      res.sendStatus(404);
     }
 
   });
