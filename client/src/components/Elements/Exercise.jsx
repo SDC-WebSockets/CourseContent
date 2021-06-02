@@ -1,6 +1,6 @@
 import React from 'react';
 import {ExerciseSVG} from './svgIcons.js';
-import {ContentHasChild, ContentRightSideInfo, ContentSvg, ContentDiv} from '../StyledComponents.js';
+import {ContentHasChild, ContentRightSideInfo, ContentSvg, ContentDiv, ContentSpan} from '../StyledComponents.js';
 
 const Exercise = (props) => {
 
