@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Section from './Section.jsx';
-import {ContentContainer, CourseSectionsBlock} from './StyledComponents.js';
+import {ContentContainer, ContentCourseSectionsBlock} from './StyledComponents.js';
 import ContentHeader from './ContentHeader.jsx';
 import MoreSections from './MoreSections.jsx';
 import qs from 'qs';
@@ -18,14 +18,14 @@ class CourseContent extends React.Component {
       course: {},
       isLoaded: false,
       allExpanded: false,
-      host: 'ec2-18-130-234-175.eu-west-2.compute.amazonaws.com:9800',
+      // host: 'ec2-18-130-234-175.eu-west-2.compute.amazonaws.com:9800',
+      host: '127.0.0.1:9800',
       displayMoreSections: false
-      // Dynamically set host in future
     };
-    this.clickHandler = this.clickHandler.bind(this);
+    this.expandOrCollapseAll = this.expandOrCollapseAll.bind(this);
     this.toggleView = this.toggleView.bind(this);
     this.setDisplay = this.setDisplay.bind(this);
-    this.showAllSections = this.showAllSections.bind(this);
+    this.showMoreSections = this.showMoreSections.bind(this);
   }
 
   setDisplay(course) {
@@ -44,7 +44,6 @@ class CourseContent extends React.Component {
     }
 
     return course;
-
   }
 
   componentDidMount() {
@@ -52,9 +51,11 @@ class CourseContent extends React.Component {
     axios.get(`http://${this.state.host}/course/item?courseId=${this.state.courseId}`)
       .then((response) => {
         const course = this.setDisplay(response.data);
+        const displayMoreSections = course.sections.length <= 10;
         this.setState({
           isLoaded: true,
-          course
+          course,
+          displayMoreSections
         });
       })
       .catch((err) => {
@@ -89,7 +90,7 @@ class CourseContent extends React.Component {
 
   expandAll() {
     if (!this.state.displayMoreSections) {
-      this.showAllSections();
+      this.showMoreSections();
     }
     let course = this.state.course;
     for (let i = 0; i < course.sections.length; i++) {
@@ -122,7 +123,7 @@ class CourseContent extends React.Component {
     this.setState({course});
   }
 
-  showAllSections() {
+  showMoreSections() {
     const course = this.state.course;
     for (let i = 0; i < course.sections.length; i++) {
       course.sections[i].sectionDisplay = 'block';
@@ -134,7 +135,7 @@ class CourseContent extends React.Component {
     });
   }
 
-  clickHandler() {
+  expandOrCollapseAll() {
     if (this.state.allExpanded) {
       this.collapseAll();
     } else {
@@ -145,13 +146,13 @@ class CourseContent extends React.Component {
   render() {
 
     if (!this.state.isLoaded) {
-      return <div>Loading...</div>;
+      return <ContentContainer>Loading...</ContentContainer>;
     } else if (this.state.error) {
       return (
-        <div>
+        <ContentContainer>
           <h2>Course Content Error</h2>
           <h3>{`Error ${this.state.error.status} ${this.state.error.data}`}</h3>
-        </div>
+        </ContentContainer>
       );
     } else {
       return (
@@ -159,14 +160,14 @@ class CourseContent extends React.Component {
           <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength} clickHandler={this.clickHandler} allExpanded={this.state.allExpanded}/>
           <br/>
           <br/>
-          <CourseSectionsBlock>
+          <ContentCourseSectionsBlock>
             {this.state.course.sections.length > 0 &&
-              this.state.course.sections.map((section, idx) => {
-                return <Section idx={idx} key={`section${section.sectionId}`} section={section} toggleView={this.toggleView}/>;
-              })}
-          </CourseSectionsBlock>
-          {!this.state.displayMoreSections && this.state.course.sections.length > 10 &&
-              <MoreSections id="moreSections" onClick={this.showAllSections} numberOfSections={this.state.course.sections.length}/>
+                this.state.course.sections.map((section, idx) => {
+                  return <Section idx={idx} key={`section${section.sectionId}`} section={section} toggleView={this.toggleView}/>;
+                })}
+          </ContentCourseSectionsBlock>
+          {!this.state.displayMoreSections &&
+              <MoreSections id="moreSections" showMoreSections={this.showMoreSections} numberOfSections={this.state.course.sections.length}/>
           }
         </ContentContainer>
       );

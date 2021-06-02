@@ -1,15 +1,13 @@
 import React from 'react';
 import Element from './Element.jsx';
 import moment from 'moment';
-import {SectionHeader, SectionTitle, SectionTotalLectures, SectionElementsBlock, ElementsContainer, Ul} from './StyledComponents';
+import {ContentDiv, ContentSpan, ContentSectionHeader, ContentSectionTitle, ContentSectionTotalLectures, ContentSectionElementsBlock, ContentElementsContainer, ContentUl} from './StyledComponents';
 
 class Section extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {};
-    this.getDisplayTime = this.getDisplayTime.bind(this);
-    this.shortenTitle = this.shortenTitle.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -53,32 +51,32 @@ class Section extends React.Component {
 
   render() {
     return (
-      <div style={{display: this.props.section.sectionDisplay}}>
-        <div>
-          <SectionHeader onClick={this.handleClick.bind(this)}>
+      <ContentDiv style={{display: this.props.section.sectionDisplay}}>
+        <ContentDiv>
+          <ContentSectionHeader onClick={this.handleClick.bind(this)}>
             <h3>
-              <span>
-                <SectionTitle>{this.state.title}</SectionTitle>
-                <SectionTotalLectures>
+              <ContentSpan>
+                <ContentSectionTitle>{this.state.title}</ContentSectionTitle>
+                <ContentSectionTotalLectures>
                   {`${this.props.section.lectures + this.props.section.articles} lectures • `}
-                  <span>
+                  <ContentSpan>
                     {this.state.displayTime}
-                  </span>
-                </SectionTotalLectures>
-              </span>
+                  </ContentSpan>
+                </ContentSectionTotalLectures>
+              </ContentSpan>
             </h3>
-          </SectionHeader>
-          <SectionElementsBlock style={{ display: this.props.section.elementDisplay }}>
-            <ElementsContainer>
-              <Ul>
+          </ContentSectionHeader>
+          <ContentSectionElementsBlock style={{ display: this.props.section.elementDisplay }}>
+            <ContentElementsContainer>
+              <ContentUl>
                 {this.props.section.elements.map(element =>
                   <Element element={element} key={`element${element.elementId}`} kind={element.kind} />
                 )}
-              </Ul>
-            </ElementsContainer>
-          </SectionElementsBlock>
-        </div>
-      </div>
+              </ContentUl>
+            </ContentElementsContainer>
+          </ContentSectionElementsBlock>
+        </ContentDiv>
+      </ContentDiv>
     );
   }
 
