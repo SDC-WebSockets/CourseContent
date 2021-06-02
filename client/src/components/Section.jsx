@@ -1,7 +1,7 @@
 import React from 'react';
 import Element from './Element.jsx';
 import moment from 'moment';
-import {ContentDiv, ContentSpan, SectionHeader, SectionTitle, SectionTotalLectures, SectionElementsBlock, ElementsContainer, Ul} from './StyledComponents';
+import {ContentDiv, ContentSpan, ContentSectionHeader, ContentSectionTitle, ContentSectionTotalLectures, ContentSectionElementsBlock, ContentElementsContainer, ContentUl} from './StyledComponents';
 
 class Section extends React.Component {
 
@@ -53,28 +53,28 @@ class Section extends React.Component {
     return (
       <ContentDiv style={{display: this.props.section.sectionDisplay}}>
         <ContentDiv>
-          <SectionHeader onClick={this.handleClick.bind(this)}>
+          <ContentSectionHeader onClick={this.handleClick.bind(this)}>
             <h3>
               <ContentSpan>
-                <SectionTitle>{this.state.title}</SectionTitle>
-                <SectionTotalLectures>
+                <ContentSectionTitle>{this.state.title}</ContentSectionTitle>
+                <ContentSectionTotalLectures>
                   {`${this.props.section.lectures + this.props.section.articles} lectures • `}
                   <ContentSpan>
                     {this.state.displayTime}
                   </ContentSpan>
-                </SectionTotalLectures>
+                </ContentSectionTotalLectures>
               </ContentSpan>
             </h3>
-          </SectionHeader>
-          <SectionElementsBlock style={{ display: this.props.section.elementDisplay }}>
-            <ElementsContainer>
-              <Ul>
+          </ContentSectionHeader>
+          <ContentSectionElementsBlock style={{ display: this.props.section.elementDisplay }}>
+            <ContentElementsContainer>
+              <ContentUl>
                 {this.props.section.elements.map(element =>
                   <Element element={element} key={`element${element.elementId}`} kind={element.kind} />
                 )}
-              </Ul>
-            </ElementsContainer>
-          </SectionElementsBlock>
+              </ContentUl>
+            </ContentElementsContainer>
+          </ContentSectionElementsBlock>
         </ContentDiv>
       </ContentDiv>
     );

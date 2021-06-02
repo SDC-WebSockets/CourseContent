@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Section from './Section.jsx';
-import {ContentContainer, CourseSectionsBlock} from './StyledComponents.js';
+import {ContentContainer, ContentCourseSectionsBlock} from './StyledComponents.js';
 import ContentHeader from './ContentHeader.jsx';
 import MoreSections from './MoreSections.jsx';
 import qs from 'qs';
@@ -160,12 +160,12 @@ class CourseContent extends React.Component {
           <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength} clickHandler={this.clickHandler} allExpanded={this.state.allExpanded}/>
           <br/>
           <br/>
-          <CourseSectionsBlock>
+          <ContentCourseSectionsBlock>
             {this.state.course.sections.length > 0 &&
                 this.state.course.sections.map((section, idx) => {
                   return <Section idx={idx} key={`section${section.sectionId}`} section={section} toggleView={this.toggleView}/>;
                 })}
-          </CourseSectionsBlock>
+          </ContentCourseSectionsBlock>
           {!this.state.displayMoreSections &&
               <MoreSections id="moreSections" showMoreSections={this.showMoreSections} numberOfSections={this.state.course.sections.length}/>
           }
