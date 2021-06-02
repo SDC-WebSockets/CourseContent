@@ -1,21 +1,21 @@
 import React from 'react';
 import {ExerciseSVG} from './svgIcons.js';
-import {ContentHasChild, ContentRightSideInfo, ContentSvg} from '../StyledComponents.js';
+import {ContentHasChild, ContentRightSideInfo, ContentSvg, ContentDiv} from '../StyledComponents.js';
 
 const Exercise = (props) => {
 
   return (
-    <div>
+    <ContentDiv>
       <ContentHasChild>
         <ContentSvg id="icon-article" viewBox="0 0 24 24"><ExerciseSVG /></ContentSvg>
-        <span>
+        <ContentSpan>
           {props.element.title}
-        </span>
+        </ContentSpan>
         <ContentRightSideInfo>
           {`${props.element.numQuestions} question`}
         </ContentRightSideInfo>
       </ContentHasChild>
-    </div>
+    </ContentDiv>
   );
 
 };

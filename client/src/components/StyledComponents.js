@@ -150,9 +150,19 @@ export const ContentSvg = styled.svg`
 `;
 
 export const ContentPathPolygonRectContainer = styled.path`
-fill: #4691f6;
+  fill: #4691f6;
 `;
 
 export const ContentSpan = styled.span``;
 
 export const ContentA = styled.a``;
+
+export const ContentPath = styled.path``;
+
+export const ContentH2 = styled.h2``;
+
+export const ContentH3 = styled.h3``;
+
+export const ContentBr = styled.br``;
+
+export const ContentLi = styled.li``;

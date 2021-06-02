@@ -1,11 +1,11 @@
 import React from 'react';
 import moment from 'moment';
-import {ContentDiv, ContentSpan, ContentHeaderWrapper, ContentHeaderInfo, ContentExpandCollapse} from './StyledComponents.js';
+import {ContentDiv, ContentSpan, ContentHeaderWrapper, ContentHeaderInfo, ContentExpandCollapse, ContentH2} from './StyledComponents.js';
 
 const ContentHeader = (props) => (
 
   <ContentHeaderWrapper>
-    <h2>Course Content</h2>
+    <ContentH2>Course Content</ContentH2>
     <ContentDiv>
       <ContentHeaderInfo>
         <ContentSpan>

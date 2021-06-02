@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Section from './Section.jsx';
-import {ContentContainer, ContentCourseSectionsBlock} from './StyledComponents.js';
+import {ContentContainer, ContentCourseSectionsBlock, ContentH2, ContentH3, ContentBr} from './StyledComponents.js';
 import ContentHeader from './ContentHeader.jsx';
 import MoreSections from './MoreSections.jsx';
 import qs from 'qs';
@@ -150,16 +150,16 @@ class CourseContent extends React.Component {
     } else if (this.state.error) {
       return (
         <ContentContainer>
-          <h2>Course Content Error</h2>
-          <h3>{`Error ${this.state.error.status} ${this.state.error.data}`}</h3>
+          <ContentH2>Course Content Error</ContentH2>
+          <ContentH3>{`Error ${this.state.error.status} ${this.state.error.data}`}</ContentH3>
         </ContentContainer>
       );
     } else {
       return (
         <ContentContainer>
           <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength} clickHandler={this.clickHandler} allExpanded={this.state.allExpanded}/>
-          <br/>
-          <br/>
+          <ContentBr/>
+          <ContentBr/>
           <ContentCourseSectionsBlock>
             {this.state.course.sections.length > 0 &&
                 this.state.course.sections.map((section, idx) => {
