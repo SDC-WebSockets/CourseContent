@@ -11,7 +11,7 @@ const ContentHeader = (props) => (
         <ContentSpan>
           {`${props.totalSections} Sections • ${props.totalLectures + props.totalArticles} Lectures • `}
           <ContentSpan>
-            {`${moment.utc(props.courseLength).format('H[h ]M[m]')} total length`}
+            {`${moment.utc(props.courseLength).format('H[h] m[m]')} total length`}
           </ContentSpan>
         </ContentSpan>
       </ContentHeaderInfo>
@@ -22,7 +22,7 @@ const ContentHeader = (props) => (
       </ContentExpandCollapse>
     </ContentDiv>
   </ContentHeaderWrapper>
-
+  
 );
 
 export default ContentHeader;
