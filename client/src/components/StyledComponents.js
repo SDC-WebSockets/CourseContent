@@ -1,24 +1,16 @@
 import styled from 'styled-components';
 
-export const PseudoHtml = styled.div`
-  -webkit-font-smoothing: antialiased;
-  -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: transparent;
-  touch-action: manipulation;
-  font-size: 62.5%;
-`;
-
-export const PseudoBody = styled.div`
+export const ContentContainer = styled.div`
   font-family: sf pro text,-apple-system,BlinkMacSystemFont,Roboto,segoe ui,Helvetica,Arial,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol;
   font-weight: 400;
   line-height: 1.4;
-  font-size: 1.6rem;
+  /* font-size: 1.6rem; */
   color: #3c3b37;
   margin: 0;
   max-width: 600px;
 `;
 
-export const Div = styled.div`
+export const ContentDiv = styled.div`
   border-radius: 4px 4px 0 0;
   border-left: 1px solid #dcdacb;
   border-right: 1px solid #dcdacb;
@@ -28,12 +20,12 @@ export const Div = styled.div`
   display: block;
 `;
 
-export const Ul = styled.ul`
+export const ContentUl = styled.ul`
   padding: 0;
   list-style-type: none;
 `;
 
-export const Button = styled.button`
+export const ContentButton = styled.button`
   color: #0f7c90;
   background-color: transparent;
   min-width: auto;
@@ -49,7 +41,7 @@ export const Button = styled.button`
   font-weight: 700;
 `;
 
-export const SectionHeader = styled.div`
+export const ContentSectionHeader = styled.div`
   background-color: #fbfbf8;
   height: 52px;
   border: 1px solid #dcdacc;
@@ -58,30 +50,30 @@ export const SectionHeader = styled.div`
   padding-right: 10px;
 `;
 
-export const SectionTitle = styled.span`
+export const ContentSectionTitle = styled.span`
   float: left;
-  font-size: 1.6rem;
+  font-size: 1rem;
   line-height: 1.2;
   font-weight: 700;
 `;
 
-export const SectionTotalLectures = styled.span`
+export const ContentSectionTotalLectures = styled.span`
   float: right;
   font-weight: 400;
   line-height: 1.4;
-  font-size: 1.4rem;
+  font-size: 0.875rem;
 `;
 
-export const SectionElementsBlock = styled.div`
+export const ContentSectionElementsBlock = styled.div`
   border: 1px solid #dcdacc;
   margin-top: -1px;
 `;
 
-export const ElementsContainer = styled.div`
+export const ContentElementsContainer = styled.div`
   margin: 15px;
 `;
 
-export const CourseSectionsBlock = styled.div`
+export const ContentCourseSectionsBlock = styled.div`
   max-width: 600px;
   padding: 0px;
 `;
@@ -91,7 +83,7 @@ export const ContentHeaderWrapper = styled.div`
   max-height: 40px;
 `;
 
-export const ExpandCollapse = styled.button`
+export const ContentExpandCollapse = styled.button`
   color: #0f7c90;
   background-color: transparent;
   min-width: auto;
@@ -114,26 +106,26 @@ export const ExpandCollapse = styled.button`
 
 `;
 
-export const HeaderInfo = styled.div`
+export const ContentHeaderInfo = styled.div`
   max-width: 450px;
   float: left;
 `;
 
-export const Preview = styled.a`
+export const ContentPreview = styled.a`
   float: right;
   margin: 0px;
 `;
 
-export const RightSideInfo = styled.span`
+export const ContentRightSideInfo = styled.span`
   float: right;
   margin: 0px;
 `;
 
-export const HasChild = styled.div`
+export const ContentHasChild = styled.div`
   margin: 5px;
 `;
 
-export const ShowMoreSections = styled.button`
+export const ContentShowMoreSections = styled.button`
   color: #0f7c90;
   background-color: transparent;
   border: 1px solid #2896a9;
@@ -141,7 +133,7 @@ export const ShowMoreSections = styled.button`
   height: 4rem;
   font-weight: 700;
   border-radius: 4px;
-  margin-top: 1.6rem;
+  margin-top: 1rem;
 
   &:hover {
     border-color: #1b4a58;
@@ -149,10 +141,28 @@ export const ShowMoreSections = styled.button`
   }
 `;
 
-export const Svg = styled.svg`
+export const ContentSvg = styled.svg`
   display: inline;
   float: left;
   width: 1em;
   height: 1em;
   fill: #73726c;
 `;
+
+export const ContentPathPolygonRectContainer = styled.path`
+  fill: #4691f6;
+`;
+
+export const ContentSpan = styled.span``;
+
+export const ContentA = styled.a``;
+
+export const ContentPath = styled.path``;
+
+export const ContentH2 = styled.h2``;
+
+export const ContentH3 = styled.h3``;
+
+export const ContentBr = styled.br``;
+
+export const ContentLi = styled.li``;

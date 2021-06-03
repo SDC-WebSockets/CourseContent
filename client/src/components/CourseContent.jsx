@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Section from './Section.jsx';
-import {PseudoHtml, PseudoBody, CourseSectionsBlock} from './StyledComponents.js';
+import {ContentContainer, ContentCourseSectionsBlock, ContentH2, ContentH3, ContentBr} from './StyledComponents.js';
 import ContentHeader from './ContentHeader.jsx';
 import MoreSections from './MoreSections.jsx';
 import qs from 'qs';
@@ -19,6 +19,7 @@ class CourseContent extends React.Component {
       isLoaded: false,
       allExpanded: false,
       host: 'ec2-18-130-234-175.eu-west-2.compute.amazonaws.com:9800',
+      // host: '127.0.0.1:9800',
       displayMoreSections: false
     };
     this.expandOrCollapseAll = this.expandOrCollapseAll.bind(this);
@@ -145,32 +146,30 @@ class CourseContent extends React.Component {
   render() {
 
     if (!this.state.isLoaded) {
-      return <div>Loading...</div>;
+      return <ContentContainer>Loading...</ContentContainer>;
     } else if (this.state.error) {
       return (
-        <div>
-          <h2>Course Content Error</h2>
-          <h3>{`Error ${this.state.error.status} ${this.state.error.data}`}</h3>
-        </div>
+        <ContentContainer>
+          <ContentH2>Course Content Error</ContentH2>
+          <ContentH3>{`Error ${this.state.error.status} ${this.state.error.data}`}</ContentH3>
+        </ContentContainer>
       );
     } else {
       return (
-        <PseudoHtml>
-          <PseudoBody>
-            <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength} expandOrCollapseAll={this.expandOrCollapseAll} allExpanded={this.state.allExpanded}/>
-            <br/>
-            <br/>
-            <CourseSectionsBlock>
-              {this.state.course.sections.length > 0 &&
+        <ContentContainer>
+          <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength} clickHandler={this.clickHandler} allExpanded={this.state.allExpanded}/>
+          <ContentBr/>
+          <ContentBr/>
+          <ContentCourseSectionsBlock>
+            {this.state.course.sections.length > 0 &&
                 this.state.course.sections.map((section, idx) => {
                   return <Section idx={idx} key={`section${section.sectionId}`} section={section} toggleView={this.toggleView}/>;
                 })}
-            </CourseSectionsBlock>
-            {!this.state.displayMoreSections &&
+          </ContentCourseSectionsBlock>
+          {!this.state.displayMoreSections &&
               <MoreSections id="moreSections" showMoreSections={this.showMoreSections} numberOfSections={this.state.course.sections.length}/>
-            }
-          </PseudoBody>
-        </PseudoHtml>
+          }
+        </ContentContainer>
       );
     }
 

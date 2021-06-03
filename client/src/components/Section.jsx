@@ -1,7 +1,7 @@
 import React from 'react';
 import Element from './Element.jsx';
 import moment from 'moment';
-import {SectionHeader, SectionTitle, SectionTotalLectures, SectionElementsBlock, ElementsContainer, Ul} from './StyledComponents';
+import {ContentDiv, ContentSpan, ContentSectionHeader, ContentSectionTitle, ContentSectionTotalLectures, ContentSectionElementsBlock, ContentElementsContainer, ContentUl, ContentH3} from './StyledComponents';
 
 class Section extends React.Component {
 
@@ -51,32 +51,32 @@ class Section extends React.Component {
 
   render() {
     return (
-      <div style={{display: this.props.section.sectionDisplay}}>
-        <div>
-          <SectionHeader onClick={this.handleClick.bind(this)}>
-            <h3>
-              <span>
-                <SectionTitle>{this.state.title}</SectionTitle>
-                <SectionTotalLectures>
+      <ContentDiv style={{display: this.props.section.sectionDisplay}}>
+        <ContentDiv>
+          <ContentSectionHeader onClick={this.handleClick.bind(this)}>
+            <ContentH3>
+              <ContentSpan>
+                <ContentSectionTitle>{this.state.title}</ContentSectionTitle>
+                <ContentSectionTotalLectures>
                   {`${this.props.section.lectures + this.props.section.articles} lectures • `}
-                  <span>
+                  <ContentSpan>
                     {this.state.displayTime}
-                  </span>
-                </SectionTotalLectures>
-              </span>
-            </h3>
-          </SectionHeader>
-          <SectionElementsBlock style={{ display: this.props.section.elementDisplay }}>
-            <ElementsContainer>
-              <Ul>
+                  </ContentSpan>
+                </ContentSectionTotalLectures>
+              </ContentSpan>
+            </ContentH3>
+          </ContentSectionHeader>
+          <ContentSectionElementsBlock style={{ display: this.props.section.elementDisplay }}>
+            <ContentElementsContainer>
+              <ContentUl>
                 {this.props.section.elements.map(element =>
                   <Element element={element} key={`element${element.elementId}`} kind={element.kind} />
                 )}
-              </Ul>
-            </ElementsContainer>
-          </SectionElementsBlock>
-        </div>
-      </div>
+              </ContentUl>
+            </ContentElementsContainer>
+          </ContentSectionElementsBlock>
+        </ContentDiv>
+      </ContentDiv>
     );
   }
 
