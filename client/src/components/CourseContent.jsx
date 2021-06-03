@@ -157,7 +157,7 @@ class CourseContent extends React.Component {
     } else {
       return (
         <ContentContainer>
-          <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength} clickHandler={this.clickHandler} allExpanded={this.state.allExpanded}/>
+          <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength} expandOrCollapseAll={this.expandOrCollapseAll} allExpanded={this.state.allExpanded}/>
           <ContentBr/>
           <ContentBr/>
           <ContentCourseSectionsBlock>

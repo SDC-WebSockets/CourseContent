@@ -11,13 +11,13 @@ export const ContentContainer = styled.div`
 `;
 
 export const ContentDiv = styled.div`
-  border-radius: 4px 4px 0 0;
+  /* border-radius: 4px 4px 0 0;
   border-left: 1px solid #dcdacb;
   border-right: 1px solid #dcdacb;
   border-top: 1px solid #dcdacb;
   box-sizing: border-box;
   margin: 0;
-  display: block;
+  display: block; */
 `;
 
 export const ContentUl = styled.ul`
