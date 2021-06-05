@@ -159,7 +159,6 @@ class CourseContent extends React.Component {
         <Container>
           <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength} expandOrCollapseAll={this.expandOrCollapseAll} allExpanded={this.state.allExpanded}/>
           <Br/>
-          <Br/>
           <CourseSectionsBlock>
             {this.state.course.sections.length > 0 &&
                 this.state.course.sections.map((section, idx) => {
