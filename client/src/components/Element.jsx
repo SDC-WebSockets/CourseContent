@@ -3,10 +3,10 @@ import Article from './Elements/Article.jsx';
 import Exercise from './Elements/Exercise.jsx';
 import Lecture from './Elements/Lecture.jsx';
 import Quiz from './Elements/Quiz.jsx';
-import {ContentLi} from './StyledComponents.js';
+import {Li} from './StyledComponents.js';
 
 const Element = (props) => (
-  <ContentLi>
+  <Li>
     {props.kind === 'article' &&
       <Article element={props.element} key={`article${props.element.elementId}`}/>}
     {props.kind === 'exercise' &&
@@ -15,7 +15,7 @@ const Element = (props) => (
       <Lecture element={props.element} key={`lecture${props.element.elementId}`}/>}
     {props.kind === 'quiz' &&
       <Quiz element={props.element} key={`quiz${props.element.elementId}`}/>}
-  </ContentLi>
+  </Li>
 
 );
 

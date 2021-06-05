@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Section from './Section.jsx';
-import {ContentContainer, ContentCourseSectionsBlock, ContentH2, ContentH3, ContentBr} from './StyledComponents.js';
+import {Container, CourseSectionsBlock, H2, H3, Br} from './StyledComponents.js';
 import ContentHeader from './ContentHeader.jsx';
 import MoreSections from './MoreSections.jsx';
 import qs from 'qs';
@@ -146,30 +146,30 @@ class CourseContent extends React.Component {
   render() {
 
     if (!this.state.isLoaded) {
-      return <ContentContainer>Loading...</ContentContainer>;
+      return <Container>Loading...</Container>;
     } else if (this.state.error) {
       return (
-        <ContentContainer>
-          <ContentH2>Course Content Error</ContentH2>
-          <ContentH3>{`Error ${this.state.error.status} ${this.state.error.data}`}</ContentH3>
-        </ContentContainer>
+        <Container>
+          <H2>Course  Error</H2>
+          <H3>{`Error ${this.state.error.status} ${this.state.error.data}`}</H3>
+        </Container>
       );
     } else {
       return (
-        <ContentContainer>
+        <Container>
           <ContentHeader totalSections={this.state.course.totalSections} totalLectures={this.state.course.totalLectures} totalArticles={this.state.course.totalArticles} courseLength={this.state.course.courseLength} expandOrCollapseAll={this.expandOrCollapseAll} allExpanded={this.state.allExpanded}/>
-          <ContentBr/>
-          <ContentBr/>
-          <ContentCourseSectionsBlock>
+          <Br/>
+          <Br/>
+          <CourseSectionsBlock>
             {this.state.course.sections.length > 0 &&
                 this.state.course.sections.map((section, idx) => {
                   return <Section idx={idx} key={`section${section.sectionId}`} section={section} toggleView={this.toggleView}/>;
                 })}
-          </ContentCourseSectionsBlock>
+          </CourseSectionsBlock>
           {!this.state.displayMoreSections &&
               <MoreSections id="moreSections" showMoreSections={this.showMoreSections} numberOfSections={this.state.course.sections.length}/>
           }
-        </ContentContainer>
+        </Container>
       );
     }
 
