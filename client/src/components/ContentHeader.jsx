@@ -1,28 +1,28 @@
 import React from 'react';
 import moment from 'moment';
-import {ContentHeaderWrapper, HeaderInfo, ExpandCollapse} from './StyledComponents.js';
+import {ContentDiv, ContentSpan, ContentHeaderWrapper, ContentHeaderInfo, ContentExpandCollapse, ContentH2} from './StyledComponents.js';
 
 const ContentHeader = (props) => (
 
   <ContentHeaderWrapper>
-    <h2>Course Content</h2>
-    <div>
-      <HeaderInfo>
-        <span>
+    <ContentH2>Course Content</ContentH2>
+    <ContentDiv>
+      <ContentHeaderInfo>
+        <ContentSpan>
           {`${props.totalSections} Sections • ${props.totalLectures + props.totalArticles} Lectures • `}
-          <span>
-            {`${moment.utc(props.courseLength).format('H[h ]M[m]')} total length`}
-          </span>
-        </span>
-      </HeaderInfo>
-      <ExpandCollapse onClick={props.clickHandler}>
-        <span>
+          <ContentSpan>
+            {`${moment.utc(props.courseLength).format('H[h] m[m]')} total length`}
+          </ContentSpan>
+        </ContentSpan>
+      </ContentHeaderInfo>
+      <ContentExpandCollapse onClick={props.expandOrCollapseAll}>
+        <ContentSpan>
           {props.allExpanded ? 'Collapse all sections' : 'Expand all sections'}
-        </span>
-      </ExpandCollapse>
-    </div>
+        </ContentSpan>
+      </ContentExpandCollapse>
+    </ContentDiv>
   </ContentHeaderWrapper>
-
+  
 );
 
 export default ContentHeader;

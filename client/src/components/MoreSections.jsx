@@ -1,9 +1,9 @@
 import React from 'react';
-import {ShowMoreSections} from './StyledComponents.js';
+import {ContentShowMoreSections} from './StyledComponents.js';
 
 const MoreSections = (props) => (
 
-  <ShowMoreSections onClick={props.onClick}>{props.numberOfSections - 10} more sections</ShowMoreSections>
+  <ContentShowMoreSections onClick={props.showMoreSections}>{props.numberOfSections - 10} more sections</ContentShowMoreSections>
 
 );
 
