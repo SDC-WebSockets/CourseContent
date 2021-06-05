@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ContentContainer = styled.div`
+export const Container = styled.div`
   font-family: sf pro text,-apple-system,BlinkMacSystemFont,Roboto,segoe ui,Helvetica,Arial,sans-serif,apple color emoji,segoe ui emoji,segoe ui symbol;
   font-weight: 400;
   line-height: 1.4;
@@ -10,7 +10,7 @@ export const ContentContainer = styled.div`
   max-width: 600px;
 `;
 
-export const ContentDiv = styled.div`
+export const Div = styled.div`
   /* border-radius: 4px 4px 0 0;
   border-left: 1px solid #dcdacb;
   border-right: 1px solid #dcdacb;
@@ -20,12 +20,12 @@ export const ContentDiv = styled.div`
   display: block; */
 `;
 
-export const ContentUl = styled.ul`
+export const Ul = styled.ul`
   padding: 0;
   list-style-type: none;
 `;
 
-export const ContentButton = styled.button`
+export const Button = styled.button`
   color: #0f7c90;
   background-color: transparent;
   min-width: auto;
@@ -41,49 +41,50 @@ export const ContentButton = styled.button`
   font-weight: 700;
 `;
 
-export const ContentSectionHeader = styled.div`
+export const SectionHeader = styled.div`
   background-color: #fbfbf8;
   height: 52px;
   border: 1px solid #dcdacc;
+  position: relative;
   margin-top: -1px;
   padding-left: 10px;
   padding-right: 10px;
 `;
 
-export const ContentSectionTitle = styled.span`
+export const SectionTitle = styled.span`
   float: left;
   font-size: 1rem;
   line-height: 1.2;
   font-weight: 700;
 `;
 
-export const ContentSectionTotalLectures = styled.span`
+export const SectionTotalLectures = styled.span`
   float: right;
   font-weight: 400;
   line-height: 1.4;
   font-size: 0.875rem;
 `;
 
-export const ContentSectionElementsBlock = styled.div`
+export const SectionElementsBlock = styled.div`
   border: 1px solid #dcdacc;
   margin-top: -1px;
 `;
 
-export const ContentElementsContainer = styled.div`
+export const ElementsContainer = styled.div`
   margin: 15px;
 `;
 
-export const ContentCourseSectionsBlock = styled.div`
+export const CourseSectionsBlock = styled.div`
   max-width: 600px;
   padding: 0px;
 `;
 
-export const ContentHeaderWrapper = styled.div`
+export const HeaderWrapper = styled.div`
   max-width: 600px;
   max-height: 40px;
 `;
 
-export const ContentExpandCollapse = styled.button`
+export const ExpandCollapse = styled.button`
   color: #0f7c90;
   background-color: transparent;
   min-width: auto;
@@ -106,26 +107,26 @@ export const ContentExpandCollapse = styled.button`
 
 `;
 
-export const ContentHeaderInfo = styled.div`
+export const HeaderInfo = styled.div`
   max-width: 450px;
   float: left;
 `;
 
-export const ContentPreview = styled.a`
+export const Preview = styled.a`
   float: right;
   margin: 0px;
 `;
 
-export const ContentRightSideInfo = styled.span`
+export const RightSideInfo = styled.span`
   float: right;
   margin: 0px;
 `;
 
-export const ContentHasChild = styled.div`
+export const HasChild = styled.div`
   margin: 5px;
 `;
 
-export const ContentShowMoreSections = styled.button`
+export const ShowMoreSections = styled.button`
   color: #0f7c90;
   background-color: transparent;
   border: 1px solid #2896a9;
@@ -141,7 +142,7 @@ export const ContentShowMoreSections = styled.button`
   }
 `;
 
-export const ContentSvg = styled.svg`
+export const Svg = styled.svg`
   display: inline;
   float: left;
   width: 1em;
@@ -149,20 +150,20 @@ export const ContentSvg = styled.svg`
   fill: #73726c;
 `;
 
-export const ContentPathPolygonRectContainer = styled.path`
+export const PathPolygonRectContainer = styled.path`
   fill: #4691f6;
 `;
 
-export const ContentSpan = styled.span``;
+export const Span = styled.span``;
 
-export const ContentA = styled.a``;
+export const A = styled.a``;
 
-export const ContentPath = styled.path``;
+export const Path = styled.path``;
 
-export const ContentH2 = styled.h2``;
+export const H2 = styled.h2``;
 
-export const ContentH3 = styled.h3``;
+export const H3 = styled.h3``;
 
-export const ContentBr = styled.br``;
+export const Br = styled.br``;
 
-export const ContentLi = styled.li``;
+export const Li = styled.li``;

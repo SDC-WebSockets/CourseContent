@@ -1,23 +1,23 @@
 import React from 'react';
 import moment from 'moment';
 import {ArticleSVG} from './svgIcons.js';
-import {ContentDiv, ContentA, ContentHasChild, ContentPreview, ContentRightSideInfo, ContentSvg} from '../StyledComponents.js';
+import {Div, A, HasChild, Preview, RightSideInfo, Svg} from '../StyledComponents.js';
 
 const Article = (props) => {
 
   return (
-    <ContentDiv>
-      <ContentHasChild>
-        <ContentSvg className="icon-article" viewBox="0 0 24 24"><ArticleSVG /></ContentSvg>
-        <ContentA>
+    <Div>
+      <HasChild>
+        <Svg className="icon-article" viewBox="0 0 24 24"><ArticleSVG /></Svg>
+        <A>
           {props.element.title}
-        </ContentA>
-        <ContentRightSideInfo>{moment(props.element.elementLength).format('mm:ss')}</ContentRightSideInfo>
+        </A>
+        <RightSideInfo>{moment(props.element.elementLength).format('mm:ss')}</RightSideInfo>
         {props.element.videoPreview &&
-          <ContentPreview href={props.element.videoUrl}>Preview</ContentPreview>
+          <Preview href={props.element.videoUrl}>Preview</Preview>
         }
-      </ContentHasChild>
-    </ContentDiv>
+      </HasChild>
+    </Div>
   );
 
 
