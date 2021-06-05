@@ -5,7 +5,7 @@ import {Div, Span, HeaderWrapper, HeaderInfo, ExpandCollapse, H2} from './Styled
 const ContentHeader = (props) => (
 
   <HeaderWrapper>
-    <H2>Course </H2>
+    <H2>Course Content</H2>
     <Div>
       <HeaderInfo>
         <Span>

@@ -3,13 +3,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const WebpackS3Plugin = require('webpack-s3-plugin');
 var SRC_DIR = path.join(__dirname, '/client/src');
 var DIST_DIR = path.join(__dirname, '/client/dist');
-let accessKeyID = process.env.AWS_ACCESS_KEY_ID;
-let secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
+// let accessKeyID = process.env.AWS_ACCESS_KEY_ID;
+// let secretAccessKey = process.env.AWS_SECRET_ACCESS_KEY;
 
 module.exports = {
   entry: `${SRC_DIR}/index.jsx`,
   output: {
-    filename: `course-content-${Date.now()}.js`,
+    filename: 'course-content.js',
     path: DIST_DIR,
     clean: true
   },
