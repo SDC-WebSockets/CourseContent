@@ -93,14 +93,12 @@ module.exports.bundle = (req, res, next) => {
     for (let i = 0; i < dir.length; i++) {
       let filename = dir[i];
       let elements = filename.split('.');
-      let ext = elements[elements.length - 1];
+      let ext = elements[elements.length - 2];
       if (ext === 'js') {
         filepath = path.join(__dirname, '..', 'client', 'dist', filename);
         break;
       }
     }
-
-    console.log(filepath)
 
     if (filepath) {
       res.sendFile(filepath);
