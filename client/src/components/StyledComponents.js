@@ -122,7 +122,7 @@ export const RightSideInfo = styled.span`
   margin: 0px;
 `;
 
-export const HasChild = styled.div`
+export const ElementDiv = styled.div`
   margin: 5px;
 `;
 
@@ -148,6 +148,8 @@ export const Svg = styled.svg`
   width: 1em;
   height: 1em;
   fill: #73726c;
+  margin-right: 3px;
+  vertical-align: middle;
 `;
 
 export const PathPolygonRectContainer = styled.path`

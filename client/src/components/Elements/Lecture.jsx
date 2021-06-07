@@ -1,14 +1,14 @@
 import React from 'react';
 import moment from 'moment';
 import {LectureSVG} from './svgIcons.js';
-import {Div, A, HasChild, Preview, RightSideInfo, Svg} from '../StyledComponents.js';
+import {Div, A, ElementDiv, Preview, RightSideInfo, Svg} from '../StyledComponents.js';
 
 const Lecture = (props) => {
 
   return (
     <Div>
-      <HasChild>
-        <Svg className="icon-article" viewBox="0 0 20 20"><LectureSVG /></Svg>
+      <ElementDiv>
+        <Svg className="icon-article" viewBox="0 0 20 20" style={{overflow: 'visible'}}><LectureSVG /></Svg>
         <A>
           {props.element.title}
         </A>
@@ -16,7 +16,7 @@ const Lecture = (props) => {
         {props.element.videoPreview &&
             <Preview href={props.element.videoUrl}>Preview</Preview>
         }
-      </HasChild>
+      </ElementDiv>
     </Div>
   );
 
