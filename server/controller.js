@@ -93,8 +93,8 @@ module.exports.bundle = (req, res, next) => {
     for (let i = 0; i < dir.length; i++) {
       let filename = dir[i];
       let elements = filename.split('.');
-      let ext = elements[elements.length - 2];
-      if (ext === 'js') {
+      let ext = elements[elements.length - 1];
+      if (ext === 'gz') {
         filepath = path.join(__dirname, '..', 'client', 'dist', filename);
         break;
       }

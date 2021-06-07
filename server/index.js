@@ -7,7 +7,9 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const PORT = process.env.PORT || 9800;
 
-app.use(compression());
+app.use(compression({
+  level: 9
+}));
 
 app.use(cors());
 
