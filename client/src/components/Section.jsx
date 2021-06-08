@@ -1,6 +1,4 @@
 import React from 'react';
-// const elementPromise = import('./Element.jsx');
-// const Element = React.lazy(() => elementPromise)
 import Element from './Element.jsx';
 import moment from 'moment';
 import {Div, Span, SectionHeader, SectionTitle, SectionTotalLectures, SectionElementsBlock, ElementsContainer, Ul, H3} from './StyledComponents';
@@ -68,7 +66,6 @@ class Section extends React.Component {
               </Span>
             </H3>
           </SectionHeader>
-          {/* <React.suspense fallback={<div>Loading...</div>}> */}
           {this.props.section.elementDisplay === 'block' &&
             <SectionElementsBlock style={{ display: this.props.section.elementDisplay }}>
               <ElementsContainer>
@@ -79,8 +76,7 @@ class Section extends React.Component {
                 </Ul>
               </ElementsContainer>
             </SectionElementsBlock>
-          }   
-          {/* </React.suspense> */}
+          }
         </Div>
       </Div>
     );
