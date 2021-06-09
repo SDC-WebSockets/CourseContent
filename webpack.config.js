@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const WebpackS3Plugin = require('webpack-s3-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 var SRC_DIR = path.join(__dirname, '/client/src');
 var DIST_DIR = path.join(__dirname, '/client/dist');
 // let accessKeyID = process.env.AWS_ACCESS_KEY_ID;
@@ -58,6 +59,11 @@ module.exports = {
     //   cdnizerOptions: {
     //     defaultCDNBase: 'https://charlotte-badger-course-content-bundles.s3.eu-west-2.amazonaws.com'
     //   }
+    // })
+    // new CompressionPlugin({
+    //   test: [/\.js(\?.*)?$/i, /\.jsx(\?.*)?$/i],
+    //   exclude: [/node_modules/, /test/],
+    //   algorithm: 'gzip'
     // })
   ]
 };

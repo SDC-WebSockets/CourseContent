@@ -66,15 +66,17 @@ class Section extends React.Component {
               </Span>
             </H3>
           </SectionHeader>
-          <SectionElementsBlock style={{ display: this.props.section.elementDisplay }}>
-            <ElementsContainer>
-              <Ul>
-                {this.props.section.elements.map(element =>
-                  <Element element={element} key={`element${element.elementId}`} kind={element.kind} />
-                )}
-              </Ul>
-            </ElementsContainer>
-          </SectionElementsBlock>
+          {this.props.section.elementDisplay === 'block' &&
+            <SectionElementsBlock style={{ display: this.props.section.elementDisplay }}>
+              <ElementsContainer>
+                <Ul>
+                  {this.props.section.elements.map(element =>
+                    <Element element={element} key={`element${element.elementId}`} kind={element.kind} />
+                  )}
+                </Ul>
+              </ElementsContainer>
+            </SectionElementsBlock>
+          }
         </Div>
       </Div>
     );
