@@ -43,7 +43,7 @@ export const Button = styled.button`
 
 export const SectionHeader = styled.div`
   background-color: #fbfbf8;
-  height: 52px;
+  /* height: 52px; */
   border: 1px solid #dcdacc;
   position: relative;
   margin-top: -1px;
@@ -52,6 +52,7 @@ export const SectionHeader = styled.div`
 `;
 
 export const SectionTitle = styled.span`
+white-space: pre-line;
   float: left;
   font-size: 1rem;
   line-height: 1.2;
