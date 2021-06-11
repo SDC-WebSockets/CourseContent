@@ -115,6 +115,7 @@ export const HeaderInfo = styled.div`
 export const Preview = styled.a`
   float: right;
   margin: 0px;
+  color: rgb(15, 124, 144);
 `;
 
 export const RightSideInfo = styled.span`
@@ -170,3 +171,7 @@ export const H3 = styled.h3``;
 export const Br = styled.br``;
 
 export const Li = styled.li``;
+
+export const ElementTitle = styled.a`
+  color: rgb(15, 124, 144);
+`;
