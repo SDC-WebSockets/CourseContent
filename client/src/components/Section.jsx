@@ -7,7 +7,11 @@ class Section extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      headerStyle: {
+        height: '55px'
+      }
+    };
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -22,13 +26,19 @@ class Section extends React.Component {
   }
 
   shortenTitle(title) {
-    if (title.length > 30) {
-      for (let i = 30; i < title.length; i++) {
+    if (title.length > 50) {
+      for (let i = 50; i < title.length; i++) {
         if (title[i] === ' ') {
           let charArr = title.split('').slice(0, i);
-          charArr.push('...');
-          const shortenedTitle = charArr.join('');
-          this.setState({title: shortenedTitle});
+          charArr.push('\n');
+          let full = charArr.concat(title.split('').slice(i + 1, title.length));
+          const shortenedTitle = full.join('');
+          this.setState({
+            title: shortenedTitle,
+            headerStyle: {
+              height: '75px'
+            }
+          });
           break;
         }
         if (i === title.length - 1) {
@@ -50,10 +60,11 @@ class Section extends React.Component {
   }
 
   render() {
+    console.log(this.state.title)
     return (
       <Div style={{display: this.props.section.sectionDisplay}}>
         <Div>
-          <SectionHeader onClick={this.handleClick.bind(this)}>
+          <SectionHeader style={this.state.headerStyle} onClick={this.handleClick.bind(this)}>
             <H3>
               <Span>
                 <SectionTitle>{this.state.title}</SectionTitle>
