@@ -7,7 +7,7 @@ export const Container = styled.div`
   /* font-size: 1.6rem; */
   color: #3c3b37;
   margin: 0;
-  max-width: 600px;
+  max-width: 700px;
 `;
 
 export const Div = styled.div`
@@ -75,12 +75,12 @@ export const ElementsContainer = styled.div`
 `;
 
 export const CourseSectionsBlock = styled.div`
-  max-width: 600px;
+  max-width: 700px;
   padding: 0px;
 `;
 
 export const HeaderWrapper = styled.div`
-  max-width: 600px;
+  max-width: 700px;
   max-height: 40px;
 `;
 
@@ -131,10 +131,11 @@ export const ShowMoreSections = styled.button`
   background-color: transparent;
   border: 1px solid #2896a9;
   width: 100%;
-  height: 4rem;
+  height: 40px;
   font-weight: 700;
   border-radius: 4px;
   margin-top: 1rem;
+  font-size: 14px;
 
   &:hover {
     border-color: #1b4a58;
