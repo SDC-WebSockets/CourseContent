@@ -52,7 +52,7 @@ export const SectionHeader = styled.div`
 `;
 
 export const SectionTitle = styled.span`
-white-space: pre-line;
+  white-space: pre-line;
   float: left;
   font-size: 1rem;
   line-height: 1.2;
