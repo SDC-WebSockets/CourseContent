@@ -60,7 +60,6 @@ class Section extends React.Component {
   }
 
   render() {
-    console.log(this.state.title)
     return (
       <Div style={{display: this.props.section.sectionDisplay}}>
         <Div>
