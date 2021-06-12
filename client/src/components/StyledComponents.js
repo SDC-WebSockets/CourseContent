@@ -7,7 +7,7 @@ export const Container = styled.div`
   /* font-size: 1.6rem; */
   color: #3c3b37;
   margin: 0;
-  max-width: 600px;
+  max-width: 700px;
 `;
 
 export const Div = styled.div`
@@ -43,7 +43,7 @@ export const Button = styled.button`
 
 export const SectionHeader = styled.div`
   background-color: #fbfbf8;
-  height: 52px;
+  /* height: 52px; */
   border: 1px solid #dcdacc;
   position: relative;
   margin-top: -1px;
@@ -52,6 +52,7 @@ export const SectionHeader = styled.div`
 `;
 
 export const SectionTitle = styled.span`
+white-space: pre-line;
   float: left;
   font-size: 1rem;
   line-height: 1.2;
@@ -75,12 +76,12 @@ export const ElementsContainer = styled.div`
 `;
 
 export const CourseSectionsBlock = styled.div`
-  max-width: 600px;
+  max-width: 700px;
   padding: 0px;
 `;
 
 export const HeaderWrapper = styled.div`
-  max-width: 600px;
+  max-width: 700px;
   max-height: 40px;
 `;
 
@@ -115,6 +116,7 @@ export const HeaderInfo = styled.div`
 export const Preview = styled.a`
   float: right;
   margin: 0px;
+  color: rgb(15, 124, 144);
 `;
 
 export const RightSideInfo = styled.span`
@@ -131,10 +133,11 @@ export const ShowMoreSections = styled.button`
   background-color: transparent;
   border: 1px solid #2896a9;
   width: 100%;
-  height: 4rem;
+  height: 40px;
   font-weight: 700;
   border-radius: 4px;
   margin-top: 1rem;
+  font-size: 14px;
 
   &:hover {
     border-color: #1b4a58;
@@ -169,3 +172,7 @@ export const H3 = styled.h3``;
 export const Br = styled.br``;
 
 export const Li = styled.li``;
+
+export const ElementTitle = styled.a`
+  color: rgb(15, 124, 144);
+`;
