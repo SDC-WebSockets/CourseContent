@@ -43,7 +43,15 @@ export const Button = styled.button`
 
 export const SectionHeader = styled.div`
   background-color: #fbfbf8;
-  /* height: 52px; */
+  border: 1px solid #dcdacc;
+  position: relative;
+  margin-top: -1px;
+  padding-left: 10px;
+  padding-right: 10px;
+`;
+
+export const TopSectionHeader = styled.div`
+  background-color: #fbfbf8;
   border: 1px solid #dcdacc;
   position: relative;
   margin-top: -1px;

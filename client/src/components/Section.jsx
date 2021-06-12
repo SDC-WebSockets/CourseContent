@@ -1,7 +1,7 @@
 import React from 'react';
 import Element from './Element.jsx';
 import moment from 'moment';
-import {Div, Span, SectionHeader, SectionTitle, SectionTotalLectures, SectionElementsBlock, ElementsContainer, Ul, H3} from './StyledComponents';
+import {Div, Span, SectionHeader, TopSectionHeader, SectionTitle, SectionTotalLectures, SectionElementsBlock, ElementsContainer, Ul, H3} from './StyledComponents';
 
 class Section extends React.Component {
 
@@ -57,9 +57,18 @@ class Section extends React.Component {
   componentDidMount() {
     this.getDisplayTime(this.props.section.sectionLength);
     this.shortenTitle(this.props.section.title);
+
+    if (this.props.idx === 0) {
+      let headerStyle = this.state.headerStyle;
+      headerStyle['borderTopLeftRadius'] = '4px';
+      headerStyle['borderTopRightRadius'] = '4px';
+      this.setState({headerStyle});
+    }
+
   }
 
   render() {
+
     return (
       <Div style={{display: this.props.section.sectionDisplay}}>
         <Div>
