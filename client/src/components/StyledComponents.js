@@ -57,6 +57,7 @@ white-space: pre-line;
   font-size: 1rem;
   line-height: 1.2;
   font-weight: 700;
+  margin-top: 16px;
 `;
 
 export const SectionTotalLectures = styled.span`
@@ -64,6 +65,7 @@ export const SectionTotalLectures = styled.span`
   font-weight: 400;
   line-height: 1.4;
   font-size: 0.875rem;
+  margin-top: 17px;
 `;
 
 export const SectionElementsBlock = styled.div`
