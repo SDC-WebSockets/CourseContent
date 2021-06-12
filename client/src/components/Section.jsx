@@ -33,11 +33,11 @@ class Section extends React.Component {
           charArr.push('\n');
           let full = charArr.concat(title.split('').slice(i + 1, title.length));
           const shortenedTitle = full.join('');
+          let headerStyle = this.state.headerStyle;
+          headerStyle['height'] = '75px';
           this.setState({
             title: shortenedTitle,
-            headerStyle: {
-              height: '75px'
-            }
+            headerStyle
           });
           break;
         }
