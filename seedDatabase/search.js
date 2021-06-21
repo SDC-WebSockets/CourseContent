@@ -1,10 +1,10 @@
 const path = require('path');
 const fs = require('fs');
-const KEY = process.env.PEXEL_KEY;
-console.log('key', KEY);
+const KEY = require('../config').pexelKey;
 const createClient = require('pexels').createClient;
 const client = createClient(KEY);
 const axios = require('axios');
+const numberOfVideos = 80; // This number can be set to anything between 1 and 80.
 
 const randomFileName = () => {
   let alpha = 'qwertyuiopasdfghjklzxcvbnm';
@@ -101,7 +101,7 @@ module.exports.searchVideos = async () => {
 
   fs.mkdirSync(path.join(__dirname, 'videos'));
 
-  await client.videos.search({ query: 'programming', 'per_page': 80 })
+  await client.videos.search({ query: 'programming', 'per_page': numberOfVideos })
     .then(async response => {
 
       return await saveToDirectory(response.videos);

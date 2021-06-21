@@ -21,20 +21,19 @@ mongoose.connect(dbUrl, {
 });
 
 const elementSchema = mongoose.Schema({
-  _id: Number,
+  elementId: Number,
   kind: String,
   title: String,
   sectionSequence: Number,
   videoUrl: String,
   videoPreview: Boolean,
-  thumbnailUrl: String,
   summary: String,
   elementLength: Date,
   numQuestions: Number
-}, {versionKey: false});
+}, { versionKey: false });
 
 const sectionSchema = mongoose.Schema({
-  _id: Number,
+  sectionId: Number,
   title: String,
   sectionLength: Date,
   lectures: Number,
@@ -46,8 +45,7 @@ const sectionSchema = mongoose.Schema({
 }, { versionKey: false });
 
 const courseSchema = mongoose.Schema({
-  _id: Number,
-  title: String,
+  courseId: Number,
   totalSections: Number,
   totalLectures: Number,
   totalExercises: Number,
