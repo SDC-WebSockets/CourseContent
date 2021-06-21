@@ -2,7 +2,6 @@ const LoremIpsum = require('lorem-ipsum').LoremIpsum;
 const faker = require('faker');
 const s3 = require('./s3.js');
 
-
 let videosCounter = 0;
 let sectionIdCounter = 1;
 let elementIdCounter = 1;

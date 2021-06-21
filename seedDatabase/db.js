@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
 const generate = require('./generate.js');
 const db = require('../database/index.js');
-const fs = require('fs');
-const path = require('path');
-const local = require('./local.js');
 let dbUrl = require('../config.js').dbUrl;
 let dbName = require('../config.js').dbName;
 

@@ -73,7 +73,7 @@ const askQuestion = (query) => {
 
 module.exports.uploadDirectory = async (directory) => {
 
-  const ans = await askQuestion('This script will empty your current S3 bucket. Do you want to continue(y/n)?: ');
+  const ans = await askQuestion('This script will empty and re-populate your current S3 bucket. Do you want to continue?(y/n): ');
 
   if (ans === 'y') {
     await emptyBucket();
