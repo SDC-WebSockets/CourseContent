@@ -31,26 +31,23 @@ From within the Course-Content directory:
 npm run seed
 ```
 
-A basic configuration file named 'localConfig.js' will be written to your root directory. Make sure that the generated credentials match what will require.
-
-If utilizing or accessing any remote services (i.e. MongoDB Atlas, AWS, Pexels, etc...) you will need to provide a config.js file in the top level directory with the following format:
+In order to run script, add file "config.js" to root directory. It should contain an object with the following format:
 
 ```javascript
 module.exports = {
-  dbUrl: // Database Url,
-  dbName: // Database Name,
-  accessKeyID: // S3 Access Key,
-  secretAccessKey: // S3 Secret Access Key,
-  pexelKey: // Key for pexel API. If you want to use mine it's pinned on the Charlotte-Badger Slack Channel
+   dbUrl: // Database Url,
+   dbName: // Database Name,
+   accessKeyID: // S3 Access Key,
+   secretAccessKey: // S3 Secret Access Key,
+   pexelKey: // Key for pexel API. If you want to use mine it's pinned on the #rpt27-fecCharlotte-Badger Slack Channel
 };
 ```
 
- You will also need to change line 39 of 'seedDatabase/index.js' to
- ```javascript
- runScript(false);
- ```
+You may want to change 'numberOfVideos' on line 7 of search.js to a smaller number. This is the number of unique videos that will be downloaded (at lowest possible quality), but may take up more room in your S3 bucket. (Note: All elements requiring a video will have a video as long as this number is greater than 1. This number just determines the variety of videos that the service will display).
 
-If the services sees that there is a file named `config.js`, it will use that to find all configuration data
+If you would prefer to run this script using environment variables rather than the values set in '../config.js', refactor all declarations that use 'require('../config.js)...' to 'process.env...' and uncomment line 1 of seedDatabase/index.js.
+
+When setup, run 'npm run seed'
 
 ### Starting the server in development mode
 From within the Course-Content directory:
