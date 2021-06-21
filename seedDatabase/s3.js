@@ -2,9 +2,10 @@ const path = require('path');
 const AWS = require('aws-sdk');
 const ffmpeg = require('fluent-ffmpeg');
 const fs = require('fs');
+const readline = require('readline');
 let videosArray = require('./videosArray.js');
-let awsId = process.env.AWS_ACCESS_KEY_ID;
-let awsSecret = process.env.AWS_SECRET_ACCESS_KEY;
+let awsId = require('../config.js').accessKeyID;
+let awsSecret = require('../config.js').secretAccessKey;
 
 const BUCKET_NAME = 'charlotte-badger-course-content-stock-footage';
 
@@ -58,8 +59,23 @@ const uploadOneFile = async (file) => {
   }).promise();
 };
 
-module.exports.uploadDirectory = async (directory, isLocal = false) => {
-  if (!isLocal) {
+const askQuestion = (query) => {
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  });
+
+  return new Promise(resolve => rl.question(query, ans => {
+    rl.close();
+    resolve(ans);
+  }));
+};
+
+module.exports.uploadDirectory = async (directory) => {
+
+  const ans = await askQuestion('This script will empty your current S3 bucket. Do you want to continue(y/n)?: ');
+
+  if (ans === 'y') {
     await emptyBucket();
     console.log('Beginning upload to S3');
     let files = fs.readdirSync(directory);
@@ -94,5 +110,7 @@ module.exports.uploadDirectory = async (directory, isLocal = false) => {
         });
     }
     return 'Upload to S3 Complete!';
+  } else {
+    process.exit();
   }
 };

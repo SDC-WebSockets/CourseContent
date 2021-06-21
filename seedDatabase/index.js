@@ -18,7 +18,7 @@ const db = require('./db.js');
 //   pexelKey: // Key for pexel API. If you want to use mine it's pinned on the Charlotte-Badger Slack Channel
 // };
 
-// You may want to change 'per_page' on line 104 of search.js to a smaller number. This is the number of unique videos the script will download
+// You may want to change 'per_page' on line 104 of search.js to a smaller number. This is the number of unique videos the script will download (Note: All elements requiring a video will have a video as long as this number is greater than 1. This number just determines the variety of videos that the service will display).
 
 // When setup, run 'npm run seed'
 
@@ -31,9 +31,7 @@ const runScript = async (isLocal = false) => {
 
   const response = await db.seedDB();
   console.log(response);
+  process.exit();
 };
-
-// If seeding to local database, set argument to true. Uncomment lines 14-19 in db.js.
-// If seeing to remote database, uncomment lines 15-19 and line 29 in db.js and set argument to false. Make sure that dbUrl and dbName are set in ../config.js
 
 runScript();
