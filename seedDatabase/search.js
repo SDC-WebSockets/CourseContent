@@ -4,7 +4,7 @@ const KEY = require('../config').pexelKey;
 const createClient = require('pexels').createClient;
 const client = createClient(KEY);
 const axios = require('axios');
-const numberOfVideos = 80; // This number can be set to anything between 1 and 80.
+const numberOfVideos = 5; // This number can be set to anything between 1 and 80.
 
 const randomFileName = () => {
   let alpha = 'qwertyuiopasdfghjklzxcvbnm';
