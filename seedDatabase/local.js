@@ -5,16 +5,24 @@ const path = require('path');
 module.exports = () => {
   let contentArr = [
     {
-      url: 'https://charlotte-badger-course-content-stock-footage.s3.eu-west-2.amazonaws.com/a-computer-monitor-flashing-digital-information-2887463.mp4',
+      url: 'https://sdc-coursecontent.s3.amazonaws.com/a-computer-monitor-flashing-digital-information-2887463.mp4',
       duration: 10000
     },
     {
-      url: 'https://charlotte-badger-course-content-stock-footage.s3.eu-west-2.amazonaws.com/a-human-hand-busy-working-on-a-computer-laptop-2516159.mp4',
-      duration: 7000
+      url: 'https://sdc-coursecontent.s3.amazonaws.com/computer-monitor-display-2278095.mp4',
+      duration: 55000
     },
     {
-      url: 'https://charlotte-badger-course-content-stock-footage.s3.eu-west-2.amazonaws.com/a-man-busy-working-on-his-laptop-5495790.mp4',
-      duration: 17000
+      url: 'https://sdc-coursecontent.s3.amazonaws.com/matrix-console-hacking-code-852292.mp4',
+      duration: 16000
+    },
+    {
+      url: 'https://sdc-coursecontent.s3.amazonaws.com/person-typing-fast-852421.mp4',
+      duration: 8000
+    },
+    {
+      url: 'https://sdc-coursecontent.s3.amazonaws.com/typing-of-codes-854053.mp4',
+      duration: 15000
     }
   ];
   for (let i = 0; i < contentArr.length; i++) {

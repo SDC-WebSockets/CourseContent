@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const generate = require('../seedDatabase/generate.js');
 let dbUrl;
 let dbName;
 
@@ -84,5 +85,11 @@ module.exports.findElement = async id => {
     .exec();
 
 };
+
+Course.deleteOne({courseId: 11}, function(err) {
+  if (err) {
+    console.log(err);
+  }
+});
 
 module.exports.Course = Course;
