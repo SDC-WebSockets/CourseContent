@@ -43,6 +43,7 @@ module.exports = {
 };
 ```
 
+
 You may want to change 'numberOfVideos' on line 7 of search.js to a smaller number. This is the number of unique videos that will be downloaded (at lowest possible quality), but may take up more room in your S3 bucket. (Note: All elements requiring a video will have a video as long as this number is greater than 1. This number just determines the variety of videos that the service will display).
 
 If you would prefer to run this script using environment variables rather than the values set in '../config.js', refactor all declarations that use 'require('../config.js)...' to 'process.env...' and uncomment line 1 of seedDatabase/index.js.
@@ -82,3 +83,19 @@ https://github.com/Charlotte-Badger/Reviews
 https://github.com/Charlotte-Badger/Overview
 - Sidebar
 https://github.com/Charlotte-Badger/Sidebar
+
+## CRUD APIs
+Supported CRUD APIs on server side, handling create, read, update and delete on course level data. The route for CRUD API calls are listed as below:
+
+- CREATE
+'/Create/course/item'
+
+- READ
+'/Read/course/item'
+
+- UPDATE
+'/Update/course/item'
+
+- DELETE
+'/Delete/course/item'
+
