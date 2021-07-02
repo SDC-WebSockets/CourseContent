@@ -31,7 +31,7 @@ app.get('/element/item', controller.element);
 
 // CREATE
 // !!! THE CURRENT GENERATION SCRIPT NEEDS TO BE REWRITTEN SO THAT PASSED COURSEID WILL BE ASSIGNED
-app.post('/Create/course/item', (req, res) => {
+app.post('/create/course/item', (req, res) => {
   Promise.resolve(req.query.courseId)
     .tap(id => {
       if (!id) {
@@ -49,7 +49,7 @@ app.post('/Create/course/item', (req, res) => {
 
 
 // READ
-app.get('/Read/course/item', (req, res) => {
+app.get('/read/course/item', (req, res) => {
   Promise.resolve(req.query.courseId)
     .then(id => {
       if (!id) {
@@ -67,7 +67,7 @@ app.get('/Read/course/item', (req, res) => {
 
 
 // UPDATE
-app.put('/Update/course/item', jsonParser, (req, res) => {
+app.put('/update/course/item', jsonParser, (req, res) => {
   Promise.resolve(req.body)
     .tap(data => {
       if (!data) {
@@ -90,7 +90,7 @@ app.put('/Update/course/item', jsonParser, (req, res) => {
 });
 
 // DELETE
-app.delete('/Delete/course/item', (req, res) => {
+app.delete('/delete/course/item', (req, res) => {
   Promise.resolve(req.query.courseId)
     .tap(id => {
       if (!id) {

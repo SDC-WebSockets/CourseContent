@@ -86,10 +86,4 @@ module.exports.findElement = async id => {
 
 };
 
-Course.deleteOne({courseId: 11}, function(err) {
-  if (err) {
-    console.log(err);
-  }
-});
-
 module.exports.Course = Course;
