@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const generate = require('../seedDatabase/generate.js');
 let dbUrl;
 let dbName;
 

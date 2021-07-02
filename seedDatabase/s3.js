@@ -7,7 +7,7 @@ let videosArray = require('./videosArray.js');
 let awsId = require('../config.js').accessKeyID;
 let awsSecret = require('../config.js').secretAccessKey;
 
-const BUCKET_NAME = 'charlotte-badger-course-content-stock-footage';
+const BUCKET_NAME = 'sdc-coursecontent';
 
 const s3 = new AWS.S3({
   accessKeyId: awsId,
@@ -17,7 +17,7 @@ const s3 = new AWS.S3({
 const params = {
   Bucket: BUCKET_NAME,
   CreateBucketConfiguration: {
-    LocationConstraint: 'eu-west-2'
+    LocationConstraint: 'us-east-1'
   }
 };
 

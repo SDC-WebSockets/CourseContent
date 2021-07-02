@@ -2,6 +2,7 @@ const db = require('../database/index.js');
 const helpers = require('./helpers.js');
 const path = require('path');
 const fs = require('fs');
+const Promise = require('bluebird');
 
 module.exports.course = (req, res) => {
 
@@ -109,3 +110,4 @@ module.exports.bundle = (req, res, next) => {
   });
 
 };
+
