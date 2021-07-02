@@ -88,14 +88,14 @@ https://github.com/Charlotte-Badger/Sidebar
 Supported CRUD APIs on server side, handling create, read, update and delete on course level data. The route for CRUD API calls are listed as below:
 
 - CREATE
-'/Create/course/item'
+'/create/course/item'
 
 - READ
-'/Read/course/item'
+'/read/course/item'
 
 - UPDATE
-'/Update/course/item'
+'/update/course/item'
 
 - DELETE
-'/Delete/course/item'
+'/delete/course/item'
 
