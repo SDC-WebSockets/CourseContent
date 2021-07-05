@@ -1,21 +1,40 @@
-CREATE TABLE courses (
-	courseid SERIAL,
+CREATE TABLE elements (
+	element_id SERIAL,
 	id VARCHAR PRIMARY KEY,
-	totalsections INTEGER,
-	totallectures INTEGER,
-	totalexercises INTEGER,
-	totalarticles INTEGER,
-	totalquizzes INTEGER,
-	courselength TIMESTAMP,
-	updatedat DATE
+	course_id VARCHAR,
+	section_id VARCHAR,
+	title VARCHAR(1000),
+	sequence INT,
+	kind VARCHAR,
+	video_url VARCHAR,
+	video_preview BOOLEAN,
+	summary VARCHAR(5000),
+	num_questions INT,
+	element_length TIMESTAMP
 );
 
-CREATE TABLE sections (
-	sectionid SERIAL,
+CREATE INDEX idx_element ON sections (course_id, section_id, id);
+
+CREATE TABLE courses (
+	course_id SERIAL,
 	id VARCHAR PRIMARY KEY,
-	courseid VARCHAR,
+	total_sections INTEGER,
+	total_lectures INTEGER,
+	total_exercises INTEGER,
+	total_articles INTEGER,
+	total_quizzes INTEGER,
+	course_length TIMESTAMP,
+	updated_at DATE
+);
+
+CREATE INDEX idx_course ON courses (course_id, id);
+
+CREATE TABLE sections (
+	section_id SERIAL,
+	id VARCHAR PRIMARY KEY,
+	course_id VARCHAR,
 	title VARCHAR(1000),
-	sectionlength TIMESTAMP,
+	section_length TIMESTAMP,
 	lectures INT,
 	quizzes INT,
 	exercises INT,
@@ -23,19 +42,10 @@ CREATE TABLE sections (
 	sequence INT
 );
 
-CREATE TABLE elements (
-	elementid SERIAL,
-	id VARCHAR PRIMARY KEY,
-	courseid VARCHAR,
-	sectionid VARCHAR,
-	title VARCHAR(1000),
-	sequence INT,
-	kind VARCHAR,
-	videourl VARCHAR,
-	videopreview BOOLEAN,
-	summary VARCHAR(5000),
-	numquestions INT,
-	elementlength TIMESTAMP
-);
+CREATE INDEX idx_section ON sections (course_id, id);
+
+DROP TABLE courses;
+DROP TABLE sections;
+DROP TABLE elements;
 
 
