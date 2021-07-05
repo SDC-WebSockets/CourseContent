@@ -1,8 +1,11 @@
 const uuidv4 = require('uuid');
 const faker = require('faker');
-const videosArray = require('./videosArray.js');
 const LoremIpsum = require('lorem-ipsum').LoremIpsum;
 const pool = require('./db_PostgreSQL.js');
+const file = './videos/summary.txt';
+const fs = require('fs');
+
+const videosArray = JSON.parse(fs.readFileSync(file, 'utf8'));
 
 const lorem = new LoremIpsum({
   sentencesPerParagraph: {
@@ -19,7 +22,7 @@ const numOfSubs = function(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 };
 
-const numOfCourses = 100;
+const numOfCourses = 100000;
 
 const seedData = function() {
 
@@ -92,12 +95,24 @@ const seedData = function() {
         }
 
         const queryInsertElement = {
-          text: 'INSERT INTO elements(id, courseid, sectionid, title, sequence, summary, videourl, videopreview, numquestions, elementlength) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)',
-          values: [objElement.id, objElement.courseId, objElement.sectionId, objElement.title, objElement.sequence, objElement.summary, objElement.videoUrl, objElement.videoPreview, objElement.numQuestions, objElement.elementLength],
+          text: 'INSERT INTO elements(id, course_id, section_id, title, sequence, kind, summary, video_url, video_preview, num_questions, element_length) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)',
+          values: [objElement.id, objElement.courseId, objElement.sectionId, objElement.title, objElement.sequence, objElement.kind, objElement.summary, objElement.videoUrl, objElement.videoPreview, objElement.numQuestions, objElement.elementLength],
           rowMode: 'array'
         };
 
         pool.saveRecord(objSection, queryInsertElement);
+
+        // objElement = JSON.stringify(objElement);
+
+        // fs.appendFile(`${__dirname}/copy_data/elements.json`, objElement, (err) => {
+        //   if (err) {
+        //     throw err;
+        //   }
+        // });
+
+        // setTimeout(() => {
+        //   console.log('Element was appended to file.');
+        // }, 5000);
 
       }
 
@@ -109,24 +124,49 @@ const seedData = function() {
       objSection.sectionLength = new Date(objSection.sectionLength);
 
       const queryInsertSection = {
-        text: 'INSERT INTO sections(id, courseid, title, sectionlength, lectures, quizzes, exercises, articles, sequence) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)',
+        text: 'INSERT INTO sections(id, course_id, title, section_length, lectures, quizzes, exercises, articles, sequence) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)',
         values: [objSection.id, objSection.courseId, objSection.title, objSection.sectionLength, objSection.lectures, objSection.quizzes, objSection.exercises, objSection.articles, objSection.sequence],
         rowMode: 'array'
       };
 
       pool.saveRecord(objSection, queryInsertSection);
 
+      //   objSection = JSON.stringify(objSection);
+
+      //   fs.appendFile(`${__dirname}/copy_data/sections.json`, objSection, (err) => {
+      //     if (err) {
+      //       throw err;
+      //     }
+      //   });
+
+      //   setTimeout(() => {
+      //     console.log('Section was appended to file.');
+      //   }, 5000);
+
     }
 
     objCourse.courseLength = new Date(objCourse.courseLength);
 
+    // objCourse = JSON.stringify(objCourse);
+
+    // fs.appendFile(`${__dirname}/copy_data/courses.json`, objCourse, (err) => {
+    //   if (err) {
+    //     throw err;
+    //   }
+    // });
+
+    // setTimeout(() => {
+    //   console.log('Course was appended to file.');
+    // }, 5000);
+
     const queryInsertCourse = {
-      text: 'INSERT INTO courses(id, totalsections, totallectures, totalexercises, totalarticles, totalquizzes, courselength, updatedat) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
+      text: 'INSERT INTO courses(id, total_sections, total_lectures, total_exercises, total_articles, total_quizzes, course_length, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)',
       values: [objCourse.id, objCourse.totalSections, objCourse.totalLectures, objCourse.totalExercises, objCourse.totalArticles, objCourse.totalQuizzes, objCourse.courseLength, objCourse.updatedAt],
       rowMode: 'array'
     };
 
     pool.saveRecord(objCourse, queryInsertCourse);
+
   }
   return;
 };
