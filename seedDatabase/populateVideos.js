@@ -22,8 +22,8 @@ populateVideos = function(pageNo, perPage) {
     })
     .then(records => {
       records.videos.forEach(video => {
-        const dlUrl = video.url;
-        download.push(dlUrl);
+        let data = { id: video.id, url: video.url };
+        download.push(data);
       });
     })
     .then( () => {

@@ -43,4 +43,11 @@ const batchDL = function(start, end) {
   });
 };
 
-batchDL(600, 800);
+// batchDL(0, 200);
+// batchDL(200, 400);
+// batchDL(400, 600);
+// batchDL(600, 800);
+// batchDL(800, 1000);
+
+// POPULATE VIDEO SCRIPT NEEDS TO REFACTORED ID NEEDS TO BE INCLUDED IN DOWNLOAD TXT
+// dlVideo('https://www.pexels.com/video/853769/download');
