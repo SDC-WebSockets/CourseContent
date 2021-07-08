@@ -1,18 +1,18 @@
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios').default;
-const file = './videos/download.txt';
+const file = `${__dirname}/videos/downloadUrls.txt`;
 const KEY = require('../config').pexelKey;
 
 // READ (download.txt) AND STORE DOWNLOAD URLS TO A VARIABLE
 const downloadUrls = JSON.parse(fs.readFileSync(file, 'utf8'));
 
-// DOWNLOAD A VIDEO BY AXIOS
-const dlVideo = function (url) {
-  const fileName = url.slice(29, url.length - 1) + '.mp4';
+// DOWNLOAD A SINGLE VIDEO BY AXIOS
+const dlVideo = function (obj) {
+  const fileName = obj.url.slice(29, obj.url.length - 1) + '.mp4';
   const filePath = `${__dirname}/videos/${fileName}`;
-  let videoId = url.slice(-8);
-  const dlUrl = url.slice(0, 29) + videoId + 'download';
+  let videoId = obj.id;
+  const dlUrl = obj.url.slice(0, 29) + videoId + '/download';
 
   axios.get(dlUrl, {
     headers: {
@@ -35,19 +35,18 @@ const dlVideo = function (url) {
 // BATCH DOWNLOAD
 // FREE TIER LIMIT 200/HR REQUEST TO PEXELS
 
-const batchDL = function(start, end) {
-  downloadUrls.slice(start, end).forEach((url, idx) => {
-    dlVideo(url);
-    setTimeout(() => {
-    }, 30000);
-  });
+const batchDL = function() {
+  let start = 0;
+  let end = 1200;
+
+  for (let i = start; i < 1200; i += 200) {
+    downloadUrls.slice(i, i + 200).forEach((obj, idx) => {
+      dlVideo(obj);
+      setTimeout(() => {
+      }, 30000);
+    });
+  }
 };
 
-// batchDL(0, 200);
-// batchDL(200, 400);
-// batchDL(400, 600);
-// batchDL(600, 800);
-// batchDL(800, 1000);
+batchDL();
 
-// POPULATE VIDEO SCRIPT NEEDS TO REFACTORED ID NEEDS TO BE INCLUDED IN DOWNLOAD TXT
-// dlVideo('https://www.pexels.com/video/853769/download');

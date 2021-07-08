@@ -1,5 +1,8 @@
 const config = require('../config.js');
 const { Pool } = require('pg');
+const filePath = `${__dirname}/copy_data/courses.csv`;
+const copyFrom = require('pg-copy-streams').from;
+const fs = require('fs');
 
 const pool = new Pool({
   user: config.userPG,
@@ -8,13 +11,3 @@ const pool = new Pool({
   host: 'localhost',
   database: config.pgdb
 });
-
-const saveRecord = function(obj, queryInsert) {
-  const query = queryInsert;
-  pool
-    .query(query)
-    .then(res => console.log('A record has been added to database successfully.'))
-    .catch(e => console.error(e.stack));
-};
-
-module.exports.saveRecord = saveRecord;

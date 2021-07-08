@@ -6,6 +6,7 @@ const cluster = new couchbase.Cluster('couchbase://127.0.0.1', {
   password: config.password,
 });
 
-const bucket = cluster.bucket('default');
-const dbCouch = bucket.defaultCollection();
+const bucket = cluster.bucket('sdc_coursecontent');
+
+const collection = bucket.defaultCollection();
 
