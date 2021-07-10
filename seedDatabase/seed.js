@@ -2,9 +2,10 @@ const uuidv4 = require('uuid');
 const faker = require('faker');
 const LoremIpsum = require('lorem-ipsum').LoremIpsum;
 const pool = require('./db_PostgreSQL.js');
-const fs = require('fs');
+const fs = require('graceful-fs');
 const videosArray = require('./videosArray.js');
 const csvWriter = require('csv-write-stream');
+const TaskTimer = require('tasktimer').TaskTimer;
 
 const lorem = new LoremIpsum({
   sentencesPerParagraph: {
@@ -17,9 +18,9 @@ const lorem = new LoremIpsum({
   }
 });
 
-const courseFilePath = `${__dirname}/copy_data/courses.csv`;
-const sectionFilePath = `${__dirname}/copy_data/sections.csv`;
-const elementFilePath = './copy_data/elements.csv';
+const courseFilePath = `${__dirname}/copy_data/courses6.csv`;
+const sectionFilePath = `${__dirname}/copy_data/sections6.csv`;
+const elementFilePath = `${__dirname}/copy_data/elements6.csv`;
 
 const numOfSubs = function(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
@@ -29,44 +30,6 @@ const randomKindWithProb = function() {
   const kinds = ['lecture', 'lecture', 'lecture', 'lecture', 'lecture', 'lecture', 'lecture', 'exercise', 'exercise', 'quiz', 'article', 'article', 'article', 'quiz', 'lecture', 'lecture', 'exercise'];
   return kinds[Math.floor(Math.random() * kinds.length)];
 };
-
-const courseHeader = [
-  'id',
-  'course_length',
-  'total_sections',
-  'total_lectures',
-  'total_exercises',
-  'total_articles',
-  'total_quizzes',
-  'updated_at'
-];
-
-const sectionHeader = [
-  'section_id',
-  'course_id',
-  'title',
-  'section_length',
-  'lectures',
-  'quizzes',
-  'exercises',
-  'articles',
-  'sequence'
-];
-
-const elementHeader = [
-  'element_id',
-  'id',
-  'course_id',
-  'section_id',
-  'title',
-  'kind',
-  'video_url',
-  'video_preview',
-  'summary',
-  'num_questions',
-  'element_length',
-  'sequence'
-];
 
 const writeRecord = async(obj, filePath) => {
   const writer = csvWriter( {sendHeaders: false} );
@@ -160,10 +123,10 @@ const seedSection = async (courseId) => {
 
   for (let i = 0; i < n; i++) {
     let obj = {};
-    obj['section_id'] = uuidv4();
+    obj['id'] = uuidv4();
     obj['course_id'] = courseId;
     obj['title'] = faker.git.commitMessage();
-    [obj['section_length'], obj.lectures, obj.quizzes, obj.exercises, obj.articles] = await seedElement(courseId, obj['section_id']);
+    [obj['section_length'], obj.lectures, obj.quizzes, obj.exercises, obj.articles] = await seedElement(courseId, obj['id']);
     obj['sequence'] = i + 1;
 
     length += obj['section_length'];
@@ -176,7 +139,7 @@ const seedSection = async (courseId) => {
     obj['section_length'] = obj['section_length'].toDateString();
 
     await writeRecord({
-      'section_id': obj['section_id'],
+      'id': obj['id'],
       'course_id': obj['course_id'],
       'title': obj['title'],
       'section_length': obj['section_length'],
@@ -195,7 +158,7 @@ const seedSection = async (courseId) => {
 
 const seedCourse = async(numOfCourses) => {
 
-  for (let i = 1; i < numOfCourses; i++) {
+  for (let i = 0; i < numOfCourses; i++) {
     let obj = {};
     obj['id'] = uuidv4();
     [
@@ -222,9 +185,25 @@ const seedCourse = async(numOfCourses) => {
       'updated_at': obj['updated_at']
     }, courseFilePath);
   }
+  console.log('DONE');
   return;
 };
 
-const numOfCourses = Math.pow(10, 7);
+// SET 2500 AS BATCH SIZE WITHOUT BURNING OUT RAM
+const batch = 2500;
 
-seedCourse(numOfCourse);
+// CAN WRITE SINGLE FILE FOR EACH TABLE BY CHANGING totalRuns = 4000
+// DEPENDING ON THE PREFERRED SIZE OF FILES, totalRuns CAN BE CUSTOMIZED
+const timer = new TaskTimer(1000);
+
+timer.add({
+  id: 'Task',
+  tickInterval: 10,
+  totalRuns: 1000,
+  callback(task) {
+    seedCourse(batch);
+    console.log(`${task.id} has run ${task.currentRuns} times.`);
+  }
+});
+
+timer.start();
