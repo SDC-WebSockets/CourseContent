@@ -7,4 +7,4 @@ coverage
 localConfig.js
 config.sample.js
 globalConfig.json
-copy_data
+.env

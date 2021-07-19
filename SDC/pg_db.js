@@ -1,0 +1,15 @@
+require('dotenv').config(`${__dirname}/.env`);
+const { Sequelize, Model, DataTypes, QueryTypes } = require('sequelize');
+
+const sequelize = new Sequelize(process.env.PGDB_DB_NAME, process.env.PGDB_USER, process.env.DB_PASS, {
+  host: process.env.DB_HOST || 'localhost',
+  port: process.env.DB_PORT || 5432,
+  dialect: 'postgres',
+  dialectOptions: {
+    multipleStatements: true
+  }
+});
+
+module.exports.sequelize = sequelize;
+
+
