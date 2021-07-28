@@ -9,6 +9,7 @@
     "react-dev": "webpack --mode development --watch",
     "build": "webpack --mode production",
     "server-dev": "nodemon server/start.js",
+    "db-init": "node SDC/pg_init.js",
     "seed": "node SDC/seed.js"
   },
   "repository": {

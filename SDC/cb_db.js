@@ -1,4 +1,4 @@
-require('dotenv').config(`${__dirname}/.env`);
+require('dotenv').config({path: '../.env'});
 
 const couchbase = require('couchbase');
 const cluster = new couchbase.Cluster('couchbase://127.0.0.1', {

@@ -1,4 +1,4 @@
-require('dotenv').config(`${__dirname}/.env`);
+require('dotenv').config({path: '../.env'});
 const uuid = require('uuid');
 const faker = require('faker');
 const videosArray = require('./videosArray.js');
@@ -162,8 +162,8 @@ const seedCourse = async(numOfCourses, filePathElement, filePathSection, filePat
 
 const batch = 1000;
 const timer = new TaskTimer(1000);
-const runs = 10;
-const hrs = 0.06;
+const runs = 500;
+const hrs = 0.05;
 
 timer.add([
   {
@@ -182,7 +182,7 @@ timer.add([
   {
     id: `TASK-2: SEED ${batch} COURSES AND WRITE CSV FILES`,
     tickInterval: 10,
-    totalRuns: 10,
+    totalRuns: runs,
     callback(task) {
       let filePathElement = `${process.env.FILE_PATH}/elements${task.currentRuns}.csv`;
       let filePathSection = `${process.env.FILE_PATH}/sections${task.currentRuns}.csv`;
@@ -193,9 +193,9 @@ timer.add([
   },
   {
     id: `TASK-3: IMPORT ${batch} COURSES INTO POSTGRES`,
-    tickDelay: 101, // tickDelay = time(task-1) + time(task-2) + 1
+    tickDelay: 10 * runs + 5,
     tickInterval: 10,
-    totalRuns: 10,
+    totalRuns: runs,
     callback(task) {
       let filePathElement = `${process.env.FILE_PATH}/elements${task.currentRuns}.csv`;
       let filePathSection = `${process.env.FILE_PATH}/sections${task.currentRuns}.csv`;
@@ -220,7 +220,7 @@ timer.add([
   },
   {
     id: 'TASK-4: DELETE IMPORTED FILES',
-    tickDelay: 206, // tickDelay = time(task-1) + time(task-2) + time(task-3) + 5
+    tickDelay: 2 * (10 * runs) + 10, // tickDelay = time(task-1) + time(task-2) + time(task-3) + 5
     tickInterval: 1,
     totalRuns: 1,
     callback(task) {
@@ -237,7 +237,7 @@ timer.add([
 timer.on('tick', () => {
   console.log('tick count: ' + timer.tickCount);
   console.log('elapsed time: ' + timer.time.elapsed + ' ms.');
-  if (timer.tickCount >= hrs * 3600000) {
+  if (timer.tickCount >= 2 * (10 * runs) + 20) {
     timer.stop();
   }
 });

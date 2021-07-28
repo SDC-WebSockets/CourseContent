@@ -1,4 +1,4 @@
-require('dotenv').config(`${__dirname}/.env`);
+require('dotenv').config({path: '../.env'});
 const fs = require('fs');
 const Promise = require('bluebird');
 const createClient = require('pexels').createClient;
