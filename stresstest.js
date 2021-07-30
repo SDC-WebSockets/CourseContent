@@ -4,8 +4,8 @@ import { check, group, sleep } from 'k6';
 export let options = {
   stages: [
     // { duration: '1m', target: 60 } // rps = 1/s below normal load
-    // { duration: '1m', target: 600 } // rps = 10/s normal load
-    { duration: '1m', target: 6000 } // rps = 100/s breaking point
+    { duration: '1m', target: 600 } // rps = 10/s normal load
+    // { duration: '1m', target: 6000 } // rps = 100/s breaking point
     // { duration: '10m', target: 0 } // scale down. Recovery stage
   ]
 };
