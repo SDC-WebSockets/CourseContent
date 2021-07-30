@@ -1,8 +1,8 @@
+require('dotenv').config({path: '../.env'});
 const fs = require('fs');
 const Promise = require('bluebird');
-const KEY = require('../config').pexelKey;
 const createClient = require('pexels').createClient;
-const client = createClient(KEY);
+const client = createClient(process.env.PEXEL_KEY);
 
 let uploads = [];
 let downloads = [];

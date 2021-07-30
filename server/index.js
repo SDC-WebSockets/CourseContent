@@ -9,6 +9,7 @@ const PORT = process.env.PORT || 9800;
 const Promise = require('bluebird');
 const generate = require('../seedDatabase/generate.js');
 const db = require('../database/index.js');
+
 const bodyParser = require('body-parser');
 const jsonParser = bodyParser.json();
 
