@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 require('dotenv').config(`${__dirname}/.env`);
 const path = require('path');
 const express = require('express');
@@ -7,7 +8,9 @@ const jsonParser = bodyParser.json();
 const { searchCourse, searchSection, searchElement } = require('./controller_SDC.js');
 const shrinkRay = require('shrink-ray-current');
 const db = require('../SDC/pg_db.js');
+const uuid = require('uuid');
 const PORT = process.env.PORT || 9800;
+const { courseInsert, sectionsInsert, elementsInsert } = require('./sample.js');
 
 const app = express();
 app.use(shrinkRay());
@@ -90,6 +93,28 @@ app.get('/course/item', (req, res) => {
       res.send(`An error has occurred: ${error}`);
     });
 });
+
+// POST REQUEST TO UPDATE TABLE courses ONLY
+app.post('/create/course/item', (req, res) => {
+  Promise.resolve(req.query.courseId)
+    .then((courseId) => {
+      if (!courseId) {
+        throw courseId;
+      }
+      courseInsert['course_id'] = courseId;
+      courseInsert['id'] = uuid.v4();
+      return db.sequelize.query(`INSERT INTO courses (course_id, id, course_length, total_sections, total_lectures, total_exercises, total_articles, total_quizzes, updated_at) VALUES (${courseInsert['course_id']}, '${courseInsert['id']}', '${courseInsert['course_length']}', ${courseInsert['total_sections']}, ${courseInsert['total_lectures']}, ${courseInsert['total_exercises']}, ${courseInsert['total_articles']}, ${courseInsert['total_quizzes']}, '${courseInsert['updated_at']}')`, {
+        type: db.sequelize.QueryTypes.INSERT
+      });
+    })
+    .then(record => {
+      res.send('A new course has been created successfully.');
+    })
+    .catch(error => {
+      res.send(`An error has occurred: ${error}`);
+    });
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server is listening to port ${PORT}...`);

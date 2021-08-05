@@ -1,3 +1,4 @@
+// K6 SERVICE STRESS TESTING
 import http from 'k6/http';
 import { check, group, sleep } from 'k6';
 
@@ -9,7 +10,7 @@ export let options = {
 export default function() {
   const BASE_URL = 'http://localhost:9800';
   const before = new Date().getTime();
-  const T = 6; // time needed to complete a VU iteration
+  const T = 6;
 
   for (let i = 0; i < 10; i++) {
     http.get(`${BASE_URL}/?courseId=${Math.floor(Math.random() * 1000000)}`);
