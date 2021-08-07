@@ -157,7 +157,7 @@ const seedCourse = async(numOfCourses, filePathElement, filePathSection, filePat
 // SEEDING PIPELINE
 // BATCH = NUMBER OF COURSES GENERATED ONE TIME
 // RUNS = HOW MANY TIMES THE SEEDING SCRIPT IS GOING RUN
-// RUN node pg_index.js IN WD BEFORE SEEDING
+// RUN node pg_init.js IN WD BEFORE SEEDING
 // BATCH, RUNS AND HRS CAN BE TWEAKED AND CUSTOMIZED
 
 const batch = 1000;
@@ -242,3 +242,8 @@ timer.on('tick', () => {
 });
 
 timer.start();
+
+// SEED ON DEPLOYED DATABASE (MAJOR STEPS)
+// Modify the seed.js to generate CSV files
+// Upload the files to ec2 (scp -i...)
+// Use \copy to import

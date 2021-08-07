@@ -1,5 +1,6 @@
 /* eslint-disable camelcase */
 require('dotenv').config(`${__dirname}/.env`);
+require('newrelic');
 const path = require('path');
 const express = require('express');
 const Promise = require('bluebird');
@@ -59,7 +60,7 @@ app.get('/course/item', (req, res) => {
         obj.courseSequence = section.sequence;
         course.sections.push(obj);
       });
-      return searchElement(sections[0].course_id);
+      return searchElement(course.courseId, sections[0].course_id);
     })
     .then(elements => {
       for (let i = 0; i < course.sections.length; i++) {

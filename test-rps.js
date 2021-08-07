@@ -3,7 +3,7 @@ import http from 'k6/http';
 import { check, group, sleep } from 'k6';
 
 export let options = {
-  vus: 600,
+  vus: 60,
   duration: '30s'
 };
 
@@ -13,7 +13,7 @@ export default function() {
   const T = 6;
 
   for (let i = 0; i < 10; i++) {
-    http.get(`${BASE_URL}/?courseId=${Math.floor(Math.random() * 1000000)}`);
+    http.get(`${BASE_URL}/?courseId=${9000000 + Math.floor(Math.random() * 1000000)}`);
   }
 
   const after = new Date().getTime();
