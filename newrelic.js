@@ -1,3 +1,6 @@
+/* eslint-disable semi */
+/* eslint-disable camelcase */
+// eslint-disable-next-line semi
 'use strict'
 /**
  * New Relic agent configuration.
