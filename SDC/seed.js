@@ -157,13 +157,12 @@ const seedCourse = async(numOfCourses, filePathElement, filePathSection, filePat
 // SEEDING PIPELINE
 // BATCH = NUMBER OF COURSES GENERATED ONE TIME
 // RUNS = HOW MANY TIMES THE SEEDING SCRIPT IS GOING RUN
-// RUN node pg_index.js IN WD BEFORE SEEDING
+// RUN node pg_init.js IN WD BEFORE SEEDING
 // BATCH, RUNS AND HRS CAN BE TWEAKED AND CUSTOMIZED
 
 const batch = 1000;
 const timer = new TaskTimer(1000);
-const runs = 500;
-const hrs = 0.05;
+const runs = 1000;
 
 timer.add([
   {
@@ -181,7 +180,7 @@ timer.add([
   },
   {
     id: `TASK-2: SEED ${batch} COURSES AND WRITE CSV FILES`,
-    tickInterval: 10,
+    tickInterval: 5,
     totalRuns: runs,
     callback(task) {
       let filePathElement = `${process.env.FILE_PATH}/elements${task.currentRuns}.csv`;
@@ -193,8 +192,8 @@ timer.add([
   },
   {
     id: `TASK-3: IMPORT ${batch} COURSES INTO POSTGRES`,
-    tickDelay: 10 * runs + 5,
-    tickInterval: 10,
+    tickDelay: 5 * runs + 5,
+    tickInterval: 5,
     totalRuns: runs,
     callback(task) {
       let filePathElement = `${process.env.FILE_PATH}/elements${task.currentRuns}.csv`;
@@ -220,8 +219,8 @@ timer.add([
   },
   {
     id: 'TASK-4: DELETE IMPORTED FILES',
-    tickDelay: 2 * (10 * runs) + 10, // tickDelay = time(task-1) + time(task-2) + time(task-3) + 5
-    tickInterval: 1,
+    tickDelay: 10 * runs + 10,
+    tickInterval: 10,
     totalRuns: 1,
     callback(task) {
       exec(`rm -rf '${process.env.FILE_PATH}'`, (error, stdout, stderr) => {
@@ -237,9 +236,14 @@ timer.add([
 timer.on('tick', () => {
   console.log('tick count: ' + timer.tickCount);
   console.log('elapsed time: ' + timer.time.elapsed + ' ms.');
-  if (timer.tickCount >= 2 * (10 * runs) + 20) {
+  if (timer.tickCount >= 10 * runs + 60) {
     timer.stop();
   }
 });
 
 timer.start();
+
+// SEED ON DEPLOYED DATABASE (MAJOR STEPS)
+// Modify the seed.js to generate CSV files
+// Upload the files to ec2 (scp -i...)
+// Use \copy to import

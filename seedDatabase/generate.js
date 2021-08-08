@@ -18,7 +18,7 @@ const lorem = new LoremIpsum({
 });
 
 const generateElement = (i, j, k) => {
-  let videosArray = require('./videosArray.js');
+  let videosArray = require('../SDC/videosArray.js');
 
   let options = ['lecture', 'lecture', 'lecture', 'lecture', 'quiz', 'quiz', 'exercise', 'quiz', 'exercise', 'exercise', 'exercise', 'lecture', 'lecture', 'lecture', 'lecture', 'lecture', 'lecture', 'lecture', 'lecture', 'lecture', 'lecture', 'lecture', 'lecture', 'article', 'article', 'article'];
 
